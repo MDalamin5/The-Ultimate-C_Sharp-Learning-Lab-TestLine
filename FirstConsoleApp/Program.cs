@@ -25,5 +25,16 @@ class Program
     {
         Dog myDog = new Dog("Tommy");
         myDog.Bark();
+
+        char firstChat = 'c';
+        var limit = 3;
+        Console.WriteLine(firstChat);
+        int[] source = [0, 1, 3, 4, 5, 6];
+        var query = from item in source where item <= limit select item;
+
+        foreach(var item in query)
+        {
+            Console.WriteLine(item);
+        }
     }
 }
