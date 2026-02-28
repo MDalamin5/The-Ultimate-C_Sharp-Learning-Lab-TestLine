@@ -1,4 +1,6 @@
-﻿using System.Reflection.Metadata;
+﻿using System.Net.Security;
+using System.Reflection.Metadata;
+using System.Security.Cryptography.X509Certificates;
 
 // class Test
 // {
@@ -21,6 +23,11 @@
 
 class Program
 {
+    public struct myValue(int x, int y)
+    {
+        public int X {get; init;} = x;
+        public int Y {get; set;} = y;
+    }
     public static void Main(string[] args)
     {
         Dog myDog = new Dog("Tommy");
@@ -36,5 +43,13 @@ class Program
         {
             Console.WriteLine(item);
         }
+
+        // Structure type vale
+        myValue data = new myValue(2, 3);
+        Console.WriteLine(data.X);
+        data.Y = 10;
+        Console.WriteLine(data.Y);
+        
+        
     }
 }
