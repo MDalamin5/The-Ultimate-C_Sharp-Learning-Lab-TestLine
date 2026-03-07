@@ -21,35 +21,63 @@ using System.Security.Cryptography.X509Certificates;
 //     }
 // }
 
-class Program
+// class Program
+// {
+//     public struct myValue(int x, int y)
+//     {
+//         public int X {get; init;} = x;
+//         public int Y {get; set;} = y;
+//     }
+//     public static void Main(string[] args)
+//     {
+//         Dog myDog = new Dog("Tommy");
+//         myDog.Bark();
+
+//         char firstChat = 'c';
+//         var limit = 3;
+//         Console.WriteLine(firstChat);
+//         int[] source = [0, 1, 3, 4, 5, 6];
+//         var query = from item in source where item <= limit select item;
+
+//         foreach(var item in query)
+//         {
+//             Console.WriteLine(item);
+//         }
+
+//         // Structure type vale
+//         myValue data = new myValue(2, 3);
+//         Console.WriteLine(data.X);
+//         data.Y = 10;
+//         Console.WriteLine(data.Y);
+        
+        
+//     }
+// }
+
+public record Person(string FirstName, string LastName)
 {
-    public struct myValue(int x, int y)
+    public required string[] PhoneNumbers { get; init; }
+}
+
+public class Program
+{
+    public static void Main()
     {
-        public int X {get; init;} = x;
-        public int Y {get; set;} = y;
-    }
-    public static void Main(string[] args)
-    {
-        Dog myDog = new Dog("Tommy");
-        myDog.Bark();
+        Person person1 = new("Nancy", "Davolio") { PhoneNumbers = new string[1] };
+        Console.WriteLine(person1);
+        // output: Person { FirstName = Nancy, LastName = Davolio, PhoneNumbers = System.String[] }
 
-        char firstChat = 'c';
-        var limit = 3;
-        Console.WriteLine(firstChat);
-        int[] source = [0, 1, 3, 4, 5, 6];
-        var query = from item in source where item <= limit select item;
+        Person person2 = person1 with { FirstName = "John" };
+        Console.WriteLine(person2);
+        // output: Person { FirstName = John, LastName = Davolio, PhoneNumbers = System.String[] }
+        Console.WriteLine(person1 == person2); // output: False
 
-        foreach(var item in query)
-        {
-            Console.WriteLine(item);
-        }
+        person2 = person1 with { PhoneNumbers = new string[1] };
+        Console.WriteLine(person2);
+        // output: Person { FirstName = Nancy, LastName = Davolio, PhoneNumbers = System.String[] }
+        Console.WriteLine(person1 == person2); // output: False
 
-        // Structure type vale
-        myValue data = new myValue(2, 3);
-        Console.WriteLine(data.X);
-        data.Y = 10;
-        Console.WriteLine(data.Y);
-        
-        
+        person2 = person1 with { };
+        Console.WriteLine(person1 == person2); // output: True
     }
 }
