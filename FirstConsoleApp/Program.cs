@@ -16,6 +16,15 @@ class Test
         char helloChar = 'c';
         Console.WriteLine(userName);
         Console.WriteLine(12.5);
-        Console.WriteLine("Try to print the char", helloChar);
+        Console.WriteLine($"Try to print the char {helloChar}");
+
+        // bool data type
+        bool isDelete = true;
+        if (isDelete)
+        {
+            Console.WriteLine($"Is-Delete is True:  {userName}");
+        }
+        else
+            Console.WriteLine("isDelete is False...");
     }
 }
