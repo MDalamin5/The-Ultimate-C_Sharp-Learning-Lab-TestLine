@@ -26,5 +26,16 @@ class Test
         }
         else
             Console.WriteLine("isDelete is False...");
+
+        Test ownObj = new Test();
+
+        ownObj.demoFunction(userName);
+    }
+
+    void demoFunction(string Uname)
+    {
+        
+        Console.WriteLine($"The name is: {Uname}");
     }
 }
+
