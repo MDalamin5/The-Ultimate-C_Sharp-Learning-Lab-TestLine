@@ -48,6 +48,25 @@ class Test
         bool ssuccess = int.TryParse(data, out int result);
         Console.WriteLine($"This string value is: {data}, and convert success: {ssuccess}, and th result is: {result}");
 
+        // take input from user
+        Console.Write("Can you please enter your name: ");
+        string? inputName = Console.ReadLine();
+        // Console.WriteLine($"Your name is: {inputName}");
+
+        // take input integer data
+        int personAge;
+        Console.Write("Enter your age: ");
+        personAge = Convert.ToInt32(Console.ReadLine());
+        Console.WriteLine("Got your data...");
+        Console.WriteLine($"Your name is: {inputName}, Age: {personAge}");
+
+        // take double input
+        double inputDouble;
+        Console.WriteLine("Enter a Double number: ");
+
+        inputDouble = Convert.ToDouble(Console.ReadLine());
+        Console.WriteLine($"Your name is: {inputName}, Age: {personAge}, your GPA: {inputDouble}");
+
 
 
 
