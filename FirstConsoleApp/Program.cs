@@ -42,8 +42,11 @@ class Test
         int salary = 4000;
         Console.WriteLine(Convert.ToString(salary));
         Console.WriteLine(Convert.ToString(salary).GetType());
-        
 
+        //data-conversations
+        string data = "10";
+        bool ssuccess = int.TryParse(data, out int result);
+        Console.WriteLine($"This string value is: {data}, and convert success: {ssuccess}, and th result is: {result}");
 
 
 
