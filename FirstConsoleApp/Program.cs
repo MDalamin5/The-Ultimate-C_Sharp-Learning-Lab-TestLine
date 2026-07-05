@@ -30,6 +30,25 @@ class Test
         Test ownObj = new Test();
 
         ownObj.demoFunction(userName);
+
+        // Multiple variable
+        int num1, num2, num3;
+        num1=num2=num3=10;
+
+        Console.WriteLine($"The number is {num1}, {num2}, {num3}");
+
+
+        // datatype conversations use Convert functions
+        int salary = 4000;
+        Console.WriteLine(Convert.ToString(salary));
+        Console.WriteLine(Convert.ToString(salary).GetType());
+        
+
+
+
+
+
+
     }
 
     void demoFunction(string Uname)
