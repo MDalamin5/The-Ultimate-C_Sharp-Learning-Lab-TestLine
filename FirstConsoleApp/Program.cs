@@ -14,7 +14,8 @@ class Test
         // Arrays.Run();
         // Variables.Run();
         // DigitChecks.Digit();
-        SwitchPattern.switchs();
+        // SwitchPattern.switchs();
+        MethodPractice.funcTest();
 
         Console.WriteLine("===============Done================");
 
