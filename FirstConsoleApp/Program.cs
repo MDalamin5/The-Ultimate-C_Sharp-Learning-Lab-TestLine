@@ -13,7 +13,8 @@ class Test
         // Loops.Run();
         // Arrays.Run();
         // Variables.Run();
-        DigitChecks.Digit();
+        // DigitChecks.Digit();
+        SwitchPattern.switchs();
 
         Console.WriteLine("===============Done================");
 
