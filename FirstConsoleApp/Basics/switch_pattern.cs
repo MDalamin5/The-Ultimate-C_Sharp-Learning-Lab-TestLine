@@ -16,6 +16,17 @@ namespace FirstConsoleApp.Basics
             };
 
             Console.WriteLine($"The type is {result}");
+
+            // Conditions with the switch-case
+            switch (number)
+            {
+                case int num when num % 2 == 0:
+                    Console.WriteLine("Even number");
+                    break;
+                default:
+                    Console.WriteLine("Odd number..");
+                    break;
+            }
             
         }
     }
