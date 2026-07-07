@@ -5,16 +5,17 @@ class Test
     public static void Main(string[] args)
     {
         
-        Console.WriteLine("Starting Practice...");
+        Console.WriteLine("===============Starting Practice=================");
 
         // Simply uncomment the one you want to run today:
         
-        SuperBasic.Basic();
+        // SuperBasic.Basic();
         // Loops.Run();
         // Arrays.Run();
         // Variables.Run();
+        DigitChecks.Digit();
 
-        Console.WriteLine("Done.");
+        Console.WriteLine("===============Done================");
 
 
     }
