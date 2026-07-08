@@ -1,4 +1,5 @@
 ﻿using FirstConsoleApp.Basics;
+using FirstConsoleApp.OOp;
 
 class Test
 {
@@ -16,7 +17,8 @@ class Test
         // DigitChecks.Digit();
         // SwitchPattern.switchs();
         // MethodPractice.funcTest();
-        LoopTermination.LoopTer();
+        // LoopTermination.LoopTer();
+        ClassTEst.PersonRun();
 
         Console.WriteLine("===============Done================");
 

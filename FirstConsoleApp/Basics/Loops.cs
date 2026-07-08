@@ -1,6 +1,7 @@
 using System;
 
 namespace FirstConsoleApp.Basics // Notice: ProjectName.FolderName
+
 {
     public class Loops
     {
