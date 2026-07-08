@@ -6,9 +6,9 @@ namespace FirstConsoleApp.OOp
         public string? name;
         public int age;
 
-        public override string ToString()
+        public void DisplayInfos()
         {
-            return $"Name: {name}, Age: {age}";
+            Console.WriteLine($"Name: {name}, Age: {age}");
         }
     }
 
@@ -25,7 +25,7 @@ namespace FirstConsoleApp.OOp
             DemoPerson p2 = new DemoPerson {name = "Miad", age = 33};
 
             Console.WriteLine($"Name: {p1.name}, Age: {p1.age}");
-            Console.WriteLine(p2);
+            p2.DisplayInfos();
         }
     
     }
