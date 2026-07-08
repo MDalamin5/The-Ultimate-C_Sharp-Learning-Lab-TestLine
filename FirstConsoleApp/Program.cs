@@ -15,7 +15,8 @@ class Test
         // Variables.Run();
         // DigitChecks.Digit();
         // SwitchPattern.switchs();
-        MethodPractice.funcTest();
+        // MethodPractice.funcTest();
+        LoopTermination.LoopTer();
 
         Console.WriteLine("===============Done================");
 
