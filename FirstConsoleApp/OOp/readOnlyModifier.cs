@@ -1,15 +1,21 @@
 namespace FirstConsoleApp.ReadOnly
 {
-    public class ReadData
+    public class Student
     {
-        
+        public readonly int age; // read only variable value set by constructor;
+
+        public Student(int age)
+        {
+            this.age = age;
+        }
     }
 
     public class Driver
     {
         public static void Hello()
         {
-            Console.WriteLine("Hi sir, how are you!!");
+            Student s1 = new Student(44);
+            Console.WriteLine($"The age is: {s1.age}");
         }
     }
 }
