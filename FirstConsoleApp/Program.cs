@@ -1,5 +1,6 @@
 ﻿using FirstConsoleApp.Basics;
 using FirstConsoleApp.OOp;
+using FirstConsoleApp.Alamin;
 
 class Test
 {
@@ -18,7 +19,8 @@ class Test
         // SwitchPattern.switchs();
         // MethodPractice.funcTest();
         // LoopTermination.LoopTer();
-        ClassTEst.PersonRun();
+        // ClassTEst.PersonRun();
+        DemoEnc.EncRun();
 
         Console.WriteLine("===============Done================");
 

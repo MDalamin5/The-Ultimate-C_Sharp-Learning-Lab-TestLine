@@ -6,6 +6,20 @@ namespace FirstConsoleApp.OOp
         public string? name;
         public int age;
 
+        public DemoPerson()
+        {
+            Console.WriteLine("Its a blank Constructor...");
+        }
+
+        // creating constructor
+        public DemoPerson(string name, int age)
+        {
+            Console.WriteLine("We are in constructor...");
+            this.name = name;
+            this.age = age;    
+        }
+
+
         public void setVaue(string n, int a)
         {
             name = n;
@@ -31,6 +45,9 @@ namespace FirstConsoleApp.OOp
 
             Console.WriteLine($"Name: {p1.name}, Age: {p1.age}");
             p2.DisplayInfos();
+
+            DemoPerson p3 = new DemoPerson("Arif", 34);
+            p3.DisplayInfos(); 
         }
     
     }
