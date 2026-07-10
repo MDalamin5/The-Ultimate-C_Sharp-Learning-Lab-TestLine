@@ -9,31 +9,47 @@ namespace FirstConsoleApp.ExceptionLearning
     {
         public static void Demo()
         {
-            
-            Console.Write("Enter the Number: ");
-            int number1 = Convert.ToInt32(Console.ReadLine());
-
-            Console.WriteLine("Enter the 2nd number: ");
-            int number2 = Convert.ToInt32(Console.ReadLine());
-
             try
             {
+                Console.Write("Enter the Number: ");
+                // Moving input inside try to catch FormatExceptions (if user types "abc")
+                int number1 = Convert.ToInt32(Console.ReadLine());
+
+                Console.Write("Enter the 2nd number: ");
+                int number2 = Convert.ToInt32(Console.ReadLine());
+
                 int result = number1 / number2;
                 Console.WriteLine($"The result is {result}");
-                
+
+                // Testing Null Exception
+                Console.Write("Enter any sting value: ");
+                string? name = Console.ReadLine(); 
+                Console.WriteLine($"The length of the name is: {name!.Length}"); // Use ! to force it for the test
             }
-            catch(Exception ex)
+            // 1. Catch specific math error
+            catch (DivideByZeroException)
             {
-                Console.WriteLine("Oops! You can't divide by zero.");
-                Console.WriteLine($"Error Details: {ex.Message}");
+                Console.WriteLine("Error: You cannot divide by zero.");
+            }
+            // 2. Catch specific input error (if user types letters)
+            catch (FormatException)
+            {
+                Console.WriteLine("Error: You must enter a valid whole number.");
+            }
+            // 3. Catch null error
+            catch (NullReferenceException)
+            {
+                Console.WriteLine("Error: You tried to access a property of a null object!");
+            }
+            // 4. Catch anything else
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An unexpected error occurred: {ex.Message}");
             }
             finally
             {
-                Console.WriteLine("Cleanup database and files....");
-                
+                Console.WriteLine("System cleanup complete.");
             }
-            
-            
         }
     }
 }
