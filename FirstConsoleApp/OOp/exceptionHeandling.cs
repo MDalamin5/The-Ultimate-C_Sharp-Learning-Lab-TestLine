@@ -46,6 +46,13 @@ namespace FirstConsoleApp.ExceptionLearning
             {
                 Console.WriteLine("Error: You tried to access a property of a null object!");
             }
+
+            // argument exceptions via threw 
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine($"The argument exceptions error: {ex.Message}");
+                
+            }
             // 4. Catch anything else
             catch (Exception ex)
             {
