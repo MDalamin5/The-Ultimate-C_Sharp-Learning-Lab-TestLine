@@ -27,7 +27,11 @@ namespace FirstConsoleApp.ExceptionLearning
                 Console.WriteLine("Oops! You can't divide by zero.");
                 Console.WriteLine($"Error Details: {ex.Message}");
             }
-            
+            finally
+            {
+                Console.WriteLine("Cleanup database and files....");
+                
+            }
             
             
         }
