@@ -18,6 +18,11 @@ namespace FirstConsoleApp.ExceptionLearning
                 Console.Write("Enter the 2nd number: ");
                 int number2 = Convert.ToInt32(Console.ReadLine());
 
+                if (number2 > number1)
+                {
+                    throw new ArgumentException("Number 2 can be gater then number 1.");
+                }
+
                 int result = number1 / number2;
                 Console.WriteLine($"The result is {result}");
 
