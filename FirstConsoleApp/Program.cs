@@ -4,6 +4,7 @@ using FirstConsoleApp.Alamin;
 using FirstConsoleApp.ReadOnly;
 using FirstConsoleApp.ExceptionLearning;
 using FirstConsoleApp.CustomException;
+using ManagementProject;
 
 class Test
 {
@@ -26,7 +27,9 @@ class Test
         // DemoEnc.EncRun();
         // Driver.Hello();
         // Drivers.Demo();
-        Program.run();
+        // Program.run();
+        StudentDriver.Run();
+
 
         Console.WriteLine("===============Done================");
 

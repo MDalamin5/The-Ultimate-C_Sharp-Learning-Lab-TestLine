@@ -29,4 +29,22 @@ namespace ManagementProject
             this.rollNumber = rollNumber;
         }
     }
+
+
+    public class StudentDriver
+    {
+        public static void Run()
+        {
+            try
+            {
+                DateTime dob1 = new DateTime(2027, 5, 15);
+                Student s1 = new Student("Md Al Amin", dob1, "21");
+            }
+            catch(ArgumentException ex)
+            {
+                Console.WriteLine($"The error: {ex.Message}");
+                
+            }
+        }
+    }
 }
