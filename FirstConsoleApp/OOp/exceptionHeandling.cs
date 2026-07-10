@@ -1,8 +1,15 @@
 namespace FirstConsoleApp.ExceptionLearning
 {
-    public class Person
+    public class GreaterThanException : Exception // Fixed spelling too :)
     {
-        
+        // 1. Default constructor
+        public GreaterThanException() { }
+
+        // 2. Message constructor (The one you used)
+        public GreaterThanException(string message) : base(message) { }
+
+        // 3. Message + Inner Exception (Useful for "wrapping" other errors)
+        public GreaterThanException(string message, Exception inner) : base(message, inner) { }
     }
 
     public class Drivers
@@ -22,7 +29,7 @@ namespace FirstConsoleApp.ExceptionLearning
                 // 3. String test
                 HandleStringLengthTest();
             }
-            catch (ArgumentException ex)
+            catch (GreaterThanException ex)
             {
                 Console.WriteLine($"Validation Error: {ex.Message}");
             }
@@ -62,7 +69,7 @@ namespace FirstConsoleApp.ExceptionLearning
         {
             if (n2 > n1)
             {
-                throw new ArgumentException("The second number cannot be greater than the first.");
+                throw new GreaterThanException("The second number cannot be greater than the first.");
             }
             return n1 / n2;
         }
