@@ -22,7 +22,8 @@ class Test
         // Arrays.Run();
         // ArrayADV.Run();
         // advArray.Run();
-        StringTest.Run();
+        // StringTest.Run();
+        StringTestAssignment.Run();
         // Variables.Run();
         // DigitChecks.Digit();
         // SwitchPattern.switchs();
