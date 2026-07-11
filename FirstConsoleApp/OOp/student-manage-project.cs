@@ -28,6 +28,12 @@ namespace ManagementProject
             DateOfBirth = dateOfBirth;
             this.rollNumber = rollNumber;
         }
+
+        public void Display()
+        {
+            Console.WriteLine($"Name: {name}, DateOfBirth: {DateOfBirth}, Roll: {rollNumber}");
+            
+        }
     }
 
 
@@ -37,8 +43,13 @@ namespace ManagementProject
         {
             try
             {
-                DateTime dob1 = new DateTime(2027, 5, 15);
-                Student s1 = new Student("Md Al Amin", dob1, "21");
+                DateTime dob1 = new DateTime(2000, 5, 15);
+                DateTime dob2 = new DateTime(1999, 11, 25);
+                Student s1 = new Student("Md Al Amin", dob1, "1811903");
+                Student s2 = new Student("Miad", dob2, "1811904");
+
+                s1.Display();
+                s2.Display();
             }
             catch(ArgumentException ex)
             {
