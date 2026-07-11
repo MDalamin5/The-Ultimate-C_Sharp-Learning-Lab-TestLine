@@ -7,14 +7,29 @@ namespace FirstConsoleApp.Basics
         public static void Run()
         {
             Console.WriteLine("--- Array Module ---");
-            string[] fruits = ["Apple", "Banana", "Orange"];
+            // array inti syntax opt1
+            // string[] fruits = new string[10];
+
+            //opt2
+            string[] fruits = {"Mango", "yellow-banana", "black-banana"};
+
+            //opt3
+            // string[] fruits = ["Apple", "Orange", "Banana"];
             
-            // print the array
-            for(int i=0; i<3; i++)
+            // print the array using vanilla for loop
+            for(int i=0; i<fruits.Length; i++)
             {
                 Console.WriteLine(fruits[i]);
                 
             }
+
+            Console.WriteLine("Printing array via the ForEachLoop");
+            foreach(string fruit in fruits)
+            {
+                Console.WriteLine($"{fruit}");
+                
+            }
+            
         }
     }
 }
