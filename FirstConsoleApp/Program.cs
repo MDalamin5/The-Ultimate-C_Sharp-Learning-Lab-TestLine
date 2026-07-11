@@ -6,6 +6,7 @@ using FirstConsoleApp.ExceptionLearning;
 using FirstConsoleApp.CustomException;
 using ManagementProject;
 using AdvArrays;
+using AdvString;
 
 class Test
 {
@@ -20,7 +21,8 @@ class Test
         // Loops.Run();
         // Arrays.Run();
         // ArrayADV.Run();
-        advArray.Run();
+        // advArray.Run();
+        StringTest.Run();
         // Variables.Run();
         // DigitChecks.Digit();
         // SwitchPattern.switchs();
