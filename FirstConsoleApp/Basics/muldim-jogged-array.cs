@@ -22,5 +22,38 @@ public class advArray
             Console.WriteLine();
             
         }
+
+
+        // JoggedArray
+
+        int [][] jogged = new int[4][];
+
+        /*
+        1, 2, 3
+        1,
+        2, 4
+        3, 4, 5, 6
+        */
+        //init array column via different size
+        jogged[0] = new int[3];
+        jogged[1] = new int[1];
+        jogged[2] = new int[2];
+        jogged[3] = new int[4];
+
+        jogged[0] = [1, 2, 4];
+        jogged[1] = [2];
+        jogged[2] = [2, 4];
+        jogged[3] = [5, 6, 7, 7];
+
+        for(int i=0; i<jogged.Length; i++)
+        {
+            for(int j=0; j<jogged[i].Length; j++)
+            {
+                Console.Write($"{jogged[i][j]} ");
+                
+            }
+            Console.WriteLine();
+            
+        }
     }
 }
