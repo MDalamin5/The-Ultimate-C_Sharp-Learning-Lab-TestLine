@@ -1,4 +1,4 @@
-using System;
+using System.Linq;
 
 namespace FirstConsoleApp.Basics
 {
@@ -11,10 +11,10 @@ namespace FirstConsoleApp.Basics
             // string[] fruits = new string[10];
 
             //opt2
-            string[] fruits = {"Mango", "yellow-banana", "black-banana"};
+            // string[] fruits = {"Mango", "yellow-banana", "black-banana"};
 
             //opt3
-            // string[] fruits = ["Apple", "Orange", "Banana"];
+            string[] fruits = ["Apple", "Orange", "Banana"];
             
             // print the array using vanilla for loop
             for(int i=0; i<fruits.Length; i++)

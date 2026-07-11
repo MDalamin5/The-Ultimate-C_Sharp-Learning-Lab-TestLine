@@ -17,7 +17,8 @@ class Test
         
         // SuperBasic.Basic();
         // Loops.Run();
-        Arrays.Run();
+        // Arrays.Run();
+        ArrayADV.Run();
         // Variables.Run();
         // DigitChecks.Digit();
         // SwitchPattern.switchs();
