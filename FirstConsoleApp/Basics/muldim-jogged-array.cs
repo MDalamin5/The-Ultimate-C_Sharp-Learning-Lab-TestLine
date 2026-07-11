@@ -60,15 +60,24 @@ public class advArray
         
 
 
-        for(int i=0; i<jogged.Length; i++)
-        {
-            for(int j=0; j<jogged[i].Length; j++)
-            {
-                Console.Write($"{jogged[i][j]} ");
+        // for(int i=0; i<jogged.Length; i++)
+        // {
+        //     for(int j=0; j<jogged[i].Length; j++)
+        //     {
+        //         Console.Write($"{jogged[i][j]} ");
                 
+        //     }
+        //     Console.WriteLine();
+            
+        // }
+
+        foreach(int[] row in jogged)
+        {
+            foreach(int data in row)
+            {
+                Console.Write($"{data} ");
             }
             Console.WriteLine();
-            
         }
     }
 }
