@@ -34,6 +34,18 @@ namespace ManagementProject
             Console.WriteLine($"Name: {name}, DateOfBirth: {DateOfBirth}, Roll: {rollNumber}");
             
         }
+
+        public int CalculateAge()
+        {
+           
+            int totalAge = DateTime.Now.Year - _dateOfBirth.Year;
+
+            Console.WriteLine($"Student age is: {totalAge}");
+            
+            return totalAge;
+
+
+        }
     }
 
 
@@ -48,8 +60,10 @@ namespace ManagementProject
                 Student s1 = new Student("Md Al Amin", dob1, "1811903");
                 Student s2 = new Student("Miad", dob2, "1811904");
 
-                s1.Display();
-                s2.Display();
+                // s1.Display();
+                // s2.Display();
+
+                s1.CalculateAge();
             }
             catch(ArgumentException ex)
             {
