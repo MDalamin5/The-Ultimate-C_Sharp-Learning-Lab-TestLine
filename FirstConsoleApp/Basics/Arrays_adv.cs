@@ -27,6 +27,8 @@ public class ArrayADV
         Console.WriteLine($"Max: {num.Max()}");
         Console.WriteLine($"Min: {num.Min()}");
         Console.WriteLine($"AVg: {num.Average()}");
+        Console.WriteLine($"Sum: {num.Sum()}");
+        
 
         // existence check
         Console.WriteLine($"Is present: {num.Contains(33)}");
