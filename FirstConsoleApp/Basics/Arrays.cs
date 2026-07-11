@@ -8,7 +8,13 @@ namespace FirstConsoleApp.Basics
         {
             Console.WriteLine("--- Array Module ---");
             string[] fruits = ["Apple", "Banana", "Orange"];
-            Console.WriteLine($"First fruit: {fruits[0]}");
+            
+            // print the array
+            for(int i=0; i<3; i++)
+            {
+                Console.WriteLine(fruits[i]);
+                
+            }
         }
     }
 }

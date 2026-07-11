@@ -17,7 +17,7 @@ class Test
         
         // SuperBasic.Basic();
         // Loops.Run();
-        // Arrays.Run();
+        Arrays.Run();
         // Variables.Run();
         // DigitChecks.Digit();
         // SwitchPattern.switchs();
@@ -28,7 +28,7 @@ class Test
         // Driver.Hello();
         // Drivers.Demo();
         // Program.run();
-        StudentDriver.Run();
+        // StudentDriver.Run();
 
 
         Console.WriteLine("===============Done================");
