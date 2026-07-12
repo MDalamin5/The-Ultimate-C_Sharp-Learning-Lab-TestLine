@@ -68,12 +68,15 @@ namespace FirstConsoleApp.LiNQ
 
             // task5: Find all Active employees, order them by Salary, extract only their Names, and put them in a List<string>. (Bonus Hint: Use .OrderByDescending(e => e.Salary) if you want the highest paid at the top!)
                 
-                List<string> EmployeeList = employees.Where(p => p.IsActive == true)
-                .OrderByDescending(p => p.Salary).Select(p => p.Name).ToList();
+            List<string> EmployeeList = employees.Where(p => p.IsActive == true)
+            .OrderByDescending(p => p.Salary).Select(p => p.Name).ToList();
 
-                foreach(string name in EmployeeList)
-                    Console.WriteLine($"Name: {name}");
-                    
+            foreach(string name in EmployeeList)
+                Console.WriteLine($"Name: {name}");
+                
+            
+            
+                
               
                 
             
