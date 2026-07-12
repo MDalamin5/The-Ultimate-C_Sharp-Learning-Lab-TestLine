@@ -35,6 +35,25 @@ namespace GenericCsharp
                 
             }
             
+            Console.WriteLine($"Total student have: {names.Count}");
+
+
+            Console.WriteLine("========Moderate Level===========");
+            List<int> numbers = new List<int>();
+            Console.WriteLine($"Capacity: {numbers.Capacity}, Count: {numbers.Count}");
+
+
+            numbers.Add(1);
+            Console.WriteLine($"Capacity: {numbers.Capacity}, Count: {numbers.Count}"); // 4, 1 (It started an array of 4)
+
+            numbers.Add(2);
+            numbers.Add(3);
+            numbers.Add(4);
+            numbers.Add(5); // Backpack is full! It doubles the capacity to 8.
+            Console.WriteLine($"Capacity: {numbers.Capacity}, Count: {numbers.Count}"); 
+
+            
+            
             
             
         }
