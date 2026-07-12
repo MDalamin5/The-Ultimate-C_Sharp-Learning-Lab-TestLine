@@ -75,7 +75,16 @@ namespace FirstConsoleApp.LiNQ
                 Console.WriteLine($"Name: {name}");
                 
             
+            // task6: Imagine we are showing employees on a webpage, 2 per page. Write a query to get Page 2 (which means skip the first 2 employees, and take the next 2). Print their names.
             
+            int pageSize = 2;
+            int pageNumber = 2;
+
+            var page2Employee = employees.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+            Console.WriteLine("Page 2 Employee Data...");
+            
+            foreach(var employee in page2Employee)
+                Console.WriteLine($"Name: {employee.Name}");
                 
               
                 
