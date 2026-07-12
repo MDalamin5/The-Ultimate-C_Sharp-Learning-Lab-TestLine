@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Linq; // REQUIRED FOR THIS ASSIGNMENT!
+using System.Linq;
+using System.Net; // REQUIRED FOR THIS ASSIGNMENT!
 
 namespace FirstConsoleApp.LiNQ
 {
@@ -30,6 +31,35 @@ namespace FirstConsoleApp.LiNQ
             // ==========================================
             // WRITE YOUR LINQ QUERIES BELOW THIS LINE
             // ==========================================
+
+
+            // task1: The boss wants to see a list of all employees who work in the "IT" department and are currently Active.
+            var ActiveItDepEmployees = employees.Where(p => p.IsActive == true && p.Department == "IT");
+            foreach(Employee person in ActiveItDepEmployees)
+                Console.WriteLine($"ID: {person.Id} | Name: {person.Name} | Department: {person.Department}");
+
+
+            // task2: A user searches for an employee with Id = 4. Find this employee and print their Name and Salary.
+
+            var employeeId4 = employees.FirstOrDefault(p => p.Id == 4);
+            if(employeeId4 != null)
+                Console.WriteLine($"Name: {employeeId4.Name} | Salary: {employeeId4.Salary}");
+            else
+                Console.WriteLine("Data not Found.");
+
+            // task3: The finance team wants to know: "Do we have ANY employee making more than 7500?"
+
+            bool hasEmployee = employees.Any(p => p.Salary > 7500);
+
+            if(hasEmployee)
+                Console.WriteLine("Yes have");
+            else
+                Console.WriteLine("No Employee..");
+                
+                
+                
+              
+                
             
         }
     }
