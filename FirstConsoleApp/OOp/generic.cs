@@ -3,6 +3,12 @@ namespace GenericCsharp
 {
     public class LiNQPractice
     {
+
+        public class Student
+        {
+            public string Name {get; set;}
+            public int Age {get; set;}
+        }
         public static void Run()
         {
             List<string> names = ["Alamin", "miad"];
@@ -53,7 +59,29 @@ namespace GenericCsharp
             Console.WriteLine($"Capacity: {numbers.Capacity}, Count: {numbers.Count}"); 
 
             
+            Console.WriteLine("===========Advanced Level=============");
             
+            
+            List<Student> totalStudents = [
+                new Student {Name = "Al Amin", Age = 25},
+                new Student {Name = "Miad", Age = 42},
+                new Student {Name = "Nirob", Age = 65}
+            ];
+            
+            Student? miad = totalStudents.Find(s => s.Name == "Miad");
+
+            List<Student> olderStudents = totalStudents.FindAll(s => s.Age > 30);
+
+            totalStudents.Sort((a, b) => a.Age.CompareTo(b.Age));
+
+            bool hasHasan = totalStudents.Exists(s => s.Name == "Hasan");
+
+            foreach(Student stu in olderStudents)
+            {
+                Console.WriteLine($"Name: {stu.Name}, Age: {stu.Age}");
+                
+            }
+
             
             
         }
