@@ -7,6 +7,7 @@ using FirstConsoleApp.CustomException;
 using ManagementProject;
 using AdvArrays;
 using AdvString;
+using GenericCsharp;
 
 class Test
 {
@@ -23,7 +24,7 @@ class Test
         // ArrayADV.Run();
         // advArray.Run();
         // StringTest.Run();
-        StringTestAssignment.Run();
+        // StringTestAssignment.Run();
         // Variables.Run();
         // DigitChecks.Digit();
         // SwitchPattern.switchs();
@@ -35,7 +36,7 @@ class Test
         // Drivers.Demo();
         // Program.run();
         // StudentDriver.Run();
-
+        LiNQPractice.Run();
 
         Console.WriteLine("===============Done================");
 
