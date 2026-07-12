@@ -31,6 +31,51 @@ namespace FirstConsoleApp.LiNQ
                 Console.WriteLine($"Found: {selectProduct.Name}");
             else
                 Console.WriteLine("404 not found error...");
+
+            // check for the existence
+            bool hasCheapItems = database.Any(p => p.Price < 50);
+            if(hasCheapItems)
+                Console.WriteLine("Check out our bargain deals...");
+
+            // Data Transformations select()
+
+            List<string> ProductNames = database.Select(p => p.Name).ToList();
+
+            foreach(string product in ProductNames)
+                Console.Write($"{product}, ");
+            Console.WriteLine();
+
+
+            // Pagination
+            int pageSize = 2;
+            int pageNumber = 2;
+
+            var pageTwoItems = database
+            .Skip((pageNumber -1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+            foreach(var product in pageTwoItems)
+                Console.Write($"{product.Name}, ");
+
+
+            // Deletes everything that matches the rule from the original list.
+            int deletedCount = database.RemoveAll(p => p.IsInStock == false);
+
+            Console.WriteLine($"Cleanup finished: Deleted {deletedCount} out-of-stock items.");
+
+            // task: Give me the Names of all In-Stock products, ordered by Price (cheapest first).
+
+            var result = database
+            .Where(p => p.IsInStock == true)
+            .OrderBy(p => p.Price)
+            .Select(p => p.Name)
+            .ToList();
+                
+            
+            foreach(var product in result)
+                Console.Write($"{product}, ");
+                
                 
                 
         }
