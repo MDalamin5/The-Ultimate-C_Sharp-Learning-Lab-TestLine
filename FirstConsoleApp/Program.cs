@@ -38,7 +38,8 @@ class Test
         // Program.run();
         // StudentDriver.Run();
         // LiNQPractice.Run();
-        LinqDriver.Run();
+        // LinqDriver.Run();
+        LinqAssignment.Run();
 
         Console.WriteLine("===============Done================");
 
