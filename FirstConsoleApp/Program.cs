@@ -1,5 +1,6 @@
 ﻿using FirstConsoleApp.Basics;
 using FirstConsoleApp.OOp;
+using FirstConsoleApp.LiNQ;
 using FirstConsoleApp.Alamin;
 using FirstConsoleApp.ReadOnly;
 using FirstConsoleApp.ExceptionLearning;
@@ -36,7 +37,8 @@ class Test
         // Drivers.Demo();
         // Program.run();
         // StudentDriver.Run();
-        LiNQPractice.Run();
+        // LiNQPractice.Run();
+        LinqDriver.Run();
 
         Console.WriteLine("===============Done================");
 
