@@ -57,6 +57,15 @@ namespace FirstConsoleApp.LiNQ
                 Console.WriteLine("No Employee..");
                 
                 
+            //task4: The security team needs a list of only the Names of all employees (they don't want to see Salaries or IDs). Create a List<string> containing just the names and print them.
+
+            List<string> SecurityTeamData = employees.Select(p => p.Name).ToList();
+
+            foreach(string name in SecurityTeamData)
+                Console.Write($"Name: {name}");
+            Console.WriteLine();
+            
+                
                 
               
                 
