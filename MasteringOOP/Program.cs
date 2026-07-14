@@ -12,8 +12,8 @@ namespace MasteringOOP
             // We instantiate the Child class.
             // It automatically runs the Parent's constructor first!
             CustomerEntity customer = new CustomerEntity(
-                fullName: "John Doe", 
-                email: "john.doe@example.com", 
+                fullName: "Md Al Amin", 
+                email: "hi@docsqa.com", 
                 createdBy: "SystemAdmin"
             );
 
