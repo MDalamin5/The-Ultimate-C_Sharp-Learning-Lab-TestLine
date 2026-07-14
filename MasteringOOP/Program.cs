@@ -1,6 +1,7 @@
 ﻿using System;
 // We will add our new OOP namespaces here later!
 using MasteringOOP.Constructor;
+using MasteringOOP.Inheritance;
 
 namespace MasteringOOP
 {
