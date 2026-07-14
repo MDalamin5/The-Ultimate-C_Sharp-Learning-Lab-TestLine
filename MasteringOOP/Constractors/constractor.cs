@@ -4,9 +4,6 @@ namespace MasteringOOP.Constructor
     {
         public static void Run()
         {
-            Console.Write("Hello...");
-
-            
             
         }
     }
