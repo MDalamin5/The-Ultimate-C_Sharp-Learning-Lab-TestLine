@@ -17,7 +17,14 @@ namespace MasteringOOP
                 createdBy: "SystemAdmin"
             );
 
+            OrderEntity order1 = new OrderEntity(
+                totalAmount: 2400,
+                orderStatus: "Pending",
+                createdBy: "Md Al amin"
+            );
+
             Console.WriteLine(customer.ToString());
+            Console.WriteLine(order1.ToString());
         }
     }
 }
