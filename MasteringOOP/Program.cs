@@ -61,8 +61,11 @@ namespace MasteringOOP
             INotificationService myNotificationService = new EmailNotificationService();
             INotificationService myNotificationServicePh = new SmsNotificationService();
 
-            CheckoutManager checkout = new CheckoutManager(myNotificationService);
-            CheckoutManager checkoutPh = new CheckoutManager(myNotificationServicePh);
+            IDiscountService myEidDiscount = new EidDiscountService();
+            IDiscountService vipDiscount = new VipCustomerDiscountService();
+
+            CheckoutManager checkout = new CheckoutManager(myNotificationService, myEidDiscount);
+            CheckoutManager checkoutPh = new CheckoutManager(myNotificationServicePh, vipDiscount);
 
             checkout.CompletePurchase("hi@docsqa.com", 500.00m);
             checkout.CompletePurchase("hi@byvbd.com", 4342.33m);
