@@ -35,7 +35,8 @@ namespace MasteringOOP
             List<PaymentProcessor> processors = new List<PaymentProcessor>
             {
                 new CreditCardProcessor("4111222233334444"),
-                new PayPalProcessor("hi@byvbd.com")
+                new PayPalProcessor("hi@byvbd.com"),
+                new CryptoProcessor("0x1A2B3C4D")
             };
 
             foreach (var processor in processors)
