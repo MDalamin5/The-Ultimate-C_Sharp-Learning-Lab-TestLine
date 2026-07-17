@@ -2,6 +2,7 @@
 using MasteringOOP.Inheritance;
 using MasteringOOP.Polymorphism;
 using MasteringOOP.Interface;
+using MasteringOOP.Interfaces;
 
 namespace MasteringOOP
 {
@@ -58,10 +59,13 @@ namespace MasteringOOP
             Console.WriteLine("\n\n--- Interfaces & Dependency Injection ---");
 
             INotificationService myNotificationService = new EmailNotificationService();
+            INotificationService myNotificationServicePh = new SmsNotificationService();
 
             CheckoutManager checkout = new CheckoutManager(myNotificationService);
+            CheckoutManager checkoutPh = new CheckoutManager(myNotificationServicePh);
 
             checkout.CompletePurchase("hi@docsqa.com", 500.00m);
+            checkout.CompletePurchase("hi@byvbd.com", 4342.33m);
         }
     }
 }
