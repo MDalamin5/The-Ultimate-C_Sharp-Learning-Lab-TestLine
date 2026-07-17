@@ -1,6 +1,7 @@
 ﻿using System;
 using MasteringOOP.Inheritance;
 using MasteringOOP.Polymorphism;
+using MasteringOOP.Interface;
 
 namespace MasteringOOP
 {
@@ -53,6 +54,14 @@ namespace MasteringOOP
                     
                 }
             }
+
+            Console.WriteLine("\n\n--- Interfaces & Dependency Injection ---");
+
+            INotificationService myNotificationService = new EmailNotificationService();
+
+            CheckoutManager checkout = new CheckoutManager(myNotificationService);
+
+            checkout.CompletePurchase("hi@docsqa.com", 500.00m);
         }
     }
 }
