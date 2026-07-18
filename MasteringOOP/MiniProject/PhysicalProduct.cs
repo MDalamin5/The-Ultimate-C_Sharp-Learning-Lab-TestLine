@@ -11,6 +11,7 @@ public class PhysicalProduct : Product
     }
     public override void DisplayProductInfo()
     {
-        throw new NotImplementedException();
+        Console.WriteLine($"Product Name: {Name}, Product Price: {Price}, Shipping Cost: {ShippingCost}");
+        
     }
 }
