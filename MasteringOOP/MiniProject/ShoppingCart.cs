@@ -17,7 +17,7 @@ public class ShoppingCart
     {
         if(product == null)
         {
-            throw new NoNullAllowedException("You can no call the function without product.");
+            throw new InvalidCartItemException("Failed to add item: The product provided does not exist or is null.");
         }
 
         _items.Add(product);
@@ -30,8 +30,11 @@ public class ShoppingCart
         foreach(Product product in _items)
         {
             product.DisplayProductInfo();
-            ProductPriceSum += ProductPriceSum;
+            
         }
+
+        ProductPriceSum = _items.Sum(p => p.Price);
+
         Console.WriteLine($"Total amount of your Product is: {ProductPriceSum}");
 
         decimal totalTax = _taxService.CalculateTax(ProductPriceSum);
