@@ -36,7 +36,11 @@ public class ShoppingCart
             ProductPriceSum += ProductPriceSum;
         }
         Console.WriteLine($"Total amount of your Product is: {ProductPriceSum}");
-        
+
+        decimal totalTax = _taxService.CalculateTax(ProductPriceSum);
+
+        Console.WriteLine($"Tax of your product is: {totalTax}");
+        Console.WriteLine($"Tax: {totalTax}, So Grand Total is: {totalTax + ProductPriceSum}");
         
     }
 }
