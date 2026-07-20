@@ -1,11 +1,11 @@
 using System;
 namespace MasteringOOP.ShoppingCartProject;
 
-public class BdTaxService : ITaxService
+public class TaxFreeService : ITaxService
 {
     public decimal CalculateTax(decimal totalAmount)
     {
-        decimal taxAmount =  totalAmount * 0.15m;
+        decimal taxAmount =  totalAmount * 0.0m;
         return totalAmount + taxAmount;
     }
 }
