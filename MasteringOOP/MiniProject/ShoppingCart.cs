@@ -25,4 +25,18 @@ public class ShoppingCart
 
 
     }
+
+    public void CheckOut()
+    {
+        decimal ProductPriceSum=0.0m;
+
+        foreach(Product product in _items)
+        {
+            product.DisplayProductInfo();
+            ProductPriceSum += ProductPriceSum;
+        }
+        Console.WriteLine($"Total amount of your Product is: {ProductPriceSum}");
+        
+        
+    }
 }
