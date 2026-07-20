@@ -3,6 +3,7 @@ using MasteringOOP.Inheritance;
 using MasteringOOP.Polymorphism;
 using MasteringOOP.Interface;
 using MasteringOOP.Interfaces;
+using MasteringOOP.ShoppingCartProject;
 
 namespace MasteringOOP
 {
@@ -10,6 +11,7 @@ namespace MasteringOOP
     {
         static void Main(string[] args)
         {
+            /*
             Console.WriteLine("--- Inheritance Testing ---");
 
             // We instantiate the Child class.
@@ -69,6 +71,20 @@ namespace MasteringOOP
 
             checkout.CompletePurchase("hi@docsqa.com", 500.00m);
             checkout.CompletePurchase("hi@byvbd.com", 4342.33m);
+
+            */
+
+            BdTaxService bdTaxSer = new BdTaxService();
+
+            ShoppingCart myCart = new ShoppingCart(bdTaxSer);
+
+            PhysicalProduct prod1 = new PhysicalProduct(500.0m, "Laptop", 44000.5m);
+            DigitalProduct prod2 = new DigitalProduct("https://docsqa.com", "DocsQA", 56000.01m);
+
+            myCart.AddItem(prod1);
+            myCart.AddItem(prod2);
+
+            myCart.CheckOut();
         }
     }
 }

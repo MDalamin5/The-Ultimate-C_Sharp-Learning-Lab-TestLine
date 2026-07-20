@@ -21,9 +21,6 @@ public class ShoppingCart
         }
 
         _items.Add(product);
-
-
-
     }
 
     public void CheckOut()
