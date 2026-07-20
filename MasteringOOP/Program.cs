@@ -74,17 +74,25 @@ namespace MasteringOOP
 
             */
 
-            BdTaxService bdTaxSer = new BdTaxService();
+            try
+            {
+                BdTaxService bdTaxSer = new BdTaxService();
 
-            ShoppingCart myCart = new ShoppingCart(bdTaxSer);
+                ShoppingCart myCart = new ShoppingCart(bdTaxSer);
 
-            PhysicalProduct prod1 = new PhysicalProduct(500.0m, "Laptop", 44000.5m);
-            DigitalProduct prod2 = new DigitalProduct("https://docsqa.com", "DocsQA", 56000.01m);
+                PhysicalProduct prod1 = new PhysicalProduct(500.0m, "Laptop", 44000.5m);
+                DigitalProduct prod2 = new DigitalProduct("https://docsqa.com", "DocsQA", 56000.01m);
 
-            myCart.AddItem(prod1);
-            myCart.AddItem(prod2);
+                myCart.AddItem(prod1);
+                myCart.AddItem(prod2);
 
-            myCart.CheckOut();
+                myCart.CheckOut();
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"The Error: {ex.Message}");
+                
+            }
         }
     }
 }
