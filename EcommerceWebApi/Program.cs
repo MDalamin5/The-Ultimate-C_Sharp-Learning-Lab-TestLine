@@ -1,6 +1,18 @@
 var builder = WebApplication.CreateBuilder(args);
 
+// 1. Add these two lines BEFORE builder.Build()
+// This tells .NET to look at your endpoints and generate Swagger documentation
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+
 var app = builder.Build();
+
+// middleware
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 // app.UseHttpsRedirection();
 
