@@ -5,3 +5,9 @@ GET http://localhost:5032/
 
 ###
 POST http://localhost:5032/api/v1/categories
+
+###
+GET  http://localhost:5032/api/v1/categories
+
+###
+GET  http://localhost:5032/api/v1/categoriess

@@ -58,11 +58,12 @@ app.MapGet("/getProduct", () =>
 
 List<Category> categories = new List<Category>();
 
+// Create Category api: 
 app.MapPost("api/v1/categories", () =>
 {
     var newCategory = new Category
     {
-      CategoryId =  Guid.NewGuid(),
+      CategoryId =  Guid.Parse("032584a7-982a-4437-8b94-a8e301844b72"),
       Name = "Laptop",
       Description = "This is Laptop Descriptions",
       CreatedAt = DateTime.UtcNow,
@@ -73,12 +74,35 @@ app.MapPost("api/v1/categories", () =>
     return Results.Created($"/api/categories/{newCategory.CategoryId}",newCategory);
 });
 
+//READ all category: GET api
+app.MapGet("/api/v1/categories", () =>
+{
+    return Results.Ok(categories);
+    
+});
+
+// READ a specific one category
+app.MapGet("api/v1/categoriess", () =>
+{
+    var foundCategory = categories.FirstOrDefault(c => c.CategoryId == Guid.Parse("032584a7-982a-4437-8b94-a8e301844b72"));
+
+    if (foundCategory != null)
+    {
+        return Results.Ok(foundCategory);
+    }
+    else
+        return Results.Ok("Data not Found");
+});
+
+
+
 app.Run();
 public record Product(string Name, decimal Price);
 
 // CRUD api via product category
 // CREATE: uri-> POST: api/v1/category
 // READ: uri -> GET: api/v1/category/{id}
+// READ-1: uri -> GET: api/v1/category/{id}
 // PUT: uri -> PUT: api/v1/category/{id}
 // DELETE: uri -> DELETE api/v1/category/{id}
 
