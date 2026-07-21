@@ -19,24 +19,33 @@ if (app.Environment.IsDevelopment())
 
 // REST API: put, post, put, delete
 
-app.MapGet("/hello", () =>
+app.MapGet("/health", () =>
 {
-    return "Its a First messages From the Dotnet backend";
+    return Results.Ok("Ok");
 });
 
 app.MapGet("/", () =>
 {
-    return "Welcome to First .Net api Playground.";
+    var response = new {
+        message = "This is Demo JSOn Object.",
+        success = true
+    };
+
+    return Results.Ok(response);
 });
 
-app.MapGet("/demo", () =>
-{
-    return "This is a demo api call.";
-});
 
-app.MapGet("/femo", () =>
+// get product
+var products = new List<Product>()
 {
-    return "This is a Femo api rrr call.";
+    new Product("Laptop", 13433.01m),
+    new Product("Mobile", 43000.33m)
+};
+
+app.MapGet("/getProduct", () =>
+{
+    return Results.Ok(products);
 });
 
 app.Run();
+public record Product(string Name, decimal Price);
