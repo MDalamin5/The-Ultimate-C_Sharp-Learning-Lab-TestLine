@@ -1,4 +1,5 @@
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -59,19 +60,22 @@ app.MapGet("/getProduct", () =>
 List<Category> categories = new List<Category>();
 
 // Create Category api: 
-app.MapPost("api/v1/categories", () =>
+app.MapPost("api/v1/categories", ([FromBody] Category categoryData) =>
 {
     var newCategory = new Category
     {
-      CategoryId =  Guid.Parse("032584a7-982a-4437-8b94-a8e301844b72"),
-      Name = "Laptop",
-      Description = "This is Laptop Descriptions",
+      CategoryId =  Guid.NewGuid(),
+      Name = categoryData.Name,
+      Description = categoryData.Description,
       CreatedAt = DateTime.UtcNow,
     };
 
     categories.Add(newCategory);
 
     return Results.Created($"/api/categories/{newCategory.CategoryId}",newCategory);
+
+
+    
 });
 
 //READ all category: GET api
@@ -82,9 +86,9 @@ app.MapGet("/api/v1/categories", () =>
 });
 
 // READ a specific one category
-app.MapGet("api/v1/categoriess", () =>
+app.MapGet("api/v1/categories/{categoryId}", (Guid categoryId) =>
 {
-    var foundCategory = categories.FirstOrDefault(c => c.CategoryId == Guid.Parse("032584a7-982a-4437-8b94-a8e301844b72"));
+    var foundCategory = categories.FirstOrDefault(c => c.CategoryId == categoryId);
 
     if (foundCategory != null)
     {
@@ -95,9 +99,9 @@ app.MapGet("api/v1/categoriess", () =>
 });
 
 // Delete a product category
-app.MapDelete("api/v1/categories", () =>
+app.MapDelete("api/v1/categories/{categoryId}", (Guid categoryId) =>
 {
-    var foundCategory = categories.FirstOrDefault(c => c.CategoryId == Guid.Parse("032584a7-982a-4437-8b94-a8e301844b72"));
+    var foundCategory = categories.FirstOrDefault(c => c.CategoryId == categoryId);
 
     if (foundCategory != null)
     {
@@ -110,9 +114,9 @@ app.MapDelete("api/v1/categories", () =>
 
 
 // Update a product category
-app.MapPut("api/v1/categories", () =>
+app.MapPut("api/v1/categories/{categoryId}", (Guid categoryId, [FromBody] Category categoryData) =>
 {
-    var foundCategory = categories.FirstOrDefault(c => c.CategoryId == Guid.Parse("032584a7-982a-4437-8b94-a8e301844b72"));
+    var foundCategory = categories.FirstOrDefault(c => c.CategoryId == categoryId);
 
     if (foundCategory != null)
     {
