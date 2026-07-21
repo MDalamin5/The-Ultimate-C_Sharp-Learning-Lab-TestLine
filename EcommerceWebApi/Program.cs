@@ -91,8 +91,23 @@ app.MapGet("api/v1/categoriess", () =>
         return Results.Ok(foundCategory);
     }
     else
-        return Results.Ok("Data not Found");
+        return Results.NotFound("Data not Found");
 });
+
+// Delete a product category
+app.MapDelete("api/v1/categories", () =>
+{
+    var foundCategory = categories.FirstOrDefault(c => c.CategoryId == Guid.Parse("032584a7-982a-4437-8b94-a8e301844b72"));
+
+    if (foundCategory != null)
+    {
+        categories.Remove(foundCategory);
+        return Results.Ok($"Category Successfully Updated...");
+    }
+    else
+        return Results.NotFound("Data not Found");
+});
+
 
 
 
