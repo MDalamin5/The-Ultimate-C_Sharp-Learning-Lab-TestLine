@@ -102,12 +102,28 @@ app.MapDelete("api/v1/categories", () =>
     if (foundCategory != null)
     {
         categories.Remove(foundCategory);
-        return Results.Ok($"Category Successfully Updated...");
+        return Results.NoContent();
     }
     else
         return Results.NotFound("Data not Found");
 });
 
+
+// Update a product category
+app.MapPut("api/v1/categories", () =>
+{
+    var foundCategory = categories.FirstOrDefault(c => c.CategoryId == Guid.Parse("032584a7-982a-4437-8b94-a8e301844b72"));
+
+    if (foundCategory != null)
+    {
+        foundCategory.Name = "Update Laptop";
+        foundCategory.Description = "Update descriptions";
+
+        return Results.NoContent();
+    }
+    else
+        return Results.NotFound("Data not Found");
+});
 
 
 
