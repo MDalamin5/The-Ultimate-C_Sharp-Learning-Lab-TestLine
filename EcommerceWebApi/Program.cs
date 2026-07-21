@@ -1,3 +1,6 @@
+using System.Security.Cryptography.X509Certificates;
+using Microsoft.AspNetCore.SignalR;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // 1. Add these two lines BEFORE builder.Build()
@@ -47,11 +50,42 @@ app.MapGet("/getProduct", () =>
     return Results.Ok(products);
 });
 
+/*
+    ======================================
+    || Product Category CRUD Operations ||
+    ======================================
+*/
+
+List<Category> categories = new List<Category>();
+
+app.MapPost("api/v1/categories", () =>
+{
+    var newCategory = new Category
+    {
+      CategoryId =  Guid.NewGuid(),
+      Name = "Laptop",
+      Description = "This is Laptop Descriptions",
+      CreatedAt = DateTime.UtcNow,
+    };
+
+    categories.Add(newCategory);
+
+    return Results.Created($"/api/categories/{newCategory.CategoryId}",newCategory);
+});
+
 app.Run();
 public record Product(string Name, decimal Price);
 
 // CRUD api via product category
-// CREATE: uri-> POST: /category
-// READ: uri -> GET: /category/{id}
-// PUT: uri -> PUT: /category/{id}
-// DELETE: uri -> DELETE /category/{id}
+// CREATE: uri-> POST: api/v1/category
+// READ: uri -> GET: api/v1/category/{id}
+// PUT: uri -> PUT: api/v1/category/{id}
+// DELETE: uri -> DELETE api/v1/category/{id}
+
+public record Category
+{
+    public Guid CategoryId {get; set;}
+    public string? Name {get; set;}
+    public string? Description {get; set;}
+    public DateTime CreatedAt {get; set;}
+}
