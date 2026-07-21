@@ -49,3 +49,9 @@ app.MapGet("/getProduct", () =>
 
 app.Run();
 public record Product(string Name, decimal Price);
+
+// CRUD api via product category
+// CREATE: uri-> POST: /category
+// READ: uri -> GET: /category/{id}
+// PUT: uri -> PUT: /category/{id}
+// DELETE: uri -> DELETE /category/{id}

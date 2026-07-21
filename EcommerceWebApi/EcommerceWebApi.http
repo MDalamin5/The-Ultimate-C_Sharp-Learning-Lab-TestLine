@@ -1,5 +1,3 @@
-###
-
 GET http://localhost:5032/getProduct
 
 ###
