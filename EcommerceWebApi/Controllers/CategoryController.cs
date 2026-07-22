@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using EcommerceWebApi.Models;
 
 namespace EcommerceWebApi.Controllers
 {   
     [ApiController]
     [Route("/api/v1/categories/")]
-    public class CategoryController: ControllerBase
+    public class CategoryController:ControllerBase
     {
         private static List<Category> categories = new List<Category>();
         // TO read teh category => api/v1/categories
