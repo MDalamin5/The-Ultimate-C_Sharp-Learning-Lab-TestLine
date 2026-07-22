@@ -46,9 +46,9 @@ namespace EcommerceWebApi.Controllers
         }
 
 
-        // update the categories value: PUT: api/v1/categories/{categoryId}
-        [HttpPut("{categoryId: guid}")]
-        public IActionResult UpdateCategoryById(Guid categoryId)
+        // update the categories value: Delete: api/v1/categories/{categoryId}
+        [HttpDelete("{categoryId: guid}")]
+        public IActionResult DeleteCategoryById(Guid categoryId)
         {
             var foundCategory = categories.FirstOrDefault(c => c.CategoryId == categoryId);
             if(foundCategory != null)
@@ -58,6 +58,25 @@ namespace EcommerceWebApi.Controllers
             }
             else
                 return NotFound($"This {categoryId} not Found!!");
+        }
+
+        // update category data PUT: api/v1/categories/{categoryId}
+        [HttpPut("{categoryId:guid}")]
+        public IActionResult UpdateCategoryById(Guid categoryId, [FromBody] Category categoryData)
+        {
+            var foundCategory = categories.FirstOrDefault(c => c.CategoryId == categoryId);
+
+            if (foundCategory != null)
+            {
+                if(!string.IsNullOrEmpty(categoryData.Name))
+                    foundCategory.Name = categoryData.Name;
+                if(!string.IsNullOrEmpty(categoryData.Description))
+                    foundCategory.Description = categoryData.Description;
+
+                return NoContent();
+            }
+            else
+                return NotFound("Data not Found");
         }
 
     }
