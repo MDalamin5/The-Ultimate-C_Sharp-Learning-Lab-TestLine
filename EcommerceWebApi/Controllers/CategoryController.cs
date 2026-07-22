@@ -44,5 +44,21 @@ namespace EcommerceWebApi.Controllers
             categories.Add(newCategory);
             return Created($"/api/v1/categories/{newCategory.CategoryId}", newCategory);
         }
+
+
+        // update the categories value: PUT: api/v1/categories/{categoryId}
+        [HttpPut("{categoryId: guid}")]
+        public IActionResult UpdateCategoryById(Guid categoryId)
+        {
+            var foundCategory = categories.FirstOrDefault(c => c.CategoryId == categoryId);
+            if(foundCategory != null)
+            {
+                categories.Remove(foundCategory);
+                return NoContent();
+            }
+            else
+                return NotFound($"This {categoryId} not Found!!");
+        }
+
     }
 }
