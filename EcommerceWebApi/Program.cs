@@ -86,7 +86,7 @@ app.MapGet("/api/v1/categories", () =>
 });
 
 // READ a specific one category
-app.MapGet("api/v1/categories/{categoryId}", (Guid categoryId) =>
+app.MapGet("api/v1/categories/{categoryId:guid}", (Guid categoryId) =>
 {
     var foundCategory = categories.FirstOrDefault(c => c.CategoryId == categoryId);
 
@@ -99,7 +99,7 @@ app.MapGet("api/v1/categories/{categoryId}", (Guid categoryId) =>
 });
 
 // Delete a product category
-app.MapDelete("api/v1/categories/{categoryId}", (Guid categoryId) =>
+app.MapDelete("api/v1/categories/{categoryId:guid}", (Guid categoryId) =>
 {
     var foundCategory = categories.FirstOrDefault(c => c.CategoryId == categoryId);
 
@@ -114,7 +114,7 @@ app.MapDelete("api/v1/categories/{categoryId}", (Guid categoryId) =>
 
 
 // Update a product category
-app.MapPut("api/v1/categories/{categoryId}", (Guid categoryId, [FromBody] Category categoryData) =>
+app.MapPut("api/v1/categories/{categoryId:guid}", (Guid categoryId, [FromBody] Category categoryData) =>
 {
     var foundCategory = categories.FirstOrDefault(c => c.CategoryId == categoryId);
 
