@@ -8,7 +8,7 @@ using EcommerceWebApi.Models;
 namespace EcommerceWebApi.Controllers
 {   
     [ApiController]
-    [Route("/api/v1/categories/")]
+    [Route("/api/v1/categories")]
     public class CategoryController:ControllerBase
     {
         private static List<Category> categories = new List<Category>();
@@ -48,7 +48,7 @@ namespace EcommerceWebApi.Controllers
 
 
         // update the categories value: Delete: api/v1/categories/{categoryId}
-        [HttpDelete("{categoryId: guid}")]
+        [HttpDelete("{categoryId:guid}")]
         public IActionResult DeleteCategoryById(Guid categoryId)
         {
             var foundCategory = categories.FirstOrDefault(c => c.CategoryId == categoryId);
