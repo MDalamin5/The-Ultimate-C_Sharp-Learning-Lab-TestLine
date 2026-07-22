@@ -32,10 +32,10 @@ GET http://localhost:5032/api/v2/categories?searchValue=Clothing
 
 
 ###
-PUT http://localhost:5032/api/v1/categories/5c14bd89-bc8c-4392-ad38-14acb5dbd56f
+PUT http://localhost:5032/api/v1/categories/3efb64d1-dfee-4adb-bbcf-f131a3116ac2
 Content-Type: application/json
 
 {
-    "name": "Hello Laptop",
-    "description": "Hello desctiptions"
+    "name": "",
+    "description": ""
 }

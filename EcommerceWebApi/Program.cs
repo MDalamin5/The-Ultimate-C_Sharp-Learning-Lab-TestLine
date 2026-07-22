@@ -62,6 +62,10 @@ List<Category> categories = new List<Category>();
 // Create Category api: 
 app.MapPost("api/v1/categories", ([FromBody] Category categoryData) =>
 {
+    if (string.IsNullOrEmpty(categoryData.Name))
+    {
+        return Results.BadRequest("Categories name is required.");
+    }
     var newCategory = new Category
     {
       CategoryId =  Guid.NewGuid(),
@@ -120,8 +124,10 @@ app.MapPut("api/v1/categories/{categoryId:guid}", (Guid categoryId, [FromBody] C
 
     if (foundCategory != null)
     {
-        foundCategory.Name = categoryData.Name;
-        foundCategory.Description = categoryData.Description;
+        if(!string.IsNullOrEmpty(categoryData.Name))
+            foundCategory.Name = categoryData.Name;
+        if(!string.IsNullOrEmpty(categoryData.Description))
+            foundCategory.Description = categoryData.Description;
 
         return Results.NoContent();
     }
@@ -156,6 +162,6 @@ public record Category
 {
     public Guid CategoryId {get; set;}
     public string? Name {get; set;}
-    public string? Description {get; set;}
+    public string? Description {get; set;} = string.Empty;
     public DateTime CreatedAt {get; set;}
 }
