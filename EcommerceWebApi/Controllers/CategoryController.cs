@@ -24,5 +24,25 @@ namespace EcommerceWebApi.Controllers
             else
                 return Ok(categories);
         }
+
+
+        // To Create a categories => POST: api/v1/categories
+        [HttpPost]
+        public IActionResult CreateCategories([FromBody] Category categoryData)
+        {
+            if(string.IsNullOrEmpty(categoryData.Name))
+                return BadRequest("Categories Name is required.");
+
+            var newCategory = new Category
+            {
+                CategoryId = Guid.NewGuid(),
+                Name = categoryData.Name,
+                Description = categoryData.Description,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            categories.Add(newCategory);
+            return Created($"/api/v1/categories/{newCategory.CategoryId}", newCategory);
+        }
     }
 }
