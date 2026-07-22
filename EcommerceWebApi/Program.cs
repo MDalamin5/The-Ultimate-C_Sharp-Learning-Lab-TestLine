@@ -120,8 +120,8 @@ app.MapPut("api/v1/categories/{categoryId}", (Guid categoryId, [FromBody] Catego
 
     if (foundCategory != null)
     {
-        foundCategory.Name = "Update Laptop";
-        foundCategory.Description = "Update descriptions";
+        foundCategory.Name = categoryData.Name;
+        foundCategory.Description = categoryData.Description;
 
         return Results.NoContent();
     }
