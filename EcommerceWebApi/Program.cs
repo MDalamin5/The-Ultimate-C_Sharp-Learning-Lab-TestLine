@@ -129,7 +129,18 @@ app.MapPut("api/v1/categories/{categoryId}", (Guid categoryId, [FromBody] Catego
         return Results.NotFound("Data not Found");
 });
 
+// GET: api/v1/categories
+app.MapGet("/api/v2/categories", ([FromQuery] string searchValue) =>
+{
+    if (!string.IsNullOrEmpty(searchValue))
+    {
+        var searchCategories = categories.Where(c => c.Name.Contains(searchValue, StringComparison.OrdinalIgnoreCase)).ToList();
 
+        return Results.Ok(searchCategories);
+    }
+    else
+        return Results.Ok(categories);
+});
 
 app.Run();
 public record Product(string Name, decimal Price);

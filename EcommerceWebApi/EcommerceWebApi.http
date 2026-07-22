@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
     "name" : "Clothing",
-    "description" : "This is demo Clothing Descriptions."
+    "description" : "r Forwarded:  Descriptions."
 }
 
 ###
@@ -22,13 +22,10 @@ GET  http://localhost:5032/api/v1/categories/53761bbf-4093-4d1a-a862-aebb44f382d
 ###
 DELETE   http://localhost:5032/api/v1/categories/da3e4072-0b6d-451b-b113-ca60bf010d01
 
+###
+DELETE   http://localhost:5032/api/v1/categories/
+
 
 
 ###
-PUT http://localhost:5032/api/v1/categories/53761bbf-4093-4d1a-a862-aebb44f382d2
-Content-Type: application/json
-
-{
-    "name": "Laptop",
-    "description": "Update Descriptions."
-}
+GET http://localhost:5032/api/v2/categories?searchValue=Clothing
