@@ -17,14 +17,23 @@ namespace EcommerceWebApi.Controllers
         [HttpGet]
         public IActionResult GetCategories([FromQuery] string searchValue = "")
         {
-            if (!string.IsNullOrEmpty(searchValue))
-            {
-                var searchCategories = categories.Where(c => c.Name.Contains(searchValue, StringComparison.OrdinalIgnoreCase)).ToList();
+            // if (!string.IsNullOrEmpty(searchValue))
+            // {
+            //     var searchCategories = categories.Where(c => c.Name.Contains(searchValue, StringComparison.OrdinalIgnoreCase)).ToList();
 
-                return Ok(searchCategories);
-            }
-            else
-                return Ok(categories);
+            //     return Ok(searchCategories);
+            // }
+            // else
+            //     return Ok(categories);
+
+            var categoryList = categories.Select(c => new CategoryReadDto
+            {
+                Name = c.Name,
+                Description = c.Description,
+                CreatedAt = c.CreatedAt
+            }).ToList();
+
+            return Ok(categoryList);
         }
 
 
