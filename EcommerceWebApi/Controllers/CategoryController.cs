@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using EcommerceWebApi.Models;
+using EcommerceWebApi.DTOs;
 
 namespace EcommerceWebApi.Controllers
 {   
@@ -29,7 +30,7 @@ namespace EcommerceWebApi.Controllers
 
         // To Create a categories => POST: api/v1/categories
         [HttpPost]
-        public IActionResult CreateCategories([FromBody] Category categoryData)
+        public IActionResult CreateCategories([FromBody] CategoryCreateDto categoryData)
         {
             if(string.IsNullOrEmpty(categoryData.Name))
                 return BadRequest("Categories Name is required.");
