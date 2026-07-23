@@ -53,7 +53,14 @@ namespace EcommerceWebApi.Controllers
             };
 
             categories.Add(newCategory);
-            return Created($"/api/v1/categories/{newCategory.CategoryId}", newCategory);
+
+            var categoryReadDto = new CategoryReadDto
+            {
+              Name = newCategory.Name,
+              Description = newCategory.Description,
+              CreatedAt = newCategory.CreatedAt  
+            };
+            return Created($"/api/v1/categories/{newCategory.CategoryId}", categoryReadDto);
         }
 
 
