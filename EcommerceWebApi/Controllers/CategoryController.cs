@@ -64,7 +64,7 @@ namespace EcommerceWebApi.Controllers
 
         // update category data PUT: api/v1/categories/{categoryId}
         [HttpPut("{categoryId:guid}")]
-        public IActionResult UpdateCategoryById(Guid categoryId, [FromBody] Category categoryData)
+        public IActionResult UpdateCategoryById(Guid categoryId, [FromBody] CategoryUpdateDto categoryData)
         {
             var foundCategory = categories.FirstOrDefault(c => c.CategoryId == categoryId);
 

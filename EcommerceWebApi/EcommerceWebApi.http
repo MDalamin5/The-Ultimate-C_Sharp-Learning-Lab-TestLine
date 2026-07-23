@@ -32,7 +32,7 @@ GET http://localhost:5032/api/v2/categories?searchValue=Clothing
 
 
 ###
-PUT http://localhost:5032/api/v1/categories/1e538628-44d4-4f3f-ba7b-abbae86118dd
+PUT http://localhost:5032/api/v1/categories/56ae334b-e217-46bb-9ee8-3c2a2411d27d
 Content-Type: application/json
 
 {
