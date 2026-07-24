@@ -10,6 +10,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //add controllerServices
 builder.Services.AddControllers();
+builder.Services.AddControllers()
+.ConfigureApiBehaviorOptions(opt =>
+{
+    opt.SuppressModelStateInvalidFilter = true; // disable default api validation we set our custom validation.
+});
 
 var app = builder.Build();
 

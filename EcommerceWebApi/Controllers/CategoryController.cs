@@ -41,9 +41,11 @@ namespace EcommerceWebApi.Controllers
         [HttpPost]
         public IActionResult CreateCategories([FromBody] CategoryCreateDto categoryData)
         {
-            if(string.IsNullOrEmpty(categoryData.Name))
-                return BadRequest("Categories Name is required.");
 
+            if (!ModelState.IsValid)
+            {
+                return BadRequest("Invalid Data.");
+            }
             var newCategory = new Category
             {
                 CategoryId = Guid.NewGuid(),
