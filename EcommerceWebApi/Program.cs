@@ -10,10 +10,27 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //add controllerServices
 builder.Services.AddControllers();
-builder.Services.AddControllers()
-.ConfigureApiBehaviorOptions(opt =>
+builder.Services.Configure<ApiBehaviorOptions>(options =>
 {
-    opt.SuppressModelStateInvalidFilter = true; // disable default api validation we set our custom validation.
+   options.InvalidModelStateResponseFactory = context =>
+   {
+        var errors = context.ModelState
+        .Where(e => e.Value != null && e.Value.Errors.Count > 0)
+        .Select(e => new
+        {
+            Field = e.Key,
+            Message = e.Value != null ? e.Value.Errors.Select(x => x.ErrorMessage).ToArray() : new string[0]
+        }).ToList();
+
+        //Join all error messages
+        var errorString = string.Join("; ", errors.Select(e => $"{e.Field} : {string.Join(", ", e.Message)}"));
+
+        return new BadRequestObjectResult(new
+        {
+            Message = "Validation Failed",
+            Errors = errorString
+        });
+   }; 
 });
 
 var app = builder.Build();

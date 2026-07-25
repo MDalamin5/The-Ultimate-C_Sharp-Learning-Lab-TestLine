@@ -42,21 +42,7 @@ namespace EcommerceWebApi.Controllers
         public IActionResult CreateCategories([FromBody] CategoryCreateDto categoryData)
         {
 
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState
-                .Where(e => e.Value.Errors.Count > 0)
-                .Select(e => new
-                {
-                   Field = e.Key,
-                   Message = e.Value.Errors.Select(x => x.ErrorMessage).ToArray() 
-                }).ToList();
-
-                //Join all error messages
-                var errorString = string.Join("; ", errors.Select(e => $"{e.Field} : {string.Join(", ", e.Message)}"));
-
-                return BadRequest(errorString);
-            }
+            
             var newCategory = new Category
             {
                 CategoryId = Guid.NewGuid(),
