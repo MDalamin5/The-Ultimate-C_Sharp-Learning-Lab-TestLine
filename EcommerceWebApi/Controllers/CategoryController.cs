@@ -44,7 +44,13 @@ namespace EcommerceWebApi.Controllers
 
             if (!ModelState.IsValid)
             {
-                return BadRequest("Invalid Data.");
+                var errors = ModelState
+                .Where(e => e.Value.Errors.Count > 0)
+                .Select(e => new
+                {
+                   Field = e.Key,
+                   Errors = e.Value.Errors.Select(x => x.ErrorMessage).ToArray() 
+                });
             }
             var newCategory = new Category
             {
