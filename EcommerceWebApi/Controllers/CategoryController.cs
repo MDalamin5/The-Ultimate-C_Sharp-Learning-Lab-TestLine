@@ -49,8 +49,13 @@ namespace EcommerceWebApi.Controllers
                 .Select(e => new
                 {
                    Field = e.Key,
-                   Errors = e.Value.Errors.Select(x => x.ErrorMessage).ToArray() 
-                });
+                   Message = e.Value.Errors.Select(x => x.ErrorMessage).ToArray() 
+                }).ToList();
+
+                //Join all error messages
+                var errorString = string.Join("; ", errors.Select(e => $"{e.Field} : {string.Join(", ", e.Message)}"));
+
+                return BadRequest(errorString);
             }
             var newCategory = new Category
             {
