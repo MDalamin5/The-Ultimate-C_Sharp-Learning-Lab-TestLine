@@ -33,7 +33,7 @@ namespace EcommerceWebApi.Controllers
                 CreatedAt = c.CreatedAt
             }).ToList();
 
-            return Ok(categoryList);
+            return Ok(ApiResponse<List<CategoryReadDto>>.SuccessResponse(categoryList, "Categories returned", 200));
         }
 
 

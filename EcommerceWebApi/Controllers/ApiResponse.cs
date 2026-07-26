@@ -17,14 +17,20 @@ namespace EcommerceWebApi.Controllers
 
         // Constructor for Successful Response
 
-        public ApiResponse(T data, int statusCode, string message = "")
+        private ApiResponse(bool success, string message, T data, int statusCode, List<string>errors)
         {
-            Success = true;
+            Success = success;
             Message = message;
             Data = data;
-            Errors = null;
+            Errors = errors;
             StatusCode = statusCode;
             TimeStamp = DateTime.UtcNow;
+        }
+
+        // static method for creating a successful response.
+        public static ApiResponse<T> SuccessResponse(T data, string message, int statusCode)
+        {
+            return new ApiResponse<T>(true, message, data, statusCode, null);
         }
     }
 
