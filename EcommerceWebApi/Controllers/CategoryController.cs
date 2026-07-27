@@ -28,6 +28,7 @@ namespace EcommerceWebApi.Controllers
 
             var categoryList = categories.Select(c => new CategoryReadDto
             {
+                CategoryId = c.CategoryId,
                 Name = c.Name,
                 Description = c.Description,
                 CreatedAt = c.CreatedAt
@@ -55,6 +56,7 @@ namespace EcommerceWebApi.Controllers
 
             var categoryReadDto = new CategoryReadDto
             {
+              CategoryId = newCategory.CategoryId,
               Name = newCategory.Name,
               Description = newCategory.Description,
               CreatedAt = newCategory.CreatedAt  
