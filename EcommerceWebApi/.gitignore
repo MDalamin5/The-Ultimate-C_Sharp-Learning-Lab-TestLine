@@ -38,3 +38,5 @@ Dockerfile.*
 *.sqlite3
 
 appsettings.json
+note.md
+chitra-meeting.MD
