@@ -93,7 +93,7 @@ namespace EcommerceWebApi.Controllers
                 return NoContent();
             }
             else
-                return NotFound("Data not Found");
+                return Ok(ApiResponse<object>.SuccessResponse(null, "Update successful", 204));
         }
 
     }
