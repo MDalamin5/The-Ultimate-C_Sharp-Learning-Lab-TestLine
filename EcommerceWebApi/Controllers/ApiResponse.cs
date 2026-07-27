@@ -35,7 +35,7 @@ namespace EcommerceWebApi.Controllers
 
         public static ApiResponse<T> ErrorResponse(List<string> errors, int statusCode, string message = "")
         {
-            return new ApiResponse<T>(success: true, message: message, data: default(T), errors: errors, statusCode: statusCode);
+            return new ApiResponse<T>(success: false, message: message, data: default(T), errors: errors, statusCode: statusCode);
         }
     }
 
