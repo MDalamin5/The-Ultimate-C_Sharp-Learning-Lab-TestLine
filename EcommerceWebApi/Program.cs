@@ -1,4 +1,5 @@
 using System.Security.Cryptography.X509Certificates;
+using EcommerceWebApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 
@@ -16,20 +17,9 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
    {
         var errors = context.ModelState
         .Where(e => e.Value != null && e.Value.Errors.Count > 0)
-        .Select(e => new
-        {
-            Field = e.Key,
-            Message = e.Value != null ? e.Value.Errors.Select(x => x.ErrorMessage).ToArray() : new string[0]
-        }).ToList();
+        .SelectMany(e => e.Value.Errors.Select(x => x.ErrorMessage)).ToList();
 
-        //Join all error messages
-        var errorString = string.Join("; ", errors.Select(e => $"{e.Field} : {string.Join(", ", e.Message)}"));
-
-        return new BadRequestObjectResult(new
-        {
-            Message = "Validation Failed",
-            Errors = errorString
-        });
+        return new BadRequestObjectResult(ApiResponse<object>.ErrorResponse(errors, 400, "validations failed."));
    }; 
 });
 
