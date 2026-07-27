@@ -71,7 +71,7 @@ namespace EcommerceWebApi.Controllers
             if(foundCategory != null)
             {
                 categories.Remove(foundCategory);
-                return NoContent();
+                return Ok(ApiResponse<object>.SuccessResponse(null, "Update successful", 204));
             }
             else
                 return NotFound($"This {categoryId} not Found!!");
