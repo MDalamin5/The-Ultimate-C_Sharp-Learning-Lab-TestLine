@@ -46,31 +46,14 @@ namespace EcommerceWebApi.Controllers
             
         }
 
-        // // To Create a categories => POST: api/v1/categories
-        // [HttpPost]
-        // public IActionResult CreateCategories([FromBody] CategoryCreateDto categoryData)
-        // {
+        // To Create a categories => POST: api/v1/categories
+        [HttpPost]
+        public IActionResult CreateCategories([FromBody] CategoryCreateDto categoryData)
+        {
+            var newCategory = _categoryService.CreateCategory(categoryData);
 
-            
-        //     var newCategory = new Category
-        //     {
-        //         CategoryId = Guid.NewGuid(),
-        //         Name = categoryData.Name,
-        //         Description = categoryData.Description,
-        //         CreatedAt = DateTime.UtcNow
-        //     };
-
-        //     categories.Add(newCategory);
-
-        //     var categoryReadDto = new CategoryReadDto
-        //     {
-        //       CategoryId = newCategory.CategoryId,
-        //       Name = newCategory.Name,
-        //       Description = newCategory.Description,
-        //       CreatedAt = newCategory.CreatedAt  
-        //     };
-        //     return Created($"/api/v1/categories/{newCategory.CategoryId}", ApiResponse<CategoryReadDto>.SuccessResponse(categoryReadDto, "Categories Created Successful", 201));
-        // }
+            return Created($"/api/v1/categories/{newCategory.CategoryId}", ApiResponse<CategoryReadDto>.SuccessResponse(newCategory, "Categories Created Successful", 201));
+        }
 
 
         // // update the categories value: Delete: api/v1/categories/{categoryId}

@@ -16,7 +16,7 @@ Content-Type: application/json
 GET  http://localhost:5032/api/v1/categories
 
 ###
-GET  http://localhost:5032/api/v1/categories/4ed00cdb-0387-4cd1-b3e7-97885bd52a5
+GET  http://localhost:5032/api/v1/categories/a338539f-1459-4ef6-9104-1e9787ae9bd1
 
 
 ###

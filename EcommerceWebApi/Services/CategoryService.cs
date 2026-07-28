@@ -40,5 +40,28 @@ namespace EcommerceWebApi.Services
                 return FoundCategory;
             }
         }
+
+        public CategoryReadDto CreateCategory(CategoryCreateDto categoryData)
+        {
+            
+            var newCategory = new Category
+            {
+                CategoryId = Guid.NewGuid(),
+                Name = categoryData.Name,
+                Description = categoryData.Description,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            categories.Add(newCategory);
+
+            var categoryReadDto = new CategoryReadDto
+            {
+              CategoryId = newCategory.CategoryId,
+              Name = newCategory.Name,
+              Description = newCategory.Description,
+              CreatedAt = newCategory.CreatedAt  
+            };
+            return categoryReadDto;
+        }
     }
 }
