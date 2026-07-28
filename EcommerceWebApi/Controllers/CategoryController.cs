@@ -29,6 +29,28 @@ namespace EcommerceWebApi.Controllers
         }
 
 
+        // Get categories by ID:
+        [HttpGet("{categoryId:guid}")]
+        public IActionResult GetCategoryById(Guid categoryId)
+        {
+            var foundCategory = categories.FirstOrDefault(c => c.CategoryId == categoryId);
+            if(foundCategory == null)
+                return NotFound(ApiResponse<object>.ErrorResponse(new List<string> {"Category Name is Required"}, 404, "Invalid Request."));
+            else
+            {
+                var FoundCategory = new CategoryReadDto
+                {
+                    CategoryId = foundCategory.CategoryId,
+                    Name = foundCategory.Name,
+                    Description = foundCategory.Description,
+                    CreatedAt = foundCategory.CreatedAt
+                };
+                return Ok(ApiResponse<CategoryReadDto>.SuccessResponse(FoundCategory, "Category Found Successful", 200));
+            }
+            
+            
+        }
+
         // To Create a categories => POST: api/v1/categories
         [HttpPost]
         public IActionResult CreateCategories([FromBody] CategoryCreateDto categoryData)
