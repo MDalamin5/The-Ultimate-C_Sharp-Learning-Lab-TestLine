@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using EcommerceWebApi.Models;
 using EcommerceWebApi.DTOs;
 using EcommerceWebApi.Services;
+using EcommerceWebApi.Interfaces;
 
 namespace EcommerceWebApi.Controllers
 {   
@@ -13,9 +14,8 @@ namespace EcommerceWebApi.Controllers
     [Route("/api/v1/categories")]
     public class CategoryController:ControllerBase
     {
-        // private static List<Category> categories = new List<Category>();
-        private CategoryService _categoryService;
-        public CategoryController(CategoryService categoryService)
+        private ICategoryService _categoryService;
+        public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }
@@ -61,7 +61,7 @@ namespace EcommerceWebApi.Controllers
         public IActionResult DeleteCategoryById(Guid categoryId)
         {
             var foundCategory = _categoryService.DeleteCategoryById(categoryId);
-            if(!foundCategory)
+            if(!foundCategory)  
             {
                 return Ok(ApiResponse<object>.SuccessResponse(null, "Update successful", 204));
             }

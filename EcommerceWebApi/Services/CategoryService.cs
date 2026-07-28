@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EcommerceWebApi.DTOs;
+using EcommerceWebApi.Interfaces;
 using EcommerceWebApi.Models;
 
 namespace EcommerceWebApi.Services
 {
-    public class CategoryService
+    public class CategoryService: ICategoryService
     {
         private static readonly List<Category> _categories = new List<Category>();
 

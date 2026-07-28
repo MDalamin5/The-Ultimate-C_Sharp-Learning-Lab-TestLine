@@ -1,5 +1,6 @@
 using System.Security.Cryptography.X509Certificates;
 using EcommerceWebApi.Controllers;
+using EcommerceWebApi.Interfaces;
 using EcommerceWebApi.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
@@ -23,7 +24,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
         return new BadRequestObjectResult(ApiResponse<object>.ErrorResponse(errors, 400, "validations failed."));
    }; 
 });
-builder.Services.AddSingleton<CategoryService>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 var app = builder.Build();
 
