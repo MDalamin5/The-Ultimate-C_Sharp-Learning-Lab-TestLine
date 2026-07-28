@@ -22,5 +22,23 @@ namespace EcommerceWebApi.Services
                 CreatedAt = c.CreatedAt
             }).ToList();
         }
+
+        public CategoryReadDto GetCategoryById(Guid categoryId)
+        {
+            var foundCategory = categories.FirstOrDefault(c => c.CategoryId == categoryId);
+            if(foundCategory == null)
+                return null;
+            else
+            {
+                var FoundCategory = new CategoryReadDto
+                {
+                    CategoryId = foundCategory.CategoryId,
+                    Name = foundCategory.Name,
+                    Description = foundCategory.Description,
+                    CreatedAt = foundCategory.CreatedAt
+                };
+                return FoundCategory;
+            }
+        }
     }
 }
