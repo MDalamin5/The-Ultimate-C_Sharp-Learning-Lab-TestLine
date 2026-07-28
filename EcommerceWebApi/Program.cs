@@ -17,7 +17,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
    {
         var errors = context.ModelState
         .Where(e => e.Value != null && e.Value.Errors.Count > 0)
-        .SelectMany(e => e.Value.Errors.Select(x => x.ErrorMessage)).ToList();
+        .SelectMany(e => e.Value?.Errors != null ? e.Value.Errors.Select(x => x.ErrorMessage) : new List<string>()).ToList();
 
         return new BadRequestObjectResult(ApiResponse<object>.ErrorResponse(errors, 400, "validations failed."));
    }; 

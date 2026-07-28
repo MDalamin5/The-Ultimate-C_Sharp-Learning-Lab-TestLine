@@ -17,15 +17,6 @@ namespace EcommerceWebApi.Controllers
         [HttpGet]
         public IActionResult GetCategories([FromQuery] string searchValue = "")
         {
-            // if (!string.IsNullOrEmpty(searchValue))
-            // {
-            //     var searchCategories = categories.Where(c => c.Name.Contains(searchValue, StringComparison.OrdinalIgnoreCase)).ToList();
-
-            //     return Ok(searchCategories);
-            // }
-            // else
-            //     return Ok(categories);
-
             var categoryList = categories.Select(c => new CategoryReadDto
             {
                 CategoryId = c.CategoryId,
@@ -76,7 +67,7 @@ namespace EcommerceWebApi.Controllers
                 return Ok(ApiResponse<object>.SuccessResponse(null, "Update successful", 204));
             }
             else
-                return NotFound($"This {categoryId} not Found!!");
+                return NotFound(ApiResponse<object>.ErrorResponse(new List<string> {"Category is not found with this id"}, 404, "Validations Failed."));
         }
 
         // update category data PUT: api/v1/categories/{categoryId}
@@ -85,18 +76,14 @@ namespace EcommerceWebApi.Controllers
         {
             var foundCategory = categories.FirstOrDefault(c => c.CategoryId == categoryId);
 
-            if (foundCategory != null)
-            {
-                if(!string.IsNullOrEmpty(categoryData.Name))
-                    foundCategory.Name = categoryData.Name;
-                if(!string.IsNullOrEmpty(categoryData.Description))
-                    foundCategory.Description = categoryData.Description;
-
-                return NoContent();
-            }
-            else
-                return Ok(ApiResponse<object>.SuccessResponse(null, "Update successful", 204));
-        }
+            if (foundCategory == null)
+                return NotFound(ApiResponse<object>.ErrorResponse(new List<string> {"Category is not found with this id"}, 400, "Validations Failed."));
+            
+            
+            foundCategory.Name = categoryData.Name;
+            foundCategory.Description = categoryData.Description;
+            return Ok(ApiResponse<object>.SuccessResponse(null, "Update successful", 204));
+        }   
 
     }
 }
