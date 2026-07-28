@@ -56,19 +56,18 @@ namespace EcommerceWebApi.Controllers
         }
 
 
-        // // update the categories value: Delete: api/v1/categories/{categoryId}
-        // [HttpDelete("{categoryId:guid}")]
-        // public IActionResult DeleteCategoryById(Guid categoryId)
-        // {
-        //     var foundCategory = categories.FirstOrDefault(c => c.CategoryId == categoryId);
-        //     if(foundCategory != null)
-        //     {
-        //         categories.Remove(foundCategory);
-        //         return Ok(ApiResponse<object>.SuccessResponse(null, "Update successful", 204));
-        //     }
-        //     else
-        //         return NotFound(ApiResponse<object>.ErrorResponse(new List<string> {"Category is not found with this id"}, 404, "Validations Failed."));
-        // }
+        // update the categories value: Delete: api/v1/categories/{categoryId}
+        [HttpDelete("{categoryId:guid}")]
+        public IActionResult DeleteCategoryById(Guid categoryId)
+        {
+            var foundCategory = _categoryService.DeleteCategoryById(categoryId);
+            if(!foundCategory)
+            {
+                return Ok(ApiResponse<object>.SuccessResponse(null, "Update successful", 204));
+            }
+            else
+                return NotFound(ApiResponse<object>.ErrorResponse(new List<string> {"Category is not found with this id"}, 404, "Validations Failed."));
+        }
 
         // update category data PUT: api/v1/categories/{categoryId}
         [HttpPut("{categoryId:guid}")]
@@ -80,7 +79,7 @@ namespace EcommerceWebApi.Controllers
                 return NotFound(ApiResponse<object>.ErrorResponse(new List<string> {"Category is not found with this id"}, 400, "Validations Failed."));
             
             
-            return Ok(ApiResponse<object>.SuccessResponse(null, "Update successful", 204));
+            return Ok(ApiResponse<CategoryReadDto>.SuccessResponse(foundCategory, "Update successful", 204));
         }   
 
     }

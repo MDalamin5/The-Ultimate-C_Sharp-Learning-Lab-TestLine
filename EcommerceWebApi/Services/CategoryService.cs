@@ -71,6 +71,8 @@ namespace EcommerceWebApi.Services
             if (foundCategory == null)
                 return null;
             
+            foundCategory.Name = categoryData.Name;
+            foundCategory.Description = categoryData.Description;
             
             return new CategoryReadDto
             {
@@ -79,6 +81,17 @@ namespace EcommerceWebApi.Services
                 Description = foundCategory.Description,
                 CreatedAt = foundCategory.CreatedAt
             };
+        }
+
+        public bool DeleteCategoryById(Guid categoryId)
+        {
+            var foundCategory = _categories.FirstOrDefault(c => c.CategoryId == categoryId);
+
+            if (foundCategory == null)
+                return false;
+
+            _categories.Remove(foundCategory);
+            return true;
         }
     }
 }
