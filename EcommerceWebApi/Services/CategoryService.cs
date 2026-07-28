@@ -9,12 +9,12 @@ namespace EcommerceWebApi.Services
 {
     public class CategoryService
     {
-        private static readonly List<Category> categories = new List<Category>();
+        private static readonly List<Category> _categories = new List<Category>();
 
 
         public List<CategoryReadDto> GetAllCategories()
         {
-            return categories.Select(c => new CategoryReadDto
+            return _categories.Select(c => new CategoryReadDto
             {
                 CategoryId = c.CategoryId,
                 Name = c.Name,
@@ -23,9 +23,9 @@ namespace EcommerceWebApi.Services
             }).ToList();
         }
 
-        public CategoryReadDto GetCategoryById(Guid categoryId)
+        public CategoryReadDto? GetCategoryById(Guid categoryId)
         {
-            var foundCategory = categories.FirstOrDefault(c => c.CategoryId == categoryId);
+            var foundCategory = _categories.FirstOrDefault(c => c.CategoryId == categoryId);
             if(foundCategory == null)
                 return null;
             else
@@ -52,7 +52,7 @@ namespace EcommerceWebApi.Services
                 CreatedAt = DateTime.UtcNow
             };
 
-            categories.Add(newCategory);
+            _categories.Add(newCategory);
 
             var categoryReadDto = new CategoryReadDto
             {
@@ -62,6 +62,23 @@ namespace EcommerceWebApi.Services
               CreatedAt = newCategory.CreatedAt  
             };
             return categoryReadDto;
+        }
+
+        public CategoryReadDto? UpdateCategory(Guid categoryId, CategoryUpdateDto categoryData)
+        {
+            var foundCategory = _categories.FirstOrDefault(c => c.CategoryId == categoryId);
+
+            if (foundCategory == null)
+                return null;
+            
+            
+            return new CategoryReadDto
+            {
+                CategoryId = foundCategory.CategoryId,
+                Name = foundCategory.Name,
+                Description = foundCategory.Description,
+                CreatedAt = foundCategory.CreatedAt
+            };
         }
     }
 }

@@ -70,20 +70,18 @@ namespace EcommerceWebApi.Controllers
         //         return NotFound(ApiResponse<object>.ErrorResponse(new List<string> {"Category is not found with this id"}, 404, "Validations Failed."));
         // }
 
-        // // update category data PUT: api/v1/categories/{categoryId}
-        // [HttpPut("{categoryId:guid}")]
-        // public IActionResult UpdateCategoryById(Guid categoryId, [FromBody] CategoryUpdateDto categoryData)
-        // {
-        //     var foundCategory = categories.FirstOrDefault(c => c.CategoryId == categoryId);
+        // update category data PUT: api/v1/categories/{categoryId}
+        [HttpPut("{categoryId:guid}")]
+        public IActionResult UpdateCategoryById(Guid categoryId, [FromBody] CategoryUpdateDto categoryData)
+        {
+            var foundCategory = _categoryService.UpdateCategory(categoryId, categoryData);
 
-        //     if (foundCategory == null)
-        //         return NotFound(ApiResponse<object>.ErrorResponse(new List<string> {"Category is not found with this id"}, 400, "Validations Failed."));
+            if (foundCategory == null)
+                return NotFound(ApiResponse<object>.ErrorResponse(new List<string> {"Category is not found with this id"}, 400, "Validations Failed."));
             
             
-        //     foundCategory.Name = categoryData.Name;
-        //     foundCategory.Description = categoryData.Description;
-        //     return Ok(ApiResponse<object>.SuccessResponse(null, "Update successful", 204));
-        // }   
+            return Ok(ApiResponse<object>.SuccessResponse(null, "Update successful", 204));
+        }   
 
     }
 }
