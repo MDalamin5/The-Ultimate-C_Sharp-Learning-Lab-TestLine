@@ -41,9 +41,9 @@ namespace EcommerceWebApi.Services
             return _mapper.Map<List<CategoryReadDto>>(categories);
         }
 
-        public CategoryReadDto? GetCategoryById(Guid categoryId)
+        public async Task<CategoryReadDto?> GetCategoryById(Guid categoryId)
         {
-            var foundCategory = _categories.FirstOrDefault(c => c.CategoryId == categoryId);
+            var foundCategory = await _appDbContext.Categories.FirstOrDefaultAsync(c => c.CategoryId == categoryId);
             // if(foundCategory == null)
             //     return null;
             // else
@@ -63,7 +63,7 @@ namespace EcommerceWebApi.Services
             return foundCategory == null ? null : _mapper.Map<CategoryReadDto>(foundCategory);
         }
 
-        public CategoryReadDto CreateCategory(CategoryCreateDto categoryData)
+        public async Task<CategoryReadDto> CreateCategory(CategoryCreateDto categoryData)
         {
             
             // var newCategory = new Category
@@ -77,7 +77,8 @@ namespace EcommerceWebApi.Services
             newCategory.CategoryId = Guid.NewGuid();
             newCategory.CreatedAt = DateTime.UtcNow;
 
-            _categories.Add(newCategory);
+            await _appDbContext.Categories.AddAsync(newCategory);
+            await _appDbContext.SaveChangesAsync();
 
             // var categoryReadDto = new CategoryReadDto
             // {
@@ -91,9 +92,9 @@ namespace EcommerceWebApi.Services
             return _mapper.Map<CategoryReadDto>(newCategory);
         }
 
-        public CategoryReadDto? UpdateCategory(Guid categoryId, CategoryUpdateDto categoryData)
+        public async Task<CategoryReadDto?> UpdateCategory(Guid categoryId, CategoryUpdateDto categoryData)
         {
-            var foundCategory = _categories.FirstOrDefault(c => c.CategoryId == categoryId);
+            var foundCategory = await _appDbContext.Categories.FirstOrDefaultAsync(c => c.CategoryId == categoryId);
 
             if (foundCategory == null)
                 return null;
@@ -102,6 +103,8 @@ namespace EcommerceWebApi.Services
             // foundCategory.Description = categoryData.Description;
 
             _mapper.Map(categoryData, foundCategory);
+            _appDbContext.Categories.Update(foundCategory);
+            await _appDbContext.SaveChangesAsync();
             
             // return new CategoryReadDto
             // {
@@ -114,14 +117,15 @@ namespace EcommerceWebApi.Services
             return _mapper.Map<CategoryReadDto>(foundCategory);
         }
 
-        public bool DeleteCategoryById(Guid categoryId)
+        public async Task<bool> DeleteCategoryById(Guid categoryId)
         {
-            var foundCategory = _categories.FirstOrDefault(c => c.CategoryId == categoryId);
+            var foundCategory = await _appDbContext.Categories.FirstOrDefaultAsync(c => c.CategoryId == categoryId);
 
             if (foundCategory == null)
                 return false;
 
-            _categories.Remove(foundCategory);
+            _appDbContext.Categories.Remove(foundCategory);
+            await _appDbContext.SaveChangesAsync();
             return true;
         }
     }
