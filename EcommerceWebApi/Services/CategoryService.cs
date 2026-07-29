@@ -70,14 +70,16 @@ namespace EcommerceWebApi.Services
 
             _categories.Add(newCategory);
 
-            var categoryReadDto = new CategoryReadDto
-            {
-              CategoryId = newCategory.CategoryId,
-              Name = newCategory.Name,
-              Description = newCategory.Description,
-              CreatedAt = newCategory.CreatedAt  
-            };
-            return categoryReadDto;
+            // var categoryReadDto = new CategoryReadDto
+            // {
+            //   CategoryId = newCategory.CategoryId,
+            //   Name = newCategory.Name,
+            //   Description = newCategory.Description,
+            //   CreatedAt = newCategory.CreatedAt  
+            // };
+            // return categoryReadDto;
+
+            return _mapper.Map<CategoryReadDto>(newCategory);
         }
 
         public CategoryReadDto? UpdateCategory(Guid categoryId, CategoryUpdateDto categoryData)
