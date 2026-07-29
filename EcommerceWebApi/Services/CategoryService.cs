@@ -3,25 +3,29 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using EcommerceWebApi.data;
 using EcommerceWebApi.DTOs;
 using EcommerceWebApi.Interfaces;
 using EcommerceWebApi.Models;
 using EcommerceWebApi.Profies;
+using Microsoft.EntityFrameworkCore;
 
 namespace EcommerceWebApi.Services
 {
     public class CategoryService: ICategoryService
     {
-        private static readonly List<Category> _categories = new List<Category>();
+        // private static readonly List<Category> _categories = new List<Category>();
+        private readonly AppDbContext _appDbContext;
         private readonly IMapper _mapper;
 
-        public CategoryService(IMapper mapper)
+        public CategoryService(AppDbContext appDbContext, IMapper mapper)
         {
+            _appDbContext = appDbContext;
             _mapper = mapper;
         }
 
 
-        public List<CategoryReadDto> GetAllCategories()
+        public async Task<List<CategoryReadDto>> GetAllCategories()
         {
             // Before Mapping.
             // return _categories.Select(c => new CategoryReadDto
@@ -33,8 +37,8 @@ namespace EcommerceWebApi.Services
             // }).ToList();
 
             //After Mapping. All category data map to CategoryReadDto and return.
-
-            return _mapper.Map<List<CategoryReadDto>>(_categories);
+            var categories = await _appDbContext.Categories.ToListAsync();
+            return _mapper.Map<List<CategoryReadDto>>(categories);
         }
 
         public CategoryReadDto? GetCategoryById(Guid categoryId)
