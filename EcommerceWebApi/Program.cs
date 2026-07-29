@@ -25,6 +25,7 @@ builder.Services.Configure<ApiBehaviorOptions>(options =>
    }; 
 });
 builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddAutoMapper(typeof(Program));
 
 var app = builder.Build();
 
