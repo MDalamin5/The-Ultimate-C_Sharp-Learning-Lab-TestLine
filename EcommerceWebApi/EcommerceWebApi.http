@@ -16,11 +16,11 @@ Content-Type: application/json
 GET  http://localhost:5032/api/v1/categories
 
 ###
-GET  http://localhost:5032/api/v1/categories/a338539f-1459-4ef6-9104-1e9787ae9bd1
+GET  http://localhost:5032/api/v1/categories/5bb8fe5c-6b8b-401b-9785-1cd9fcb05274
 
 
 ###
-DELETE   http://localhost:5032/api/v1/categories/da3e4072-0b6d-451b-b113-ca60bf010d01e
+DELETE   http://localhost:5032/api/v1/categories/9b7ab99e-c8cb-4138-83ec-48068d00fdc8
 
 ###
 DELETE   http://localhost:5032/api/v1/categories/
@@ -32,7 +32,7 @@ GET http://localhost:5032/api/v2/categories?searchValue=Clothing
 
 
 ###
-PUT http://localhost:5032/api/v1/categories/665839ed-18f2-4b8d-937d-020b7d1a5d93
+PUT http://localhost:5032/api/v1/categories/5bb8fe5c-6b8b-401b-9785-1cd9fcb05274
 Content-Type: application/json
 
 {

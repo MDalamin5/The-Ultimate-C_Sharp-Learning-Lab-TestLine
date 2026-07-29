@@ -61,9 +61,9 @@ namespace EcommerceWebApi.Controllers
         public IActionResult DeleteCategoryById(Guid categoryId)
         {
             var foundCategory = _categoryService.DeleteCategoryById(categoryId);
-            if(!foundCategory)  
+            if(foundCategory)  
             {
-                return Ok(ApiResponse<object>.SuccessResponse(null, "Update successful", 204));
+                return Ok(ApiResponse<object>.SuccessResponse(null, "Deleted Successful.", 204));
             }
             else
                 return NotFound(ApiResponse<object>.ErrorResponse(new List<string> {"Category is not found with this id"}, 404, "Validations Failed."));

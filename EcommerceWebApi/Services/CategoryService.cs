@@ -40,10 +40,10 @@ namespace EcommerceWebApi.Services
         public CategoryReadDto? GetCategoryById(Guid categoryId)
         {
             var foundCategory = _categories.FirstOrDefault(c => c.CategoryId == categoryId);
-            if(foundCategory == null)
-                return null;
-            else
-            {
+            // if(foundCategory == null)
+            //     return null;
+            // else
+            // {
                 // var FoundCategory = new CategoryReadDto
                 // {
                 //     CategoryId = foundCategory.CategoryId,
@@ -53,20 +53,25 @@ namespace EcommerceWebApi.Services
                 // };
                 // return FoundCategory;
 
-                return _mapper.Map<CategoryReadDto>(_categories);
-            }
+            //     return _mapper.Map<CategoryReadDto>(foundCategory);
+            // }
+
+            return foundCategory == null ? null : _mapper.Map<CategoryReadDto>(foundCategory);
         }
 
         public CategoryReadDto CreateCategory(CategoryCreateDto categoryData)
         {
             
-            var newCategory = new Category
-            {
-                CategoryId = Guid.NewGuid(),
-                Name = categoryData.Name,
-                Description = categoryData.Description,
-                CreatedAt = DateTime.UtcNow
-            };
+            // var newCategory = new Category
+            // {
+            //     CategoryId = Guid.NewGuid(),
+            //     Name = categoryData.Name,
+            //     Description = categoryData.Description,
+            //     CreatedAt = DateTime.UtcNow
+            // };
+            var newCategory = _mapper.Map<Category>(categoryData);
+            newCategory.CategoryId = Guid.NewGuid();
+            newCategory.CreatedAt = DateTime.UtcNow;
 
             _categories.Add(newCategory);
 
@@ -89,16 +94,20 @@ namespace EcommerceWebApi.Services
             if (foundCategory == null)
                 return null;
             
-            foundCategory.Name = categoryData.Name;
-            foundCategory.Description = categoryData.Description;
+            // foundCategory.Name = categoryData.Name;
+            // foundCategory.Description = categoryData.Description;
+
+            _mapper.Map(categoryData, foundCategory);
             
-            return new CategoryReadDto
-            {
-                CategoryId = foundCategory.CategoryId,
-                Name = foundCategory.Name,
-                Description = foundCategory.Description,
-                CreatedAt = foundCategory.CreatedAt
-            };
+            // return new CategoryReadDto
+            // {
+            //     CategoryId = foundCategory.CategoryId,
+            //     Name = foundCategory.Name,
+            //     Description = foundCategory.Description,
+            //     CreatedAt = foundCategory.CreatedAt
+            // };
+
+            return _mapper.Map<CategoryReadDto>(foundCategory);
         }
 
         public bool DeleteCategoryById(Guid categoryId)
