@@ -8,10 +8,10 @@ namespace EcommerceWebApi.Interfaces
 {
     public interface ICategoryService
     {
-        List<CategoryReadDto> GetAllCategories();
-        CategoryReadDto? GetCategoryById(Guid categoryId);
-        CategoryReadDto CreateCategory(CategoryCreateDto categoryData);
-        CategoryReadDto? UpdateCategory(Guid categoryId, CategoryUpdateDto categoryData);
-        bool DeleteCategoryById(Guid categoryId);
+        Task<List<CategoryReadDto>> GetAllCategories();
+        Task<CategoryReadDto?> GetCategoryById(Guid categoryId);
+        Task<CategoryReadDto> CreateCategory(CategoryCreateDto categoryData);
+        Task<CategoryReadDto?> UpdateCategory(Guid categoryId, CategoryUpdateDto categoryData);
+        Task<bool> DeleteCategoryById(Guid categoryId);
     }
 }
