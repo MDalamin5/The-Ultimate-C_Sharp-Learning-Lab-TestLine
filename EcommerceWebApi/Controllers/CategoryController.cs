@@ -22,7 +22,7 @@ namespace EcommerceWebApi.Controllers
 
         // TO read teh category => api/v1/categories
         [HttpGet]
-        public async Task<IActionResult> GetCategories([FromQuery] string searchValue = "")
+        public async Task<IActionResult> GetCategories([FromQuery] int PageNumber=1, [FromQuery] int PageSize = 6)
         {
             var categoryList = await _categoryService.GetAllCategories();
 
