@@ -29,6 +29,14 @@ namespace EcommerceWebApi.Services
         public async Task<PaginatedRecord<CategoryReadDto>> GetAllCategories(int pageNumber, int pageSize, string? search = null)
         {
             IQueryable<Category> query = _appDbContext.Categories;
+
+            // search by name or Descriptions
+            var formattedSearch = $"%{search.Trim()}%";
+
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                query = query.Where(c => EF.Functions.Like(c.Name, formattedSearch) || EF.Functions.Like(c.Description, formattedSearch));
+            }
             //get total count
             var totalCount = await query.CountAsync();
 
