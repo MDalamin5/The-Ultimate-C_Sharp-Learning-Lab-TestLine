@@ -26,7 +26,7 @@ namespace EcommerceWebApi.Services
         }
 
 
-        public async Task<PaginatedRecord<CategoryReadDto>> GetAllCategories(int pageNumber, int pageSize)
+        public async Task<PaginatedRecord<CategoryReadDto>> GetAllCategories(int pageNumber, int pageSize, string? search = null)
         {
             IQueryable<Category> query = _appDbContext.Categories;
             //get total count

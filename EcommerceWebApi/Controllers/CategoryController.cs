@@ -22,9 +22,9 @@ namespace EcommerceWebApi.Controllers
 
         // TO read teh category => api/v1/categories
         [HttpGet]
-        public async Task<IActionResult> GetCategories([FromQuery] int PageNumber=1, [FromQuery] int PageSize = 6)
+        public async Task<IActionResult> GetCategories([FromQuery] int PageNumber=1, [FromQuery] int PageSize = 6, [FromQuery] string? search = null)
         {
-            var categoryList = await _categoryService.GetAllCategories(PageNumber, PageSize);
+            var categoryList = await _categoryService.GetAllCategories(PageNumber, PageSize, search);
 
             return Ok(ApiResponse<PaginatedRecord<CategoryReadDto>>.SuccessResponse(categoryList, "Categories returned", 200));
         }
