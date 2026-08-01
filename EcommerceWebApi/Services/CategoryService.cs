@@ -25,7 +25,7 @@ namespace EcommerceWebApi.Services
         }
 
 
-        public async Task<List<CategoryReadDto>> GetAllCategories()
+        public async Task<List<CategoryReadDto>> GetAllCategories(int PageNumber, int PageSize)
         {
             // Before Mapping.
             // return _categories.Select(c => new CategoryReadDto
