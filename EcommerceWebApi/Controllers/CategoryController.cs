@@ -7,6 +7,7 @@ using EcommerceWebApi.Models;
 using EcommerceWebApi.DTOs;
 using EcommerceWebApi.Services;
 using EcommerceWebApi.Interfaces;
+using EcommerceWebApi.Helpers;
 
 namespace EcommerceWebApi.Controllers
 {   
@@ -22,9 +23,10 @@ namespace EcommerceWebApi.Controllers
 
         // TO read teh category => api/v1/categories
         [HttpGet]
-        public async Task<IActionResult> GetCategories([FromQuery] int PageNumber=1, [FromQuery] int PageSize = 6, [FromQuery] string? search = null)
+        public async Task<IActionResult> GetCategories([FromQuery] QueryParameters queryParameters)
         {
-            var categoryList = await _categoryService.GetAllCategories(PageNumber, PageSize, search);
+            queryParameters.Validate();
+            var categoryList = await _categoryService.GetAllCategories(queryParameters);
 
             return Ok(ApiResponse<PaginatedRecord<CategoryReadDto>>.SuccessResponse(categoryList, "Categories returned", 200));
         }

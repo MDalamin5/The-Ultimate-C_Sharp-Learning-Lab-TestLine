@@ -6,9 +6,9 @@ using AutoMapper;
 using EcommerceWebApi.Controllers;
 using EcommerceWebApi.data;
 using EcommerceWebApi.DTOs;
+using EcommerceWebApi.Helpers;
 using EcommerceWebApi.Interfaces;
 using EcommerceWebApi.Models;
-using EcommerceWebApi.Profies;
 using Microsoft.EntityFrameworkCore;
 
 namespace EcommerceWebApi.Services
@@ -26,16 +26,17 @@ namespace EcommerceWebApi.Services
         }
 
 
-        public async Task<PaginatedRecord<CategoryReadDto>> GetAllCategories(int pageNumber, int pageSize, string? search = null)
+        public async Task<PaginatedRecord<CategoryReadDto>> GetAllCategories(QueryParameters queryParameters)
         {
             IQueryable<Category> query = _appDbContext.Categories;
 
             // search by name or Descriptions
-            var formattedSearch = $"%{search.Trim()}%";
-
-            if (!string.IsNullOrWhiteSpace(search))
+            if (!string.IsNullOrWhiteSpace(queryParameters.Search))
             {
-                query = query.Where(c => EF.Functions.Like(c.Name, formattedSearch) || EF.Functions.Like(c.Description, formattedSearch));
+                var formattedSearch = $"%{queryParameters.Search.Trim()}%";
+                
+                query = query.Where(c => EF.Functions.Like(c.Name, formattedSearch) || 
+                                        EF.Functions.Like(c.Description, formattedSearch));
             }
             //get total count
             var totalCount = await query.CountAsync();
@@ -44,7 +45,7 @@ namespace EcommerceWebApi.Services
             // assume 20 category and take 5 only
             //skip((pageNumber - 1)*pageSize).Take(pageSize)
 
-            var items = await query.Skip((pageNumber - 1)*pageSize).Take(pageSize).ToListAsync();
+            var items = await query.Skip((queryParameters.PageNumber - 1)*queryParameters.PageSize).Take(queryParameters.PageSize).ToListAsync();
 
             //After Mapping. All category data map to CategoryReadDto and return.
             var results = _mapper.Map<List<CategoryReadDto>>(items);
@@ -53,8 +54,8 @@ namespace EcommerceWebApi.Services
             {
                 Items = results,
                 TotalCount = totalCount,
-                PageNumber = pageNumber,
-                PageSize = pageSize
+                PageNumber = queryParameters.PageNumber,
+                PageSize = queryParameters.PageSize
             };
             
         }
@@ -92,8 +93,9 @@ namespace EcommerceWebApi.Services
             //     CreatedAt = DateTime.UtcNow
             // };
             var newCategory = _mapper.Map<Category>(categoryData);
-            newCategory.CategoryId = Guid.NewGuid();
-            newCategory.CreatedAt = DateTime.UtcNow;
+            // this two data created via constructor.
+            // newCategory.CategoryId = Guid.NewGuid();
+            // newCategory.CreatedAt = DateTime.UtcNow;
 
             await _appDbContext.Categories.AddAsync(newCategory);
             await _appDbContext.SaveChangesAsync();
