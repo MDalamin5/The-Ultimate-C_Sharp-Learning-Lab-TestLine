@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EfCorePractice.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EfCorePractice.data
@@ -12,5 +13,8 @@ namespace EfCorePractice.data
         {
             
         }
+
+        // table creation via db-set
+        public DbSet<Book> Books {get; set;}
     }
 }
