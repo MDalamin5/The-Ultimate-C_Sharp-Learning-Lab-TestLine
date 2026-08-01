@@ -26,7 +26,7 @@ namespace EcommerceWebApi.Controllers
         {
             var categoryList = await _categoryService.GetAllCategories(PageNumber, PageSize);
 
-            return Ok(ApiResponse<List<CategoryReadDto>>.SuccessResponse(categoryList, "Categories returned", 200));
+            return Ok(ApiResponse<PaginatedRecord<CategoryReadDto>>.SuccessResponse(categoryList, "Categories returned", 200));
         }
 
 

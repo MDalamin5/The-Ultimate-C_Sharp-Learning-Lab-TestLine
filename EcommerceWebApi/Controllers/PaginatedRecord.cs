@@ -7,7 +7,7 @@ namespace EcommerceWebApi.Controllers
 {
     public class PaginatedRecord<T>
     {
-        public IEnumerable<T> items {get; set;} = new List<T>();
+        public IEnumerable<T> Items {get; set;} = new List<T>();
 
         public int TotalCount {get; set;}
         public int PageNumber {get; set;}

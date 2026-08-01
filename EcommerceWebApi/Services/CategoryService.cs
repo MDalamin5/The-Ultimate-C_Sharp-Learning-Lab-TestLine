@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using EcommerceWebApi.Controllers;
 using EcommerceWebApi.data;
 using EcommerceWebApi.DTOs;
 using EcommerceWebApi.Interfaces;
@@ -25,20 +26,29 @@ namespace EcommerceWebApi.Services
         }
 
 
-        public async Task<List<CategoryReadDto>> GetAllCategories(int PageNumber, int PageSize)
+        public async Task<PaginatedRecord<CategoryReadDto>> GetAllCategories(int pageNumber, int pageSize)
         {
-            // Before Mapping.
-            // return _categories.Select(c => new CategoryReadDto
-            // {
-            //     CategoryId = c.CategoryId,
-            //     Name = c.Name,
-            //     Description = c.Description,
-            //     CreatedAt = c.CreatedAt
-            // }).ToList();
+            IQueryable<Category> query = _appDbContext.Categories;
+            //get total count
+            var totalCount = await query.CountAsync();
+
+            //pagination formula skip-take pageNumber =2, pageSize = 5
+            // assume 20 category and take 5 only
+            //skip((pageNumber - 1)*pageSize).Take(pageSize)
+
+            var items = await query.Skip((pageNumber - 1)*pageSize).Take(pageSize).ToListAsync();
 
             //After Mapping. All category data map to CategoryReadDto and return.
-            var categories = await _appDbContext.Categories.ToListAsync();
-            return _mapper.Map<List<CategoryReadDto>>(categories);
+            var results = _mapper.Map<List<CategoryReadDto>>(items);
+            
+            return new PaginatedRecord<CategoryReadDto>
+            {
+                Items = results,
+                TotalCount = totalCount,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+            
         }
 
         public async Task<CategoryReadDto?> GetCategoryById(Guid categoryId)
