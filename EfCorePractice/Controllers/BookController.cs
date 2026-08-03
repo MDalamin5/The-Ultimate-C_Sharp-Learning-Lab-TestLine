@@ -12,9 +12,14 @@ namespace EfCorePractice.Controllers
             return "Book Created";
         }
 
-        public string GeetAllBooks()
+        public string GateAllBooks()
         {
             return "List of books";
+        }
+
+        public string GetABook()
+        {
+            return "Single Book";
         }
 
         public string UpdateBook()
