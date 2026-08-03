@@ -7,6 +7,24 @@ namespace EfCorePractice.Controllers
     [ApiController]
     public class BookController: ControllerBase
     {
-        
+        public string CreateBook()
+        {
+            return "Book Created";
+        }
+
+        public string GeetAllBooks()
+        {
+            return "List of books";
+        }
+
+        public string UpdateBook()
+        {
+            return "Book has been Updated.";
+        }
+
+        public bool DeleteBook()
+        {
+            return true;
+        }
     }
 }
