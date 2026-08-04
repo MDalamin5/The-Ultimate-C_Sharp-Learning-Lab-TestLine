@@ -1,3 +1,4 @@
+using EfCorePractice.data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,6 +8,12 @@ namespace EfCorePractice.Controllers
     [ApiController]
     public class BookController: ControllerBase
     {   
+        private readonly AppDbContext _appDbContext;
+
+        public BookController(AppDbContext appDbContext)
+        {
+            _appDbContext = appDbContext;   
+        }
         [HttpPost]
         public string CreateBook()
         {
