@@ -33,14 +33,16 @@ namespace EfCorePractice.Controllers
         }
 
 
-        // public string UpdateBook()
-        // {
-        //     return "Book has been Updated.";
-        // }
+        [HttpPut("{id:int}")]
+        public string UpdateBook(int id)
+        {
+            return $"Id: {id} Book Updated Successfully.";
+        }
 
-        // public bool DeleteBook()
-        // {
-        //     return true;
-        // }
+        [HttpDelete("{id:int}")]
+        public bool DeleteBook(int id)
+        {
+            return true;
+        }
     }
 }
