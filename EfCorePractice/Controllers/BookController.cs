@@ -20,15 +20,18 @@ namespace EfCorePractice.Controllers
             return "Book Created";
         }
 
-        // public string GateAllBooks()
-        // {
-        //     return "List of books";
-        // }
+        [HttpGet]
+        public string GateAllBooks()
+        {
+            return "List of books";
+        }
 
-        // public string GetABook()
-        // {
-        //     return "Single Book";
-        // }
+        [HttpGet("{id:int}")]
+        public string GetABook(int id)
+        {
+            return $"Id of the book is {id}";
+        }
+
 
         // public string UpdateBook()
         // {
