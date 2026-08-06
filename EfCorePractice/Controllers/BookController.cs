@@ -1,6 +1,8 @@
 using EfCorePractice.data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using EfCorePractice.Dots;
+using EfCorePractice.Models;
 
 namespace EfCorePractice.Controllers
 {
@@ -8,16 +10,18 @@ namespace EfCorePractice.Controllers
     [ApiController]
     public class BookController: ControllerBase
     {   
-        private readonly AppDbContext _appDbContext;
+        private readonly AppDbContext _db;
 
         public BookController(AppDbContext appDbContext)
         {
-            _appDbContext = appDbContext;   
+            this._db = appDbContext;   
         }
         [HttpPost]
-        public string CreateBook()
+        public string CreateBook(Book bookData)
         {
-            return "Book Created";
+            _db.Books.Add(bookData);
+            _db.SaveChanges();
+            return $"Book id {bookData.Id}, Author Name: {bookData.Author} Book is Created.";
         }
 
         [HttpGet]
