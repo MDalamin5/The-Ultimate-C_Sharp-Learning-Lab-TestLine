@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace EfCorePractice.Interfaces
 {
-    public interface IBookInterface
+    public interface IBookServices
     {
-        
+        Task<string> GetAllBooks();
+        //define all CRUD api
     }
 }
