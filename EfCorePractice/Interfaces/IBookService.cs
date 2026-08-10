@@ -8,6 +8,8 @@ namespace EfCorePractice.Interfaces
     public interface IBookServices
     {
         Task<string> GetAllBooks();
-        //define all CRUD api
+        Task<string> GetASingeBook(int Id);
+        Task<string> UpdateBook(int Id);
+        Task<bool> DeleteBook(int Id);
     }
 }
