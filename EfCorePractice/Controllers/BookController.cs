@@ -32,17 +32,33 @@ namespace EfCorePractice.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public Book GetABook(int id)
+        public ActionResult<Book> GetABook(int id)
         {
            var book =  _db.Books.FirstOrDefault(b => b.Id == id);
-            return book;
+            if (book == null)
+            {
+                return NotFound("Book Not Found.");
+            }
+            return Ok(book);
         }
 
 
         [HttpPut("{id:int}")]
-        public string UpdateBook(int id)
+        public ActionResult<string> UpdateBook(Book newBook, int id)
         {
-            return $"Id: {id} Book Updated Successfully.";
+            var book =  _db.Books.FirstOrDefault(b => b.Id == id);
+            if (book == null)
+            {
+                return NotFound("Book Not Found.");
+            }
+
+            book.Author = newBook.Author;
+            book.Description = newBook.Description;
+            book.Price = newBook.Price;
+            book.Title = newBook.Title;
+
+            _db.SaveChanges();
+            return Ok(book);
         }
 
         [HttpDelete("{id:int}")]
