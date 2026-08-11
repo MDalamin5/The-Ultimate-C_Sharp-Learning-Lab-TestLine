@@ -25,9 +25,10 @@ namespace EfCorePractice.Controllers
         }
 
         [HttpGet]
-        public string GateAllBooks()
+        public List<Book> GateAllBooks()
         {
-            return "List of books";
+            var bookData = _db.Books.ToList();
+            return bookData;
         }
 
         [HttpGet("{id:int}")]
