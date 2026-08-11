@@ -32,9 +32,10 @@ namespace EfCorePractice.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public string GetABook(int id)
+        public Book GetABook(int id)
         {
-            return $"Id of the book is {id}";
+           var book =  _db.Books.FirstOrDefault(b => b.Id == id);
+            return book;
         }
 
 
