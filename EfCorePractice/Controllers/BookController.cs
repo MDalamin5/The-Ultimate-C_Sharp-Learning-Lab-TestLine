@@ -62,8 +62,13 @@ namespace EfCorePractice.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public bool DeleteBook(int id)
+        public ActionResult<bool> DeleteBook(int id)
         {
+            var book = _db.Books.FirstOrDefault(b => b.Id == id);
+            if(book == null)
+                return NotFound("This Book is not found");
+            _db.Books.Remove(book);
+            _db.SaveChanges();
             return true;
         }
     }
