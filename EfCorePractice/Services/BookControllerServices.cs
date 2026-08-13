@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
+using EfCorePractice.data;
 using EfCorePractice.Interfaces;
 
 namespace EfCorePractice.Services
 {
     public class BookControllerServices: IBookServices
     {
+
+        private readonly AppDbContext _db;
+
+        public BookControllerServices(AppDbContext appDbContext)
+        {
+            _db = appDbContext;
+        }
         public async Task<string> GetAllBooks()
         {
             return "Data Data Return.";
