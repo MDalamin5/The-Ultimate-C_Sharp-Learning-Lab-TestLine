@@ -11,7 +11,7 @@ namespace EfCorePractice.Models
         public string? Title {get; set;}
         public string? Description {get; set;}
         public string? Author {get; set; }
-        public DateTime Created {get; set;}
+        public DateOnly Created {get; set;}
         public decimal Price {get; set;}
     }
 }
