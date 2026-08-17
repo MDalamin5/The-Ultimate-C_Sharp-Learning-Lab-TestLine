@@ -17,10 +17,10 @@ namespace EfCorePractice.Controllers
             this._db = appDbContext;   
         }
         [HttpPost]
-        public string CreateBook(Book bookData)
+        public async Task<string> CreateBook(Book bookData)
         {
-            _db.Books.Add(bookData);
-            _db.SaveChanges();
+            await _db.Books.AddAsync(bookData);
+            await _db.SaveChangesAsync();
             return $"Book id {bookData.Id}, Author Name: {bookData.Author} Book is Created.";
         }
 
