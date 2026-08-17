@@ -25,10 +25,11 @@ namespace EfCorePractice.Controllers
         }
 
         [HttpGet]
-        public List<Book> GateAllBooks()
+        public ActionResult<List<Book>> GateAllBooks()
         {
-            var bookData = _db.Books.ToList();
-            return bookData;
+            // var bookData = _db.Books.ToList();
+            var bookData = _db.Books.Where(b => b.Price >= 300);
+            return Ok(bookData);
         }
 
         [HttpGet("{id:int}")]
