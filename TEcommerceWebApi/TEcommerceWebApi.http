@@ -4,3 +4,4 @@ GET {{TEcommerceWebApi_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+GET http://localhost:5131/
