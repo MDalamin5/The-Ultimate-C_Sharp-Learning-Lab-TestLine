@@ -23,5 +23,11 @@ app.MapGet("/", () => {
    return  Results.Ok(response);
 });
 
+
+//Return a HTML response
+app.MapGet("/html", () =>
+{
+    return Results.Content("<h2>This is line</h2>", "text/html");
+});
 app.Run();
 
