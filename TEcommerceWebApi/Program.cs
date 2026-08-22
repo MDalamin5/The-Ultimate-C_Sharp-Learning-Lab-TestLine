@@ -14,7 +14,13 @@ app.UseHttpsRedirection();
 
 // Build the API
 app.MapGet("/", () => {
-   return  "Welcome to The MapGet APi.";
+    // return a json object
+    var response = new
+    {
+        message = "Welcome to Our site",
+        status = "ok"
+    };
+   return  response;
 });
 
 app.Run();
