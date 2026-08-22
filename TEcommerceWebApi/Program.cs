@@ -20,7 +20,7 @@ app.MapGet("/", () => {
         message = "Welcome to Our site",
         status = "ok"
     };
-   return  response;
+   return  Results.Ok(response);
 });
 
 app.Run();
