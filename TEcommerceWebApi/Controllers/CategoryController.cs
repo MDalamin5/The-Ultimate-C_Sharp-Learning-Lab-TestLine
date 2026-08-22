@@ -13,6 +13,9 @@ namespace TEcommerceWebApi.Controllers
     {
         private static List<Category> categories = new List<Category>();
 
+
+        // Read all categories
+        [HttpGet]
         public IActionResult GetCategories([FromQuery] string searchVale = "")
         {
             if (!string.IsNullOrEmpty(searchVale))
@@ -21,6 +24,33 @@ namespace TEcommerceWebApi.Controllers
                 return Ok(srcCategory);
             }
             return Ok(categories);
+        }
+
+
+        // Create Category
+        [HttpPost]
+        public IActionResult CreateCategory([FromBody] Category categoryData)
+        {
+            if (string.IsNullOrEmpty(categoryData.Name))
+            {
+                return BadRequest("Category Name is Required.");
+            }
+            if(categoryData.Name.Length < 2)
+            {
+                return BadRequest("Category name must be Gater then 2 Char.");
+            }
+
+            var newCategory = new Category
+            {
+                CategoryId = Guid.NewGuid(),
+                Name = categoryData.Name,
+                Description = categoryData.Description,
+                CreatedAt = DateTime.UtcNow
+            };
+
+            categories.Add(newCategory);
+
+            return Ok(newCategory);
         }
     }
 }
