@@ -50,7 +50,15 @@ namespace TEcommerceWebApi.Controllers
 
             categories.Add(newCategory);
 
-            return Ok(newCategory);
+            return Created($"/api/v2/categories/{newCategory.CategoryId}", newCategory);
+        }
+
+
+        // update a Category
+        [HttpPut]
+        public IActionResult UpdateCategory([FromBody] Category categoryUpdateData)
+        {
+            return Ok();
         }
     }
 }
