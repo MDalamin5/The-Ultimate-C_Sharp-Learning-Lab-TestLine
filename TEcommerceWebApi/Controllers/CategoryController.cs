@@ -55,6 +55,30 @@ namespace TEcommerceWebApi.Controllers
 
 
         // update a Category
+        [HttpPut("{categoryId:guid}")]
+        public IActionResult UpdateCategoryById(Guid categoryId, [FromBody] Category categoryData)
+        {
+            var foundCategory = categories.FirstOrDefault(category => category.CategoryId == categoryId);
+
+            if(foundCategory == null)
+                return NotFound($"This {categoryId} is not exists.");
+            
+            
+            //Assuming the Name is not empty and the descriptions must gater then 10 char.
+            foundCategory.Name = categoryData.Name;
+            foundCategory.Description = categoryData.Description;
+
+            return NoContent();
+            
+
+        }
+
+
+
+
+
+
+        // delete category by ID
         [HttpDelete("{categoryId:guid}")]
         public IActionResult DeleteCategoryById(Guid categoryId)
         {
