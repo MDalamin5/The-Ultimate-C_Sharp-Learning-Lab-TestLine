@@ -61,7 +61,16 @@ namespace TEcommerceWebApi.Controllers
 
             categories.Add(newCategory);
 
-            return Created($"/api/v2/categories/{newCategory.CategoryId}", newCategory);
+            //Return Data followed by CategoryReadDto
+            var responseCreateCategory = new CategoryReadDto
+            {
+                CategoryId = newCategory.CategoryId,
+                Name = newCategory.Name,
+                Description = newCategory.Description,
+                CreatedAt = newCategory.CreatedAt
+            };
+
+            return Created($"/api/v2/categories/{newCategory.CategoryId}", responseCreateCategory);
         }
 
 
