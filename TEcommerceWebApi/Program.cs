@@ -1,6 +1,8 @@
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+//controller services registrations
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
@@ -24,10 +26,6 @@ app.MapGet("/", () => {
 });
 
 
-//Return a HTML response
-app.MapGet("/html", () =>
-{
-    return Results.Content("<h2>This is line</h2>", "text/html");
-});
+app.MapControllers();
 app.Run();
 
