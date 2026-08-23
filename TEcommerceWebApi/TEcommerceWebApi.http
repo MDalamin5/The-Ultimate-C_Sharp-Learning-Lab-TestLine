@@ -5,3 +5,16 @@ Accept: application/json
 
 ###
 GET http://localhost:5131/
+
+###
+GET http://localhost:5131/api/v2/categories
+
+###
+POST http://localhost:5131/api/v2/categories
+Content-Type: application/json
+
+{
+    "name": "Cricket",
+    "description": "Cricket is not the more acceptable game in many country."
+}
+
