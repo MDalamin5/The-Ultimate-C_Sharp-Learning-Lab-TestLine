@@ -18,3 +18,15 @@ Content-Type: application/json
     "description": "Cricket is not the more acceptable game in many country."
 }
 
+
+###
+PUT http://localhost:5131/api/v2/categories/a31007f8-f0d5-4510-ae53-15a5e59ad05f
+Content-Type: application/json
+
+{
+    "name": "Basketball",
+    "description": "Cricket is not the more acceptable game in many country."
+}
+
+###
+DELETE  http://localhost:5131/api/v2/categories/a31007f8-f0d5-4510-ae53-15a5e59ad05f
