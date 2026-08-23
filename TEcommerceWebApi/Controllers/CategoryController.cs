@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using TEcommerceWebApi.DTOs;
 using TEcommerceWebApi.Models;
 
 namespace TEcommerceWebApi.Controllers
@@ -29,7 +30,7 @@ namespace TEcommerceWebApi.Controllers
 
         // Create Category
         [HttpPost]
-        public IActionResult CreateCategory([FromBody] Category categoryData)
+        public IActionResult CreateCategory([FromBody] CategoryCreateDto categoryData)
         {
             if (string.IsNullOrEmpty(categoryData.Name))
             {
@@ -56,7 +57,7 @@ namespace TEcommerceWebApi.Controllers
 
         // update a Category
         [HttpPut("{categoryId:guid}")]
-        public IActionResult UpdateCategoryById(Guid categoryId, [FromBody] Category categoryData)
+        public IActionResult UpdateCategoryById(Guid categoryId, [FromBody] CategoryUpdateDto categoryData)
         {
             var foundCategory = categories.FirstOrDefault(category => category.CategoryId == categoryId);
 
