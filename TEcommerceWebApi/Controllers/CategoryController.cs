@@ -24,7 +24,17 @@ namespace TEcommerceWebApi.Controllers
                 var srcCategory = categories.Where(c => c.Name.Contains(searchVale, StringComparison.OrdinalIgnoreCase)).ToList();
                 return Ok(srcCategory);
             }
-            return Ok(categories);
+
+            // Data Binding With Read Dto
+            var responseCategory = categories.Select(c => new CategoryReadDto
+            {
+                CategoryId = c.CategoryId,
+                Name = c.Name,
+                Description = c.Description,
+                CreatedAt = c.CreatedAt
+            }).ToList();
+
+            return Ok(responseCategory);
         }
 
 
