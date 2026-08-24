@@ -9,9 +9,9 @@ namespace TEcommerceWebApi.DTOs
     public class CategoryUpdateDto
     {
         [Required(ErrorMessage = "Name is Required.")]
-        [StringLength(20)]
-        public required string Name {get; set;}
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "Must follow the Name Length.")]
+        public  string Name {get; set;} = string.Empty;
         [Required]
-        public required string Description {get; set;}
+        public  string Description {get; set;} = string.Empty;
     }
 }

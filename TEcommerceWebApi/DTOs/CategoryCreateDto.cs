@@ -9,7 +9,7 @@ namespace TEcommerceWebApi.DTOs
     public class CategoryCreateDto
     {
         [Required(ErrorMessage = "Name is required.")]
-        [StringLength(20, ErrorMessage = "Name cannot exceed 20 characters.")]
+        [StringLength(20, MinimumLength = 2, ErrorMessage = "Name cannot exceed 20 characters.")]
         public string Name { get; set; } = string.Empty;
 
         [StringLength(500, ErrorMessage = "Description cannot exceed 20 characters.")]
