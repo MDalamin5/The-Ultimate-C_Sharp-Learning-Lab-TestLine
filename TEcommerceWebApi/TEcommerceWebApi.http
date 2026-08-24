@@ -18,6 +18,9 @@ Content-Type: application/json
     "description": "Cricket is not the more acceptable game in many country."
 }
 
+###
+GET http://localhost:5131/api/v2/categories/0daee4f0-8d2f-4e1a-b030-d1063c02ef67
+
 
 ###
 PUT http://localhost:5131/api/v2/categories/813b541e-c793-4847-a9e5-8b638f5bb537

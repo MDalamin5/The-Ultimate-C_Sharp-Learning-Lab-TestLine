@@ -37,6 +37,24 @@ namespace TEcommerceWebApi.Controllers
             return Ok(ApiResponse<List<CategoryReadDto>>.SuccessResponse(responseCategory, 200, "Category Returned Successfully."));
         }
 
+        //Read a category byId
+        [HttpGet("{categoryId:guid}")]
+        public IActionResult GetCategoryById(Guid categoryId)
+        {
+            var foundCategory = categories.FirstOrDefault(category => category.CategoryId == categoryId);
+            if(foundCategory == null)
+                return NotFound(ApiResponse<object>.ErrorResponse(new List<string>{"Category not found with this id."}, 400, "Validation Invalid."));
+
+            var responseCategory = new CategoryReadDto
+            {
+                CategoryId = foundCategory.CategoryId,
+                Name = foundCategory.Name,
+                Description = foundCategory.Description,
+                CreatedAt = foundCategory.CreatedAt
+            };
+
+            return Ok(ApiResponse<CategoryReadDto>.SuccessResponse(responseCategory, 200, "Category founded."));
+        }
 
         // Create Category
         [HttpPost]
