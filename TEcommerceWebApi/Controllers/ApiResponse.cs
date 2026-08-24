@@ -15,14 +15,20 @@ namespace TEcommerceWebApi.Controllers
         public DateTime TimeStamp {get; set;}
 
 
-        public ApiResponse(T data, int statusCode, string message = "")
+        private ApiResponse(bool success, string message, T data, List<string> errors, int statusCode)
         {
-            Success = true;
+            Success = success;
             Message = message;
             Data = data;
-            Errors = null;
+            Errors = errors;
             StatusCode = statusCode;
             TimeStamp = DateTime.UtcNow;
+        }
+
+        //Static method for the creating a successful response.
+        public static ApiResponse<T> SuccessResponse (T data, int statusCode, string message)
+        {
+            return new ApiResponse<T>(true, message, data, null, statusCode);
         }
     }
 }
