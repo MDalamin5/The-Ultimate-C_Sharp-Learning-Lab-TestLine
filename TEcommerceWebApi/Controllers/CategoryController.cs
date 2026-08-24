@@ -42,20 +42,6 @@ namespace TEcommerceWebApi.Controllers
         [HttpPost]
         public IActionResult CreateCategory([FromBody] CategoryCreateDto categoryData)
         {
-            if (!ModelState.IsValid)
-            {
-                var errors = ModelState
-                .Where(e => e.Value != null && e.Value.Errors.Count > 0)
-                .Select(e => new
-                {
-                    Field = e.Key,
-                    Message =  e.Value!.Errors.Select(x => x.ErrorMessage).ToArray()
-                }).ToList();
-
-                var errorString = string.Join("; ", errors.Select(e => $"{e.Field} : {string.Join(", ",e.Message)}"));
-
-                return BadRequest(errorString);
-            }
 
             var newCategory = new Category
             {
