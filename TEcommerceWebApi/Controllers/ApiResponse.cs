@@ -15,7 +15,7 @@ namespace TEcommerceWebApi.Controllers
         public DateTime TimeStamp {get; set;}
 
 
-        private ApiResponse(bool success, string message, T data, List<string> errors, int statusCode)
+        private ApiResponse(bool success, string message, T? data, List<string>? errors, int statusCode)
         {
             Success = success;
             Message = message;

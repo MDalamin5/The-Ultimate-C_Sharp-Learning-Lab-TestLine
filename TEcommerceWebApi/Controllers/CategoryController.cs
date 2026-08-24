@@ -62,7 +62,7 @@ namespace TEcommerceWebApi.Controllers
                 CreatedAt = newCategory.CreatedAt
             };
 
-            return Created($"/api/v2/categories/{newCategory.CategoryId}", responseCreateCategory);
+            return Created($"/api/v2/categories/{newCategory.CategoryId}", ApiResponse<CategoryReadDto>.SuccessResponse(responseCreateCategory, 201, "Category Created Successfully."));
         }
 
 
@@ -80,7 +80,7 @@ namespace TEcommerceWebApi.Controllers
             foundCategory.Name = categoryData.Name;
             foundCategory.Description = categoryData.Description;
 
-            return NoContent();
+            return Ok(ApiResponse<object>.SuccessResponse(null, 204, "Category Updated successfully."));
             
 
         }
@@ -100,7 +100,7 @@ namespace TEcommerceWebApi.Controllers
                 return NotFound($"This: {categoryId} is not Exist.");
             }
             categories.Remove(foundCategory);
-            return NoContent();
+            return Ok(ApiResponse<object>.SuccessResponse(null, 204, "Category Deleted Successfully."));
         }
     }
 }
