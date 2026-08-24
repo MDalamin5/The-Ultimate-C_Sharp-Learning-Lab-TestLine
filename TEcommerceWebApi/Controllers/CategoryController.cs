@@ -34,7 +34,7 @@ namespace TEcommerceWebApi.Controllers
                 CreatedAt = c.CreatedAt
             }).ToList();
 
-            return Ok(responseCategory);
+            return Ok(new ApiResponse<List<CategoryReadDto>>(responseCategory, 200, "Category Return Successfully."));
         }
 
 
