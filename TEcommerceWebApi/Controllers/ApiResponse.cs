@@ -26,9 +26,14 @@ namespace TEcommerceWebApi.Controllers
         }
 
         //Static method for the creating a successful response.
-        public static ApiResponse<T> SuccessResponse (T data, int statusCode, string message)
+        public static ApiResponse<T> SuccessResponse (T? data, int statusCode, string message)
         {
             return new ApiResponse<T>(true, message, data, null, statusCode);
+        }
+
+        public static ApiResponse<T> ErrorResponse(List<string>errors, int statusCode, string message = "")
+        {
+            return new ApiResponse<T>(false, message, default(T), errors, statusCode);
         }
     }
 }

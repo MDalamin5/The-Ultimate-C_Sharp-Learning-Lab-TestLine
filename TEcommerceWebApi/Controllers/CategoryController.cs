@@ -73,7 +73,7 @@ namespace TEcommerceWebApi.Controllers
             var foundCategory = categories.FirstOrDefault(category => category.CategoryId == categoryId);
 
             if(foundCategory == null)
-                return NotFound($"This {categoryId} is not exists.");
+                return NotFound(ApiResponse<object>.ErrorResponse(new List<string>{"category is not found with this id."}, 400, "Validation Failed."));
             
             
             //Assuming the Name is not empty and the descriptions must gater then 10 char.
