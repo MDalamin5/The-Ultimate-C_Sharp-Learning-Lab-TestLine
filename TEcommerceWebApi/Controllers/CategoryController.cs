@@ -42,13 +42,19 @@ namespace TEcommerceWebApi.Controllers
         [HttpPost]
         public IActionResult CreateCategory([FromBody] CategoryCreateDto categoryData)
         {
-            if (string.IsNullOrEmpty(categoryData.Name))
+            if (!ModelState.IsValid)
             {
-                return BadRequest("Category Name is Required.");
-            }
-            if(categoryData.Name.Length < 2)
-            {
-                return BadRequest("Category name must be Gater then 2 Char.");
+                var errors = ModelState
+                .Where(e => e.Value != null && e.Value.Errors.Count > 0)
+                .Select(e => new
+                {
+                    Field = e.Key,
+                    Message =  e.Value!.Errors.Select(x => x.ErrorMessage).ToArray()
+                }).ToList();
+
+                var errorString = string.Join("; ", errors.Select(e => $"{e.Field} : {string.Join(", ",e.Message)}"));
+
+                return BadRequest(errorString);
             }
 
             var newCategory = new Category
