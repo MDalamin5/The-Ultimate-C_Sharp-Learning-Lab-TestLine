@@ -32,21 +32,15 @@ namespace TEcommerceWebApi.Controllers
         }
 
         //Read a category byId
-        /*
+        
         [HttpGet("{categoryId:guid}")]
         public IActionResult GetCategoryById(Guid categoryId)
         {
-            var foundCategory = categories.FirstOrDefault(category => category.CategoryId == categoryId);
-            if(foundCategory == null)
-                return NotFound(ApiResponse<object>.ErrorResponse(new List<string>{"Category not found with this id."}, 400, "Validation Invalid."));
+            
+            var responseCategory = _categoryService.GetCategoryById(categoryId);
 
-            var responseCategory = new CategoryReadDto
-            {
-                CategoryId = foundCategory.CategoryId,
-                Name = foundCategory.Name,
-                Description = foundCategory.Description,
-                CreatedAt = foundCategory.CreatedAt
-            };
+            if(responseCategory == null)
+                return NotFound(ApiResponse<object>.ErrorResponse(new List<string>{"Category not found with this id."}, 400, "Validation Invalid."));
 
             return Ok(ApiResponse<CategoryReadDto>.SuccessResponse(responseCategory, 200, "Category founded."));
         }
@@ -56,29 +50,15 @@ namespace TEcommerceWebApi.Controllers
         public IActionResult CreateCategory([FromBody] CategoryCreateDto categoryData)
         {
 
-            var newCategory = new Category
-            {
-                CategoryId = Guid.NewGuid(),
-                Name = categoryData.Name,
-                Description = categoryData.Description,
-                CreatedAt = DateTime.UtcNow
-            };
-
-            categories.Add(newCategory);
+            
 
             //Return Data followed by CategoryReadDto
-            var responseCreateCategory = new CategoryReadDto
-            {
-                CategoryId = newCategory.CategoryId,
-                Name = newCategory.Name,
-                Description = newCategory.Description,
-                CreatedAt = newCategory.CreatedAt
-            };
+            var responseCreateCategory = _categoryService.CreateCategory(categoryData);
 
             return Created(nameof(GetCategoryById), ApiResponse<CategoryReadDto>.SuccessResponse(responseCreateCategory, 201, "Category Created Successfully."));
         }
 
-
+/*
         // update a Category
         [HttpPut("{categoryId:guid}")]
         public IActionResult UpdateCategoryById(Guid categoryId, [FromBody] CategoryUpdateDto categoryData)
