@@ -38,3 +38,5 @@ Dockerfile.*
 *.sqlite3
 
 appsettings.json
+TEcommerceWebApi/demo.html
+TEcommerceWebApi/demo2.html
