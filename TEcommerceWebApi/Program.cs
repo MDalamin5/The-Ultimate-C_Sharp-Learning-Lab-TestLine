@@ -1,35 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using TEcommerceWebApi.Controllers;
+using TEcommerceWebApi.Services;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //controller services registrations
 builder.Services.AddControllers();
-//validation services for di-centralized api response
-/*
-builder.Services.Configure<ApiBehaviorOptions>(options =>
-{
-    options.InvalidModelStateResponseFactory = context =>
-    {
-        var errors = context.ModelState
-                .Where(e => e.Value != null && e.Value.Errors.Count > 0)
-                .Select(e => new
-                {
-                    Field = e.Key,
-                    Errors =  e.Value!.Errors.Select(x => x.ErrorMessage).ToArray()
-                }).ToList();
-
-        
-        var errorString = string.Join("; ", errors.Select(e => $"{e.Field}: {string.Join(", ", e.Errors)}"));
-
-                return new BadRequestObjectResult(new
-                {
-                    Message = "Validations Failed Errors.",
-                    Errors = errorString
-                });
-    };
-});
-*/
+builder.Services.AddSingleton<CategoryService>();
 
 //Centralized api responses
 builder.Services.Configure<ApiBehaviorOptions>(options =>

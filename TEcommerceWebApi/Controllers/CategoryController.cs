@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TEcommerceWebApi.DTOs;
 using TEcommerceWebApi.Models;
+using TEcommerceWebApi.Services;
 
 namespace TEcommerceWebApi.Controllers
 {
@@ -12,32 +13,26 @@ namespace TEcommerceWebApi.Controllers
     [Route("/api/v2/categories")]
     public class CategoryController: ControllerBase
     {
-        private static List<Category> categories = new List<Category>();
+        public CategoryService _categoryService;
+        
+        public CategoryController(CategoryService categoryService)
+        {
+            _categoryService = categoryService;
+        }
 
 
         // Read all categories
         [HttpGet]
         public IActionResult GetCategories([FromQuery] string searchVale = "")
         {
-            if (!string.IsNullOrEmpty(searchVale))
-            {
-                var srcCategory = categories.Where(c => c.Name.Contains(searchVale, StringComparison.OrdinalIgnoreCase)).ToList();
-                return Ok(srcCategory);
-            }
-
             // Data Binding With Read Dto
-            var responseCategory = categories.Select(c => new CategoryReadDto
-            {
-                CategoryId = c.CategoryId,
-                Name = c.Name,
-                Description = c.Description,
-                CreatedAt = c.CreatedAt
-            }).ToList();
+            var responseCategory = _categoryService.GetAllCategory();
 
             return Ok(ApiResponse<List<CategoryReadDto>>.SuccessResponse(responseCategory, 200, "Category Returned Successfully."));
         }
 
         //Read a category byId
+        /*
         [HttpGet("{categoryId:guid}")]
         public IActionResult GetCategoryById(Guid categoryId)
         {
@@ -120,5 +115,6 @@ namespace TEcommerceWebApi.Controllers
             categories.Remove(foundCategory);
             return Ok(ApiResponse<object>.SuccessResponse(null, 204, "Category Deleted Successfully."));
         }
+        */
     }
 }
