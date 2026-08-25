@@ -80,7 +80,7 @@ namespace TEcommerceWebApi.Controllers
                 CreatedAt = newCategory.CreatedAt
             };
 
-            return Created($"/api/v2/categories/{newCategory.CategoryId}", ApiResponse<CategoryReadDto>.SuccessResponse(responseCreateCategory, 201, "Category Created Successfully."));
+            return Created(nameof(GetCategoryById), ApiResponse<CategoryReadDto>.SuccessResponse(responseCreateCategory, 201, "Category Created Successfully."));
         }
 
 
