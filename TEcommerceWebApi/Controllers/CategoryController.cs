@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TEcommerceWebApi.DTOs;
-using TEcommerceWebApi.Models;
 using TEcommerceWebApi.Services;
 
 namespace TEcommerceWebApi.Controllers
