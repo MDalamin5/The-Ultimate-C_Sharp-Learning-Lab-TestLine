@@ -5,15 +5,29 @@ using System.Threading.Tasks;
 using TEcommerceWebApi.DTOs;
 using TEcommerceWebApi.Models;
 using TEcommerceWebApi.Interfaces;
+using TEcommerceWebApi.Profiles;
+using AutoMapper;
 
 namespace TEcommerceWebApi.Services
 {
     public class CategoryService: ICategoryService
     {
 
+        private readonly IMapper _mapper;
+
+        public CategoryService(IMapper mapper)
+        {
+            _mapper = mapper;
+        }
+
         private static readonly List<Category> categories = new List<Category>();
         public List<CategoryReadDto> GetAllCategory()
         {
+
+            return _mapper.Map<List<CategoryReadDto>>(categories);
+
+            // using without mapper.
+            /*
             return categories.Select(c => new CategoryReadDto
             {
                 CategoryId = c.CategoryId,
@@ -21,6 +35,7 @@ namespace TEcommerceWebApi.Services
                 Description = c.Description,
                 CreatedAt = c.CreatedAt
             }).ToList();
+            */
         }
 
         public CategoryReadDto? GetCategoryById(Guid categoryId)

@@ -1,12 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
 using TEcommerceWebApi.Controllers;
+using TEcommerceWebApi.Interfaces;
 using TEcommerceWebApi.Services;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 //controller services registrations
 builder.Services.AddControllers();
-builder.Services.AddSingleton<CategoryService>();
+// add the repository Pattern Services and Map the Interfaces with the Services file.
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+// add auto-mapper
+builder.Services.AddAutoMapper(typeof(Program));
 
 //Centralized api responses
 builder.Services.Configure<ApiBehaviorOptions>(options =>
