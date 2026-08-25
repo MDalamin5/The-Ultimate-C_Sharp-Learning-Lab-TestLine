@@ -49,36 +49,25 @@ namespace TEcommerceWebApi.Controllers
         [HttpPost]
         public IActionResult CreateCategory([FromBody] CategoryCreateDto categoryData)
         {
-
-            
-
             //Return Data followed by CategoryReadDto
             var responseCreateCategory = _categoryService.CreateCategory(categoryData);
 
             return Created(nameof(GetCategoryById), ApiResponse<CategoryReadDto>.SuccessResponse(responseCreateCategory, 201, "Category Created Successfully."));
         }
 
-/*
+
         // update a Category
         [HttpPut("{categoryId:guid}")]
         public IActionResult UpdateCategoryById(Guid categoryId, [FromBody] CategoryUpdateDto categoryData)
         {
-            var foundCategory = categories.FirstOrDefault(category => category.CategoryId == categoryId);
+            bool foundCategory = _categoryService.UpdateCategory(categoryId, categoryData);
 
-            if(foundCategory == null)
+            if(foundCategory == false)
                 return NotFound(ApiResponse<object>.ErrorResponse(new List<string>{"category is not found with this id."}, 400, "Validation Failed."));
-            
-            
-            //Assuming the Name is not empty and the descriptions must gater then 10 char.
-            foundCategory.Name = categoryData.Name;
-            foundCategory.Description = categoryData.Description;
-
+    
             return Ok(ApiResponse<object>.SuccessResponse(null, 204, "Category Updated successfully."));
             
-
         }
-
-
 
 
 
@@ -95,6 +84,6 @@ namespace TEcommerceWebApi.Controllers
             categories.Remove(foundCategory);
             return Ok(ApiResponse<object>.SuccessResponse(null, 204, "Category Deleted Successfully."));
         }
-        */
+    
     }
 }

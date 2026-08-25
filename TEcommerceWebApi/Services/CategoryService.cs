@@ -58,5 +58,20 @@ namespace TEcommerceWebApi.Services
                 CreatedAt = newCategory.CreatedAt
             };
         }
+
+
+        public bool UpdateCategory(Guid categoryId, CategoryUpdateDto categoryData)
+        {
+            var foundCategory = categories.FirstOrDefault(category => category.CategoryId == categoryId);
+
+            if(foundCategory == null)
+                return false;
+            
+            
+            //Assuming the Name is not empty and the descriptions must gater then 10 char.
+            foundCategory.Name = categoryData.Name;
+            foundCategory.Description = categoryData.Description;
+            return true;
+        }
     }
 }
