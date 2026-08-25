@@ -4,10 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using TEcommerceWebApi.DTOs;
 using TEcommerceWebApi.Models;
+using TEcommerceWebApi.Interfaces;
 
 namespace TEcommerceWebApi.Services
 {
-    public class CategoryService
+    public class CategoryService: ICategoryService
     {
 
         private static readonly List<Category> categories = new List<Category>();

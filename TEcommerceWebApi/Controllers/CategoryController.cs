@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TEcommerceWebApi.DTOs;
-using TEcommerceWebApi.Services;
+using TEcommerceWebApi.Interfaces;
 
 namespace TEcommerceWebApi.Controllers
 {
@@ -12,9 +12,9 @@ namespace TEcommerceWebApi.Controllers
     [Route("/api/v2/categories")]
     public class CategoryController: ControllerBase
     {
-        public CategoryService _categoryService;
+        public ICategoryService _categoryService;
         
-        public CategoryController(CategoryService categoryService)
+        public CategoryController(ICategoryService categoryService)
         {
             _categoryService = categoryService;
         }
