@@ -73,5 +73,15 @@ namespace TEcommerceWebApi.Services
             foundCategory.Description = categoryData.Description;
             return true;
         }
+
+        public bool DeleteCategoryById(Guid categoryId)
+        {
+            var foundCategory = categories.FirstOrDefault(category => category.CategoryId == categoryId);
+            if(foundCategory == null)
+                return false;
+            
+            categories.Remove(foundCategory);
+            return true;
+        }
     }
 }

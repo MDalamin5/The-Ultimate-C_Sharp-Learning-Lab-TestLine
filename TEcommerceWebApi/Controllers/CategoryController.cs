@@ -76,12 +76,10 @@ namespace TEcommerceWebApi.Controllers
         [HttpDelete("{categoryId:guid}")]
         public IActionResult DeleteCategoryById(Guid categoryId)
         {
-            var foundCategory = categories.FirstOrDefault(category => category.CategoryId == categoryId);
-            if(foundCategory == null)
-            {
-                return NotFound($"This: {categoryId} is not Exist.");
-            }
-            categories.Remove(foundCategory);
+            bool response = _categoryService.DeleteCategoryById(categoryId);
+            if(response == false)
+                return NotFound(ApiResponse<object>.ErrorResponse(new List<string>{"category is not found with this id."}, 404, "Validation Failed."));
+            
             return Ok(ApiResponse<object>.SuccessResponse(null, 204, "Category Deleted Successfully."));
         }
     
