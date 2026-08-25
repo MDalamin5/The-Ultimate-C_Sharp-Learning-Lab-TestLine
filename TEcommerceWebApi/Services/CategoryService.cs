@@ -22,7 +22,7 @@ namespace TEcommerceWebApi.Services
             }).ToList();
         }
 
-        public CategoryReadDto GetCategoryById(Guid categoryId)
+        public CategoryReadDto? GetCategoryById(Guid categoryId)
         {
             var foundCategory = categories.FirstOrDefault(category => category.CategoryId == categoryId);
             if(foundCategory == null)

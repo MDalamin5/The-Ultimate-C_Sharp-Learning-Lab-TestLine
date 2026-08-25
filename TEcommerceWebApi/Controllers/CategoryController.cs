@@ -40,7 +40,7 @@ namespace TEcommerceWebApi.Controllers
             var responseCategory = _categoryService.GetCategoryById(categoryId);
 
             if(responseCategory == null)
-                return NotFound(ApiResponse<object>.ErrorResponse(new List<string>{"Category not found with this id."}, 400, "Validation Invalid."));
+                return NotFound(ApiResponse<object>.ErrorResponse(new List<string>{"Category not found with this id."}, 404, "Validation Invalid."));
 
             return Ok(ApiResponse<CategoryReadDto>.SuccessResponse(responseCategory, 200, "Category founded."));
         }
