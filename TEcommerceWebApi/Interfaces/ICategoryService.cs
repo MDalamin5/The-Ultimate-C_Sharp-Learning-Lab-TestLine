@@ -8,10 +8,10 @@ namespace TEcommerceWebApi.Interfaces
 {
     public interface ICategoryService
     {
-        List<CategoryReadDto> GetAllCategory();
-        CategoryReadDto? GetCategoryById(Guid categoryId);
-        CategoryReadDto CreateCategory(CategoryCreateDto categoryData);
-        CategoryReadDto? UpdateCategory(Guid categoryId, CategoryUpdateDto categoryData);
-        bool DeleteCategoryById(Guid categoryId);
+        Task<List<CategoryReadDto>> GetAllCategory();
+        Task<CategoryReadDto?> GetCategoryById(Guid categoryId);
+        Task<CategoryReadDto> CreateCategory(CategoryCreateDto categoryData);
+        Task<CategoryReadDto?> UpdateCategory(Guid categoryId, CategoryUpdateDto categoryData);
+        Task<bool> DeleteCategoryById(Guid categoryId);
     }
 }

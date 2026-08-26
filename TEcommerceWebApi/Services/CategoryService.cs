@@ -7,6 +7,8 @@ using TEcommerceWebApi.Models;
 using TEcommerceWebApi.Interfaces;
 using TEcommerceWebApi.Profiles;
 using AutoMapper;
+using TEcommerceWebApi.data;
+using Microsoft.EntityFrameworkCore;
 
 namespace TEcommerceWebApi.Services
 {
@@ -14,17 +16,21 @@ namespace TEcommerceWebApi.Services
     {
 
         private readonly IMapper _mapper;
+        private readonly AppDbContext _appDbContext;
 
-        public CategoryService(IMapper mapper)
+        public CategoryService(AppDbContext appDbContext, IMapper mapper)
         {
+            _appDbContext = appDbContext;
             _mapper = mapper;
         }
 
-        private static readonly List<Category> _categories = new List<Category>();
-        public List<CategoryReadDto> GetAllCategory()
+        // private static readonly List<Category> _categories = new List<Category>();
+        public async Task<List<CategoryReadDto>> GetAllCategory()
         {
+            var categories = await _appDbContext.Categories.ToListAsync();
+            
 
-            return _mapper.Map<List<CategoryReadDto>>(_categories);
+            return _mapper.Map<List<CategoryReadDto>>(categories);
 
             // using without mapper.
             /*
@@ -38,9 +44,9 @@ namespace TEcommerceWebApi.Services
             */
         }
 
-        public CategoryReadDto? GetCategoryById(Guid categoryId)
+        public async Task<CategoryReadDto?> GetCategoryById(Guid categoryId)
         {
-            var foundCategory = _categories.FirstOrDefault(category => category.CategoryId == categoryId);
+            var foundCategory = await _appDbContext.Categories.FirstOrDefaultAsync(category => category.CategoryId == categoryId);
             if(foundCategory == null)
                 return null;
 
@@ -56,7 +62,7 @@ namespace TEcommerceWebApi.Services
             //     };
         }
 
-        public CategoryReadDto CreateCategory(CategoryCreateDto categoryData)
+        public async Task<CategoryReadDto> CreateCategory(CategoryCreateDto categoryData)
         {
             // var newCategory = new Category
             // {
@@ -70,7 +76,8 @@ namespace TEcommerceWebApi.Services
             newCategory.CategoryId = Guid.NewGuid();
             newCategory.CreatedAt = DateTime.UtcNow;
 
-            _categories.Add(newCategory);
+            await _appDbContext.Categories.AddAsync(newCategory);
+            await _appDbContext.SaveChangesAsync();
 
             //return via mapper
             return _mapper.Map<CategoryReadDto>(newCategory);
@@ -87,9 +94,9 @@ namespace TEcommerceWebApi.Services
         }
 
 
-        public CategoryReadDto? UpdateCategory(Guid categoryId, CategoryUpdateDto categoryData)
+        public async Task<CategoryReadDto?> UpdateCategory(Guid categoryId, CategoryUpdateDto categoryData)
         {
-            var foundCategory = _categories.FirstOrDefault(category => category.CategoryId == categoryId);
+            var foundCategory = await _appDbContext.Categories.FirstOrDefaultAsync(category => category.CategoryId == categoryId);
 
             if(foundCategory == null)
                 return null;
@@ -101,16 +108,22 @@ namespace TEcommerceWebApi.Services
 
             //using mapper categoryUpdateDto -> category
             _mapper.Map(categoryData, foundCategory);
+            _appDbContext.Categories.Update(foundCategory);
+            await _appDbContext.SaveChangesAsync();
+
+            
             return _mapper.Map<CategoryReadDto>(foundCategory);
         }
 
-        public bool DeleteCategoryById(Guid categoryId)
+        public async Task<bool> DeleteCategoryById(Guid categoryId)
         {
-            var foundCategory = _categories.FirstOrDefault(category => category.CategoryId == categoryId);
+            var foundCategory = await _appDbContext.Categories.FirstOrDefaultAsync(category => category.CategoryId == categoryId);
             if(foundCategory == null)
                 return false;
             
-            _categories.Remove(foundCategory);
+            _appDbContext.Categories.Remove(foundCategory);
+            await _appDbContext.SaveChangesAsync();
+
             return true;
         }
     }

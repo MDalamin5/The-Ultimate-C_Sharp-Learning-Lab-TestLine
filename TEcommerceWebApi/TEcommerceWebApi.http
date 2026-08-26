@@ -23,7 +23,7 @@ GET http://localhost:5131/api/v2/categories/0daee4f0-8d2f-4e1a-b030-d1063c02ef67
 
 
 ###
-PUT http://localhost:5131/api/v2/categories/2b6685c5-82b5-42b7-8913-1743db600f3f
+PUT http://localhost:5131/api/v2/categories/7d2112e4-1b7b-48f0-bd18-52e1753a1300
 Content-Type: application/json
 
 {
@@ -32,4 +32,4 @@ Content-Type: application/json
 }
 
 ###
-DELETE  http://localhost:5131/api/v2/categories/813b541e-c793-4847-a9e5-8b638f5bb537
+DELETE  http://localhost:5131/api/v2/categories/7d2112e4-1b7b-48f0-bd18-52e1753a1300

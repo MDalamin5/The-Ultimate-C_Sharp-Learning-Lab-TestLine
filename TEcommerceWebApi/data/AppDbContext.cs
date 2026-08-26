@@ -11,6 +11,6 @@ namespace TEcommerceWebApi.data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options): base(options){ }
 
-        public DbSet<Category> ?Categories;
+        public DbSet<Category> ?Categories {get; set;}
     }
 }
