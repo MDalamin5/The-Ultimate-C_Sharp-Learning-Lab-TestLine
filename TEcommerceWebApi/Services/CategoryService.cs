@@ -44,13 +44,16 @@ namespace TEcommerceWebApi.Services
             if(foundCategory == null)
                 return null;
 
-            return new CategoryReadDto
-                {
-                    CategoryId = foundCategory.CategoryId,
-                    Name = foundCategory.Name,
-                    Description = foundCategory.Description,
-                    CreatedAt = foundCategory.CreatedAt
-                };
+            return _mapper.Map<CategoryReadDto>(foundCategory);
+
+            // without using the Mapper.
+            // return new CategoryReadDto
+            //     {
+            //         CategoryId = foundCategory.CategoryId,
+            //         Name = foundCategory.Name,
+            //         Description = foundCategory.Description,
+            //         CreatedAt = foundCategory.CreatedAt
+            //     };
         }
 
         public CategoryReadDto CreateCategory(CategoryCreateDto categoryData)
@@ -63,6 +66,7 @@ namespace TEcommerceWebApi.Services
                 CreatedAt = DateTime.UtcNow
             };
 
+            
             categories.Add(newCategory);
 
             //Return Data followed by CategoryReadDto
