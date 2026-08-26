@@ -59,12 +59,12 @@ namespace TEcommerceWebApi.Controllers
         [HttpPut("{categoryId:guid}")]
         public IActionResult UpdateCategoryById(Guid categoryId, [FromBody] CategoryUpdateDto categoryData)
         {
-            bool foundCategory = _categoryService.UpdateCategory(categoryId, categoryData);
+            var foundCategory = _categoryService.UpdateCategory(categoryId, categoryData);
 
-            if(foundCategory == false)
+            if(foundCategory == null)
                 return NotFound(ApiResponse<object>.ErrorResponse(new List<string>{"category is not found with this id."}, 400, "Validation Failed."));
     
-            return Ok(ApiResponse<object>.SuccessResponse(null, 204, "Category Updated successfully."));
+            return Ok(ApiResponse<CategoryReadDto>.SuccessResponse(foundCategory, 204, "Category Updated successfully."));
             
         }
 

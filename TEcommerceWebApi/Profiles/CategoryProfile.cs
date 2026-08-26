@@ -14,6 +14,7 @@ namespace TEcommerceWebApi.Profiles
         {
             CreateMap<Category, CategoryReadDto>();
             CreateMap<CategoryCreateDto, CategoryReadDto>();
+            CreateMap<CategoryCreateDto, Category>();
             CreateMap<CategoryUpdateDto, Category>();
         }
     }

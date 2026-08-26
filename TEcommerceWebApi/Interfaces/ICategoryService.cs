@@ -11,7 +11,7 @@ namespace TEcommerceWebApi.Interfaces
         List<CategoryReadDto> GetAllCategory();
         CategoryReadDto? GetCategoryById(Guid categoryId);
         CategoryReadDto CreateCategory(CategoryCreateDto categoryData);
-        bool UpdateCategory(Guid categoryId, CategoryUpdateDto categoryData);
+        CategoryReadDto? UpdateCategory(Guid categoryId, CategoryUpdateDto categoryData);
         bool DeleteCategoryById(Guid categoryId);
     }
 }

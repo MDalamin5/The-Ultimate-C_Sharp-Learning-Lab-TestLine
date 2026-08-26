@@ -23,7 +23,7 @@ GET http://localhost:5131/api/v2/categories/0daee4f0-8d2f-4e1a-b030-d1063c02ef67
 
 
 ###
-PUT http://localhost:5131/api/v2/categories/99065355-6e26-44fd-81da-a49f6a7377b5
+PUT http://localhost:5131/api/v2/categories/2b6685c5-82b5-42b7-8913-1743db600f3f
 Content-Type: application/json
 
 {

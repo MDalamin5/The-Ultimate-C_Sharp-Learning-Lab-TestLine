@@ -20,11 +20,11 @@ namespace TEcommerceWebApi.Services
             _mapper = mapper;
         }
 
-        private static readonly List<Category> categories = new List<Category>();
+        private static readonly List<Category> _categories = new List<Category>();
         public List<CategoryReadDto> GetAllCategory()
         {
 
-            return _mapper.Map<List<CategoryReadDto>>(categories);
+            return _mapper.Map<List<CategoryReadDto>>(_categories);
 
             // using without mapper.
             /*
@@ -40,7 +40,7 @@ namespace TEcommerceWebApi.Services
 
         public CategoryReadDto? GetCategoryById(Guid categoryId)
         {
-            var foundCategory = categories.FirstOrDefault(category => category.CategoryId == categoryId);
+            var foundCategory = _categories.FirstOrDefault(category => category.CategoryId == categoryId);
             if(foundCategory == null)
                 return null;
 
@@ -58,49 +58,59 @@ namespace TEcommerceWebApi.Services
 
         public CategoryReadDto CreateCategory(CategoryCreateDto categoryData)
         {
-            var newCategory = new Category
-            {
-                CategoryId = Guid.NewGuid(),
-                Name = categoryData.Name,
-                Description = categoryData.Description,
-                CreatedAt = DateTime.UtcNow
-            };
+            // var newCategory = new Category
+            // {
+            //     CategoryId = Guid.NewGuid(),
+            //     Name = categoryData.Name,
+            //     Description = categoryData.Description,
+            //     CreatedAt = DateTime.UtcNow
+            // };
 
-            
-            categories.Add(newCategory);
+            var newCategory = _mapper.Map<Category>(categoryData);
+            newCategory.CategoryId = Guid.NewGuid();
+            newCategory.CreatedAt = DateTime.UtcNow;
+
+            _categories.Add(newCategory);
+
+            //return via mapper
+            return _mapper.Map<CategoryReadDto>(newCategory);
 
             //Return Data followed by CategoryReadDto
-            return new CategoryReadDto
-            {
-                CategoryId = newCategory.CategoryId,
-                Name = newCategory.Name,
-                Description = newCategory.Description,
-                CreatedAt = newCategory.CreatedAt
-            };
+            // return new CategoryReadDto
+            // {
+            //     CategoryId = newCategory.CategoryId,
+            //     Name = newCategory.Name,
+            //     Description = newCategory.Description,
+            //     CreatedAt = newCategory.CreatedAt
+            // };
+
         }
 
 
-        public bool UpdateCategory(Guid categoryId, CategoryUpdateDto categoryData)
+        public CategoryReadDto? UpdateCategory(Guid categoryId, CategoryUpdateDto categoryData)
         {
-            var foundCategory = categories.FirstOrDefault(category => category.CategoryId == categoryId);
+            var foundCategory = _categories.FirstOrDefault(category => category.CategoryId == categoryId);
 
             if(foundCategory == null)
-                return false;
+                return null;
             
             
             //Assuming the Name is not empty and the descriptions must gater then 10 char.
-            foundCategory.Name = categoryData.Name;
-            foundCategory.Description = categoryData.Description;
-            return true;
+            // foundCategory.Name = categoryData.Name;
+            // foundCategory.Description = categoryData.Description;
+
+            //using mapper categoryUpdateDto -> category
+            _mapper.Map(categoryData, foundCategory);
+            return _mapper.Map<CategoryReadDto>(foundCategory);
         }
 
         public bool DeleteCategoryById(Guid categoryId)
         {
-            var foundCategory = categories.FirstOrDefault(category => category.CategoryId == categoryId);
+            var foundCategory = _categories.FirstOrDefault(category => category.CategoryId == categoryId);
             if(foundCategory == null)
                 return false;
             
-            categories.Remove(foundCategory);
+            _categories.Remove(foundCategory);
             return true;
         }
     }
