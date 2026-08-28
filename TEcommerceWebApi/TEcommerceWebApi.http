@@ -33,3 +33,14 @@ Content-Type: application/json
 
 ###
 DELETE  http://localhost:5131/api/v2/categories/7d2112e4-1b7b-48f0-bd18-52e1753a1300
+
+
+###
+POST http://localhost:5131/api/v2/products
+Content-Type: application/json
+
+{
+    "name": "Bat",
+    "price": 8700.0,
+    "categoryid": "68af6bda-6ba9-45b6-9575-cba753ef117a"
+}
