@@ -8,7 +8,7 @@ namespace TEcommerceWebApi.Interfaces
 {
     public interface IProductService
     {
-        Task<ProductReadDto> CreateProduct(ProductCreateDto productData);
+        Task<ProductReadDto?> CreateProduct(ProductCreateDto productData);
         Task<List<ProductReadDto>> GetAllProducts();
     }
 }
