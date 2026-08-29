@@ -61,6 +61,12 @@ namespace TEcommerceWebApi.Controllers
 
             return Ok(ApiResponse<ProductReadDto>.SuccessResponse(responseProduct, 201, "Product created successfully."));
         }
+
+        [HttpGet]
+        public IActionResult GetAllProducts()
+        {
+            return Ok();
+        }
     }
 }
 
