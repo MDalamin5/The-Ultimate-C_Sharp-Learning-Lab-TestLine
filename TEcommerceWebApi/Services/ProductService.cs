@@ -7,6 +7,9 @@ using TEcommerceWebApi.data;
 using AutoMapper.Configuration.Conventions;
 using Microsoft.AspNetCore.Http.HttpResults;
 using TEcommerceWebApi.Models;
+using Microsoft.EntityFrameworkCore;
+
+
 
 namespace TEcommerceWebApi.Services
 {
@@ -49,6 +52,26 @@ namespace TEcommerceWebApi.Services
             };
 
             return responseProduct;
+        }
+
+        public async Task<List<ProductReadDto>> GetAllProducts()
+        {
+            var allProducts = await _appDbContext.Products
+            .AsNoTracking()
+            .Select(p => new ProductReadDto
+            {
+                ProductId = p.ProductId,
+                Name = p.Name,
+                Price = p.Price,
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category != null ? p.Category.Name : string.Empty
+            }).ToListAsync();
+
+            if (allProducts == null){
+                return null;
+            }
+            
+            return allProducts;
         }
     }
 }

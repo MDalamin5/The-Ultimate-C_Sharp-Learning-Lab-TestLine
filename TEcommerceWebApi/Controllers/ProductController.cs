@@ -49,17 +49,11 @@ namespace TEcommerceWebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllProducts()
         {
-            var allProducts = await _appDbContext.Products
-            .AsNoTracking()
-            .Select(p => new ProductReadDto
-            {
-                ProductId = p.ProductId,
-                Name = p.Name,
-                Price = p.Price,
-                CategoryId = p.CategoryId,
-                CategoryName = p.Category != null ? p.Category.Name : string.Empty
-            }).ToListAsync();
+            var allProducts = await _productService.GetAllProducts();
             
+            if (allProducts == null)
+                return Ok(ApiResponse<object>.SuccessResponse(default, 200, "No product founded"));
+                
             return Ok(ApiResponse<List<ProductReadDto>>.SuccessResponse(allProducts, 200, "All Product are return."));
         }
     }
