@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TEcommerceWebApi.data;
 using TEcommerceWebApi.DTOs;
 using TEcommerceWebApi.Models;
@@ -63,9 +64,20 @@ namespace TEcommerceWebApi.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetAllProducts()
+        public async Task<IActionResult> GetAllProducts()
         {
-            return Ok();
+            var allProducts = await _appDbContext.Products
+            .AsNoTracking()
+            .Select(p => new ProductReadDto
+            {
+                ProductId = p.ProductId,
+                Name = p.Name,
+                Price = p.Price,
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category != null ? p.Category.Name : string.Empty
+            }).ToListAsync();
+            
+            return Ok(ApiResponse<List<ProductReadDto>>.SuccessResponse(allProducts, 200, "All Product are return."));
         }
     }
 }

@@ -44,3 +44,6 @@ Content-Type: application/json
     "price": 8700.0,
     "categoryid": "68af6bda-6ba9-45b6-9575-cba753ef117a"
 }
+
+###
+GET  http://localhost:5131/api/v2/products
