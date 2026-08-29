@@ -8,32 +8,28 @@ using TEcommerceWebApi.data;
 using TEcommerceWebApi.DTOs;
 using TEcommerceWebApi.Models;
 using TEcommerceWebApi.Services;
+using TEcommerceWebApi.Interfaces;
 
 namespace TEcommerceWebApi.Controllers
 {
     [ApiController]
     [Route("/api/v2/products")]
-    public class ProductController: ControllerBase
+    public class ProductController : ControllerBase
     {
+        private readonly IProductService _productService;
 
-        private readonly AppDbContext _appDbContext;
-        private readonly ProductService _productService;
-
-        public ProductController(ProductService productService, AppDbContext appDbContext)
+        // ✅ Injected Interface
+        public ProductController(IProductService productService)
         {
             _productService = productService;
-            _appDbContext = appDbContext;
         }
 
-        
-
-        // Create a Product
-
         [HttpPost]
-        public async Task<IActionResult> CreateProduct(ProductCreateDto productData)
+        public async Task<ActionResult<ApiResponse<ProductReadDto>>> CreateProduct([FromBody] ProductCreateDto productData)
         {
-            var category = await _productService.CreateProduct(productData);
-            if (category == null)
+            var createdProduct = await _productService.CreateProduct(productData);
+
+            if (createdProduct == null)
             {
                 return NotFound(ApiResponse<object>.ErrorResponse(
                     new List<string> { $"Category with ID '{productData.CategoryId}' does not exist." }, 
@@ -42,19 +38,14 @@ namespace TEcommerceWebApi.Controllers
                 ));
             }
 
-
-            return Ok(ApiResponse<ProductReadDto>.SuccessResponse(category, 201, "Product created successfully."));
+            return StatusCode(201, ApiResponse<ProductReadDto>.SuccessResponse(createdProduct, 201, "Product created successfully."));
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllProducts()
+        public async Task<ActionResult<ApiResponse<List<ProductReadDto>>>> GetAllProducts()
         {
             var allProducts = await _productService.GetAllProducts();
-            
-            if (allProducts == null)
-                return Ok(ApiResponse<object>.SuccessResponse(default, 200, "No product founded"));
-                
-            return Ok(ApiResponse<List<ProductReadDto>>.SuccessResponse(allProducts, 200, "All Product are return."));
+            return Ok(ApiResponse<List<ProductReadDto>>.SuccessResponse(allProducts, 200, "All Products returned successfully."));
         }
     }
 }

@@ -11,7 +11,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 // add the repository Pattern Services and Map the Interfaces with the Services file.
 builder.Services.AddScoped<ICategoryService, CategoryService>();
-builder.Services.AddScoped<ProductService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 // add auto-mapper
 builder.Services.AddAutoMapper(typeof(Program));
 

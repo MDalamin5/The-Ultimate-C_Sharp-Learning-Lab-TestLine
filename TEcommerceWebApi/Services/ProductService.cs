@@ -8,12 +8,13 @@ using AutoMapper.Configuration.Conventions;
 using Microsoft.AspNetCore.Http.HttpResults;
 using TEcommerceWebApi.Models;
 using Microsoft.EntityFrameworkCore;
+using TEcommerceWebApi.Interfaces;
 
 
 
 namespace TEcommerceWebApi.Services
 {
-    public class ProductService
+    public class ProductService: IProductService
     {
         private readonly AppDbContext _appDbContext;
 
