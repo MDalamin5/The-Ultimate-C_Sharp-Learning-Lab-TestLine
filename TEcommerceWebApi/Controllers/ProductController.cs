@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using TEcommerceWebApi.data;
 using TEcommerceWebApi.DTOs;
 using TEcommerceWebApi.Models;
+using TEcommerceWebApi.Services;
 
 namespace TEcommerceWebApi.Controllers
 {
@@ -16,9 +17,11 @@ namespace TEcommerceWebApi.Controllers
     {
 
         private readonly AppDbContext _appDbContext;
+        private readonly ProductService _productService;
 
-        public ProductController(AppDbContext appDbContext)
+        public ProductController(ProductService productService, AppDbContext appDbContext)
         {
+            _productService = productService;
             _appDbContext = appDbContext;
         }
 
@@ -29,8 +32,7 @@ namespace TEcommerceWebApi.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProduct(ProductCreateDto productData)
         {
-            var category = await _appDbContext.Categories.FindAsync(productData.CategoryId);
-            
+            var category = await _productService.CreateProduct(productData);
             if (category == null)
             {
                 return NotFound(ApiResponse<object>.ErrorResponse(
@@ -40,27 +42,8 @@ namespace TEcommerceWebApi.Controllers
                 ));
             }
 
-            var newProduct = new Product
-            {
-                ProductId = Guid.NewGuid(),
-                Name = productData.Name,
-                Price = productData.Price,
-                CategoryId = productData.CategoryId
-            };
 
-            await _appDbContext.Products.AddAsync(newProduct);
-            await _appDbContext.SaveChangesAsync();
-
-            var responseProduct = new ProductReadDto
-            {
-                ProductId = newProduct.ProductId,
-                Name = newProduct.Name,
-                Price = newProduct.Price,
-                CategoryId = newProduct.CategoryId,
-                CategoryName = category.Name
-            };
-
-            return Ok(ApiResponse<ProductReadDto>.SuccessResponse(responseProduct, 201, "Product created successfully."));
+            return Ok(ApiResponse<ProductReadDto>.SuccessResponse(category, 201, "Product created successfully."));
         }
 
         [HttpGet]
