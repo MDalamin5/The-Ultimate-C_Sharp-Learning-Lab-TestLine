@@ -40,8 +40,8 @@ POST http://localhost:5131/api/v2/products
 Content-Type: application/json
 
 {
-    "name": "Gloves",
-    "price": 700.0,
+    "name": "Stamp",
+    "price": 150.0,
     "categoryid": "68af6bda-6ba9-45b6-9575-cba753ef117a"
 }
 
