@@ -47,3 +47,13 @@ Content-Type: application/json
 
 ###
 GET  http://localhost:5131/api/v2/products
+
+###
+POST http://localhost:5131/api/v2/products
+Content-Type: application/json
+
+{
+    "name": "Tennis Wristband",
+    "price": 350.0,
+    "categoryid": "16e09039-3ef3-415e-852c-eaa628ac20a6"
+}
