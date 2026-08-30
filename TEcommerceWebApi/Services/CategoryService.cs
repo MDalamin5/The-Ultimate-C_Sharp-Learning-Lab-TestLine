@@ -9,6 +9,7 @@ using TEcommerceWebApi.Profiles;
 using AutoMapper;
 using TEcommerceWebApi.data;
 using Microsoft.EntityFrameworkCore;
+using TEcommerceWebApi.Controllers;
 
 namespace TEcommerceWebApi.Services
 {
@@ -25,12 +26,16 @@ namespace TEcommerceWebApi.Services
         }
 
         // private static readonly List<Category> _categories = new List<Category>();
-        public async Task<List<CategoryReadDto>> GetAllCategory()
+        public async Task<PaginatedResult<CategoryReadDto>> GetAllCategory(int pageNumber, int pageSize)
         {
-            var categories = await _appDbContext.Categories.ToListAsync();
+            IQueryable<Category> ?query = _appDbContext.Categories;
+            
+            var totalCategory = await query.CountAsync();
+
+            var Items = await query.Skip((pageNumber - 1)*pageSize).Take(pageSize).ToListAsync();
             
 
-            return _mapper.Map<List<CategoryReadDto>>(categories);
+            var result = _mapper.Map<List<CategoryReadDto>>(Items);
 
             // using without mapper.
             /*
@@ -42,6 +47,14 @@ namespace TEcommerceWebApi.Services
                 CreatedAt = c.CreatedAt
             }).ToList();
             */
+            return new PaginatedResult<CategoryReadDto>
+            {
+                Items = result,
+                TotalCount = totalCategory,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+
         }
 
         public async Task<CategoryReadDto?> GetCategoryById(Guid categoryId)

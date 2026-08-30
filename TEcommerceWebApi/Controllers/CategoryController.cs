@@ -22,12 +22,12 @@ namespace TEcommerceWebApi.Controllers
 
         // Read all categories
         [HttpGet]
-        public async Task<IActionResult> GetCategories([FromQuery] string searchVale = "")
+        public async Task<IActionResult> GetCategories([FromQuery] int PageNumber = 1, [FromQuery] int PageSize=6)
         {
             // Data Binding With Read Dto
-            var responseCategory = await _categoryService.GetAllCategory();
+            var responseCategory = await _categoryService.GetAllCategory(PageNumber, PageSize);
 
-            return Ok(ApiResponse<List<CategoryReadDto>>.SuccessResponse(responseCategory, 200, "Category Returned Successfully."));
+            return Ok(ApiResponse<PaginatedResult<CategoryReadDto>>.SuccessResponse(responseCategory, 200, "Category Returned Successfully."));
         }
 
         //Read a category byId

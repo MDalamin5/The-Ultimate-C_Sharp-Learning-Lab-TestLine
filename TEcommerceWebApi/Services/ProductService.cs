@@ -1,5 +1,7 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
+using TEcommerceWebApi.Controllers;
 using TEcommerceWebApi.data;
 using TEcommerceWebApi.DTOs;
 using TEcommerceWebApi.Interfaces;
@@ -43,20 +45,41 @@ namespace TEcommerceWebApi.Services
             return responseDto;
         }
 
-        public async Task<List<ProductReadDto>> GetAllProducts()
+        public async Task<PaginatedResult<ProductReadDto>> GetAllProducts(int pageNumber, int pageSize)
         {
+            IQueryable<Product>? query = _appDbContext.Products.AsNoTracking().Include(p => p.Category).AsQueryable();
+
+            var totalCount = await query.CountAsync();
+
+            var items = await query
+            .Skip((pageNumber -1) * pageSize).Take(pageSize)
+            .Select(p => new ProductReadDto
+            {
+                ProductId = p.ProductId,
+                Name = p.Name,
+                Price = p.Price,
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category != null ? p.Category.Name : string.Empty
+            }).ToListAsync();
+
+            return new PaginatedResult<ProductReadDto>{
+                Items = items,
+                TotalCount = totalCount,
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
             // Direct projection using Select: Generates optimal SQL INNER JOIN
-            return await _appDbContext.Products
-                .AsNoTracking()
-                .Select(p => new ProductReadDto
-                {
-                    ProductId = p.ProductId,
-                    Name = p.Name,
-                    Price = p.Price,
-                    CategoryId = p.CategoryId,
-                    CategoryName = p.Category != null ? p.Category.Name : string.Empty
-                })
-                .ToListAsync();
+            // return await _appDbContext.Products
+            //     .AsNoTracking()
+            //     .Select(p => new ProductReadDto
+            //     {
+            //         ProductId = p.ProductId,
+            //         Name = p.Name,
+            //         Price = p.Price,
+            //         CategoryId = p.CategoryId,
+            //         CategoryName = p.Category != null ? p.Category.Name : string.Empty
+            //     })
+            //     .ToListAsync();
         }
     }
 }

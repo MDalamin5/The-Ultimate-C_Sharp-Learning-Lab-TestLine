@@ -42,10 +42,10 @@ namespace TEcommerceWebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<ApiResponse<List<ProductReadDto>>>> GetAllProducts()
+        public async Task<IActionResult> GetAllProducts([FromQuery] int pageNumber=1, [FromQuery] int pageSize=4)
         {
-            var allProducts = await _productService.GetAllProducts();
-            return Ok(ApiResponse<List<ProductReadDto>>.SuccessResponse(allProducts, 200, "All Products returned successfully."));
+            var allProducts = await _productService.GetAllProducts(pageNumber, pageSize);
+            return Ok(ApiResponse<PaginatedResult<ProductReadDto>>.SuccessResponse(allProducts, 200, "All Products returned successfully."));
         }
     }
 }
