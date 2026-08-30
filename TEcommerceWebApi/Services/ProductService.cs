@@ -45,9 +45,19 @@ namespace TEcommerceWebApi.Services
             return responseDto;
         }
 
-        public async Task<PaginatedResult<ProductReadDto>> GetAllProducts(int pageNumber, int pageSize)
+        public async Task<PaginatedResult<ProductReadDto>> GetAllProducts(int pageNumber, int pageSize, string ? searchValue  = null)
         {
             IQueryable<Product>? query = _appDbContext.Products.AsNoTracking().Include(p => p.Category).AsQueryable();
+
+            // Searching Performing
+            if (!string.IsNullOrWhiteSpace(searchValue))
+            {
+               
+                var formattedSearch = $"%{searchValue.Trim()}%";
+
+                query = query.Where(p => EF.Functions.ILike(p.Name, formattedSearch) || EF.Functions.ILike(p.Category.Name, formattedSearch));
+            
+            }
 
             var totalCount = await query.CountAsync();
 
