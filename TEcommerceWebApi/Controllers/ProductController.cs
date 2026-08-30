@@ -18,7 +18,7 @@ namespace TEcommerceWebApi.Controllers
     {
         private readonly IProductService _productService;
 
-        // ✅ Injected Interface
+        // Injected Interface
         public ProductController(IProductService productService)
         {
             _productService = productService;

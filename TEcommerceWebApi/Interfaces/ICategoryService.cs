@@ -9,7 +9,7 @@ namespace TEcommerceWebApi.Interfaces
 {
     public interface ICategoryService
     {
-        Task<PaginatedResult<CategoryReadDto>> GetAllCategory(int PageNumber, int PageSize);
+        Task<PaginatedResult<CategoryReadDto>> GetAllCategory(int PageNumber, int PageSize, string ?SearchValue = null);
         Task<CategoryReadDto?> GetCategoryById(Guid categoryId);
         Task<CategoryReadDto> CreateCategory(CategoryCreateDto categoryData);
         Task<CategoryReadDto?> UpdateCategory(Guid categoryId, CategoryUpdateDto categoryData);

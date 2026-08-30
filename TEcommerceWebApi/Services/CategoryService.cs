@@ -26,11 +26,19 @@ namespace TEcommerceWebApi.Services
         }
 
         // private static readonly List<Category> _categories = new List<Category>();
-        public async Task<PaginatedResult<CategoryReadDto>> GetAllCategory(int pageNumber, int pageSize)
+        public async Task<PaginatedResult<CategoryReadDto>> GetAllCategory(int pageNumber, int pageSize, string ?searchValue = null)
         {
             IQueryable<Category> ?query = _appDbContext.Categories;
             
             var totalCategory = await query.CountAsync();
+
+            // Searching Performing
+            if (!string.IsNullOrWhiteSpace(searchValue))
+            {
+                var formattedSearch = $"%{searchValue.Trim()}%";
+
+                query = query.Where(c => EF.Functions.ILike(c.Name, formattedSearch) || EF.Functions.ILike(c.Description, formattedSearch));
+            }
 
             var Items = await query.Skip((pageNumber - 1)*pageSize).Take(pageSize).ToListAsync();
             
