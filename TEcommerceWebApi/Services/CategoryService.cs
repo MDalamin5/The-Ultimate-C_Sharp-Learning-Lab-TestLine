@@ -10,6 +10,7 @@ using AutoMapper;
 using TEcommerceWebApi.data;
 using Microsoft.EntityFrameworkCore;
 using TEcommerceWebApi.Controllers;
+using TEcommerceWebApi.Enums;
 
 namespace TEcommerceWebApi.Services
 {
@@ -41,21 +42,24 @@ namespace TEcommerceWebApi.Services
             }
 
             //Sorting
-            if (!string.IsNullOrWhiteSpace(sortOrder))
+            if (!string.IsNullOrWhiteSpace(sortOrder.Trim()))
             {
-                switch (sortOrder.ToLower())
+                var formattedSortOrder = sortOrder.Trim().ToLower();
+                if(Enum.TryParse<SortOrder>(formattedSortOrder, true, out var parsedSortOrder))
+                
+                switch (parsedSortOrder)
                 {
-                    case "name_asc":
+                    case SortOrder.NameAsc:
                         query = query.OrderBy(c => c.Name);
                         break;
                     
-                    case "name_desc":
+                    case SortOrder.NameDesc:
                         query = query.OrderByDescending(c => c.Name);
                         break;
-                    case "createdat_asc":
+                    case SortOrder.CreatedAtAsc:
                         query = query.OrderBy(c => c.CreatedAt);
                         break;
-                    case "createdat_desc":
+                    case SortOrder.CreatedAtDesc:
                         query = query.OrderByDescending(c => c.CreatedAt);
                         break;
                     
@@ -64,6 +68,8 @@ namespace TEcommerceWebApi.Services
                         break;
                 }
             }
+            else
+                query = query.OrderByDescending(c => c.Name);
 
             var totalCategory = await query.CountAsync();
             var Items = await query.Skip((pageNumber - 1)*pageSize).Take(pageSize).ToListAsync();
