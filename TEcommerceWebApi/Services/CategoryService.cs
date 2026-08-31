@@ -26,11 +26,11 @@ namespace TEcommerceWebApi.Services
         }
 
         // private static readonly List<Category> _categories = new List<Category>();
-        public async Task<PaginatedResult<CategoryReadDto>> GetAllCategory(int pageNumber, int pageSize, string ?searchValue = null)
+        public async Task<PaginatedResult<CategoryReadDto>> GetAllCategory(int pageNumber, int pageSize, string ?searchValue = null, string? sortOrder = null)
         {
             IQueryable<Category> ?query = _appDbContext.Categories;
             
-            var totalCategory = await query.CountAsync();
+            
 
             // Searching Performing
             if (!string.IsNullOrWhiteSpace(searchValue))
@@ -40,6 +40,32 @@ namespace TEcommerceWebApi.Services
                 query = query.Where(c => EF.Functions.ILike(c.Name, formattedSearch) || EF.Functions.ILike(c.Description, formattedSearch));
             }
 
+            //Sorting
+            if (!string.IsNullOrWhiteSpace(sortOrder))
+            {
+                switch (sortOrder.ToLower())
+                {
+                    case "name_asc":
+                        query = query.OrderBy(c => c.Name);
+                        break;
+                    
+                    case "name_desc":
+                        query = query.OrderByDescending(c => c.Name);
+                        break;
+                    case "createdat_asc":
+                        query = query.OrderBy(c => c.CreatedAt);
+                        break;
+                    case "createdat_desc":
+                        query = query.OrderByDescending(c => c.CreatedAt);
+                        break;
+                    
+                    default:
+                        query = query.OrderBy(c => c.Name);
+                        break;
+                }
+            }
+
+            var totalCategory = await query.CountAsync();
             var Items = await query.Skip((pageNumber - 1)*pageSize).Take(pageSize).ToListAsync();
             
 
