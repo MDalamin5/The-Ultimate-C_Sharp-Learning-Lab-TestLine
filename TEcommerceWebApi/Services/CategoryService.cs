@@ -11,6 +11,7 @@ using TEcommerceWebApi.data;
 using Microsoft.EntityFrameworkCore;
 using TEcommerceWebApi.Controllers;
 using TEcommerceWebApi.Enums;
+using TEcommerceWebApi.Helpers;
 
 namespace TEcommerceWebApi.Services
 {
@@ -27,24 +28,24 @@ namespace TEcommerceWebApi.Services
         }
 
         // private static readonly List<Category> _categories = new List<Category>();
-        public async Task<PaginatedResult<CategoryReadDto>> GetAllCategory(int pageNumber, int pageSize, string ?searchValue = null, string? sortOrder = null)
+        public async Task<PaginatedResult<CategoryReadDto>> GetAllCategory(QueryParameters queryParameter)
         {
             IQueryable<Category> ?query = _appDbContext.Categories;
             
             
 
             // Searching Performing
-            if (!string.IsNullOrWhiteSpace(searchValue))
+            if (!string.IsNullOrWhiteSpace(queryParameter.SearchValue))
             {
-                var formattedSearch = $"%{searchValue.Trim()}%";
+                var formattedSearch = $"%{queryParameter.SearchValue.Trim()}%";
 
                 query = query.Where(c => EF.Functions.ILike(c.Name, formattedSearch) || EF.Functions.ILike(c.Description, formattedSearch));
             }
 
             //Sorting
-            if (!string.IsNullOrWhiteSpace(sortOrder.Trim()))
+            if (!string.IsNullOrWhiteSpace(queryParameter.SortOrder))
             {
-                var formattedSortOrder = sortOrder.Trim().ToLower();
+                var formattedSortOrder = queryParameter.SortOrder.Trim().ToLower();
                 if(Enum.TryParse<SortOrder>(formattedSortOrder, true, out var parsedSortOrder))
                 
                 switch (parsedSortOrder)
@@ -72,7 +73,7 @@ namespace TEcommerceWebApi.Services
                 query = query.OrderByDescending(c => c.Name);
 
             var totalCategory = await query.CountAsync();
-            var Items = await query.Skip((pageNumber - 1)*pageSize).Take(pageSize).ToListAsync();
+            var Items = await query.Skip((queryParameter.PageNumber - 1)*queryParameter.PageSize).Take(queryParameter.PageSize).ToListAsync();
             
 
             var result = _mapper.Map<List<CategoryReadDto>>(Items);
@@ -91,8 +92,8 @@ namespace TEcommerceWebApi.Services
             {
                 Items = result,
                 TotalCount = totalCategory,
-                PageNumber = pageNumber,
-                PageSize = pageSize
+                PageNumber = queryParameter.PageNumber,
+                PageSize = queryParameter.PageSize
             };
 
         }

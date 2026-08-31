@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using TEcommerceWebApi.DTOs;
+using TEcommerceWebApi.Helpers;
 using TEcommerceWebApi.Interfaces;
 
 namespace TEcommerceWebApi.Controllers
@@ -22,10 +23,11 @@ namespace TEcommerceWebApi.Controllers
 
         // Read all categories
         [HttpGet]
-        public async Task<IActionResult> GetCategories([FromQuery] int PageNumber = 1, [FromQuery] int PageSize=6, [FromQuery] string ?SearchValue = null, [FromQuery] string? SortOrder = null)
+        public async Task<IActionResult> GetCategories([FromQuery] QueryParameters queryParameter)
         {
+            queryParameter.Validate();
             // Data Binding With Read Dto
-            var responseCategory = await _categoryService.GetAllCategory(PageNumber, PageSize, SearchValue, SortOrder);
+            var responseCategory = await _categoryService.GetAllCategory(queryParameter);
 
             return Ok(ApiResponse<PaginatedResult<CategoryReadDto>>.SuccessResponse(responseCategory, 200, "Category Returned Successfully."));
         }
