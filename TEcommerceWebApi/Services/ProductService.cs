@@ -59,7 +59,13 @@ namespace TEcommerceWebApi.Services
             
             }
             // start to implement the product sorting
-            
+            var sortOder = "name_asc";
+            switch (sortOder)
+            {
+                case "name_asc":
+                    query = query.OrderBy(p => p.Name);
+                    break;
+            }
 
             var totalCount = await query.CountAsync();
 
