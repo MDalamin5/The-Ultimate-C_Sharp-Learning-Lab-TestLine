@@ -58,6 +58,8 @@ namespace TEcommerceWebApi.Services
                 query = query.Where(p => EF.Functions.ILike(p.Name, formattedSearch) || EF.Functions.ILike(p.Category.Name, formattedSearch));
             
             }
+            // start to implement the product sorting
+            
 
             var totalCount = await query.CountAsync();
 
