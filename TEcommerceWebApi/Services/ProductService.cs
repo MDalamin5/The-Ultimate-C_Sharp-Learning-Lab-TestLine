@@ -7,6 +7,7 @@ using TEcommerceWebApi.DTOs;
 using TEcommerceWebApi.Helpers;
 using TEcommerceWebApi.Interfaces;
 using TEcommerceWebApi.Models;
+using TEcommerceWebApi.Enums;
 
 namespace TEcommerceWebApi.Services
 {
@@ -60,12 +61,39 @@ namespace TEcommerceWebApi.Services
             
             }
             // start to implement the product sorting
-            var sortOder = "name_asc";
-            switch (sortOder)
+            if (!string.IsNullOrWhiteSpace(queryParameter.SortOrder))
             {
-                case "name_asc":
+                var formattedSortOrder = queryParameter.SortOrder.Trim();
+
+                // 1. Parse into enum variable 'parsedSortOrder'
+                if (Enum.TryParse<SortOrder>(formattedSortOrder, true, out var parsedSortOrder))
+                {
+                    // 2. Switch on the parsed enum 👇
+                    switch (parsedSortOrder)
+                    {
+                        case SortOrder.NameAsc:
+                            query = query.OrderBy(p => p.Name);
+                            break;
+
+                        case SortOrder.NameDesc:
+                            query = query.OrderByDescending(p => p.Name);
+                            break;
+
+                        default:
+                            query = query.OrderBy(p => p.Name);
+                            break;
+                    }
+                }
+                else
+                {
+                    // If user sends invalid text like ?sortOrder=invalidText
                     query = query.OrderBy(p => p.Name);
-                    break;
+                }
+            }
+            else
+            {
+                // Default sorting if queryParameter.SortOrder is null
+                query = query.OrderBy(p => p.Name);
             }
 
             var totalCount = await query.CountAsync();
