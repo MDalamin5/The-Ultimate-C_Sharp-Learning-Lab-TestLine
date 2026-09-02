@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using TEcommerceWebApi.Controllers;
 using TEcommerceWebApi.data;
 using TEcommerceWebApi.DTOs;
+using TEcommerceWebApi.Helpers;
 using TEcommerceWebApi.Interfaces;
 using TEcommerceWebApi.Models;
 
@@ -45,15 +46,15 @@ namespace TEcommerceWebApi.Services
             return responseDto;
         }
 
-        public async Task<PaginatedResult<ProductReadDto>> GetAllProducts(int pageNumber, int pageSize, string ? searchValue  = null)
+        public async Task<PaginatedResult<ProductReadDto>> GetAllProducts(QueryParameters queryParameter)
         {
             IQueryable<Product>? query = _appDbContext.Products.AsNoTracking().Include(p => p.Category).AsQueryable();
 
             // Searching Performing
-            if (!string.IsNullOrWhiteSpace(searchValue))
+            if (!string.IsNullOrWhiteSpace(queryParameter.SearchValue))
             {
                
-                var formattedSearch = $"%{searchValue.Trim()}%";
+                var formattedSearch = $"%{queryParameter.SearchValue.Trim()}%";
 
                 query = query.Where(p => EF.Functions.ILike(p.Name, formattedSearch) || EF.Functions.ILike(p.Category.Name, formattedSearch));
             
@@ -70,7 +71,7 @@ namespace TEcommerceWebApi.Services
             var totalCount = await query.CountAsync();
 
             var items = await query
-            .Skip((pageNumber -1) * pageSize).Take(pageSize)
+            .Skip((queryParameter.PageNumber -1) * queryParameter.PageSize).Take(queryParameter.PageSize)
             .Select(p => new ProductReadDto
             {
                 ProductId = p.ProductId,
@@ -83,8 +84,8 @@ namespace TEcommerceWebApi.Services
             return new PaginatedResult<ProductReadDto>{
                 Items = items,
                 TotalCount = totalCount,
-                PageNumber = pageNumber,
-                PageSize = pageSize
+                PageNumber = queryParameter.PageNumber,
+                PageSize = queryParameter.PageSize
             };
             // Direct projection using Select: Generates optimal SQL INNER JOIN
             // return await _appDbContext.Products

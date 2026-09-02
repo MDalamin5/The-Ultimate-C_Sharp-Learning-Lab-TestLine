@@ -9,6 +9,7 @@ using TEcommerceWebApi.DTOs;
 using TEcommerceWebApi.Models;
 using TEcommerceWebApi.Services;
 using TEcommerceWebApi.Interfaces;
+using TEcommerceWebApi.Helpers;
 
 namespace TEcommerceWebApi.Controllers
 {
@@ -42,9 +43,9 @@ namespace TEcommerceWebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetAllProducts([FromQuery] int pageNumber=1, [FromQuery] int pageSize=4, string ?searchValue = null)
+        public async Task<IActionResult> GetAllProducts([FromQuery] QueryParameters queryParameters)
         {
-            var allProducts = await _productService.GetAllProducts(pageNumber, pageSize, searchValue);
+            var allProducts = await _productService.GetAllProducts(queryParameters);
             return Ok(ApiResponse<PaginatedResult<ProductReadDto>>.SuccessResponse(allProducts, 200, "All Products returned successfully."));
         }
     }
