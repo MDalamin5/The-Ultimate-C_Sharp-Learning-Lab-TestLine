@@ -22,3 +22,8 @@ namespace TEcommerceWebApi.Models
         public decimal UnitPrice { get; set; }
     }
 }
+
+/*
+💡 Senior Developer Note — Why is UnitPrice stored inside OrderItem?
+A product’s price in the Products table might change from $100 to $150 next month. If you only read the price from the Products table, all your past receipts and accounting history would change! OrderItem.UnitPrice takes a snapshot of what the customer actually paid at the moment they bought it.
+*/
