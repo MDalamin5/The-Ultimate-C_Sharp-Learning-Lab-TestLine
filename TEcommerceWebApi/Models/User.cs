@@ -13,6 +13,6 @@ namespace TEcommerceWebApi.Models
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         //navigate to order table
-        
+        public ICollection<Order> Orders {get; set;} = new List<Order>();
     }
 }

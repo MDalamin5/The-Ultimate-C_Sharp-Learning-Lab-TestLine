@@ -19,5 +19,8 @@ namespace TEcommerceWebApi.Models
         public decimal TotalAmount { get; set; }
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
 
+        // 1 order have many product
+        public ICollection<OrderItem> OrderItems {get; set;} = new List<OrderItem>();
+
     }
 }
