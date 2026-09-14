@@ -55,9 +55,22 @@ namespace TEcommerceWebApi.Services
                 .ToListAsync();
         }
 
-        public async <List<CustomerSpendingDto>> GetCustomerSpendingSummaryAsync(decimal minSpent = 0)
+        public async Task<List<CustomerSpendingDto>> GetCustomerSpendingSummaryAsync(decimal minSpent = 0)
         {
-            
+            return await _appDbContext.Users
+                .AsNoTracking()
+                .Select(u => new CustomerSpendingDto
+                {
+                    UserId = u.UserId,
+                    CustomerName = u.FullName,
+                    Email = u.Email,
+                    TotalOrdersPlaced = u.Orders.Count(),
+                    TotalAmountSpent = u.Orders.Any() ? u.Orders.Sum(o => o.TotalAmount) : 0,
+                    LastOrderDate = u.Orders.Max(o => (DateTime?)o.OrderDate)
+                })
+                .Where(x => x.TotalAmountSpent >= minSpent)
+                .OrderByDescending(x => x.TotalAmountSpent)
+                .ToListAsync();
         }
     }
 }
