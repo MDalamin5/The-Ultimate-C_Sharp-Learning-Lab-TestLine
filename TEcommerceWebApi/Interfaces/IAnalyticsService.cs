@@ -8,5 +8,6 @@ namespace TEcommerceWebApi.Interfaces
     {
         Task<List<CategorySummaryDto>> GetCategorySummariesAsync();
         Task<List<TopSellingProductDto>> GetTopSellingProductsAsync(int topCount = 5);
+        Task<List<CustomerSpendingDto>> GetCustomerSpendingSummaryAsync(decimal minSpent = 0);
     }
 }

@@ -54,5 +54,10 @@ namespace TEcommerceWebApi.Services
                 .Take(topCount)
                 .ToListAsync();
         }
+
+        public async <List<CustomerSpendingDto>> GetCustomerSpendingSummaryAsync(decimal minSpent = 0)
+        {
+            
+        }
     }
 }
