@@ -13,6 +13,9 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
+
+builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 // add auto-mapper
 builder.Services.AddAutoMapper(typeof(Program));
 
