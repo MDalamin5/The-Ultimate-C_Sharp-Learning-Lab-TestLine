@@ -16,6 +16,7 @@ builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
 
 builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IUserService, UserService>();
 // add auto-mapper
 builder.Services.AddAutoMapper(typeof(Program));
 
