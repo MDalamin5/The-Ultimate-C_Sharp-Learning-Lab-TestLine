@@ -128,5 +128,62 @@ namespace TEcommerceWebApi.Services
             //     })
             //     .ToListAsync();
         }
+
+        public async Task<ProductReadDto?> GetProductByIdAsync(Guid productId)
+        {
+            return await _appDbContext.Products
+                .AsNoTracking()
+                .Where(p => p.ProductId == productId)
+                .Select(p => new ProductReadDto
+                {
+                    ProductId = p.ProductId,
+                    Name = p.Name,
+                    Price = p.Price,
+                    StockQuantity = p.StockQuantity,
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category != null ? p.Category.Name : string.Empty
+                })
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<ProductReadDto?> UpdateProductAsync(Guid productId, ProductUpdateDto updateData)
+        {
+            // 1. Find product to update
+            var product = await _appDbContext.Products.FindAsync(productId);
+            if (product == null) return null;
+
+            // 2. Verify the new category exists
+            var category = await _appDbContext.Categories.FindAsync(updateData.CategoryId);
+            if (category == null) return null;
+
+            // 3. Update entity fields
+            product.Name = updateData.Name;
+            product.Price = updateData.Price;
+            product.StockQuantity = updateData.StockQuantity;
+            product.CategoryId = updateData.CategoryId;
+
+            await _appDbContext.SaveChangesAsync();
+
+            return new ProductReadDto
+            {
+                ProductId = product.ProductId,
+                Name = product.Name,
+                Price = product.Price,
+                StockQuantity = product.StockQuantity,
+                CategoryId = product.CategoryId,
+                CategoryName = category.Name
+            };
+        }
+
+        public async Task<bool> DeleteProductAsync(Guid productId)
+        {
+            var product = await _appDbContext.Products.FindAsync(productId);
+            if (product == null) return false;
+
+            // EF Core / PostgreSQL Restrict rule will throw exception if OrderItems exist
+            _appDbContext.Products.Remove(product);
+            await _appDbContext.SaveChangesAsync();
+            return true;
+        }
     }
 }
