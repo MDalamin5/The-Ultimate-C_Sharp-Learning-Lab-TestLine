@@ -48,6 +48,57 @@ namespace TEcommerceWebApi.Controllers
             var allProducts = await _productService.GetAllProducts(queryParameters);
             return Ok(ApiResponse<PaginatedResult<ProductReadDto>>.SuccessResponse(allProducts, 200, "All Products returned successfully."));
         }
+
+        //get product by ID
+        [HttpGet("{productId:guid}")]
+        public async Task<ActionResult<ApiResponse<ProductReadDto>>> GetProductById(Guid productId)
+        {
+            var product = await _productService.GetProductByIdAsync(productId);
+            if (product == null)
+            {
+                return NotFound(ApiResponse<object>.ErrorResponse(
+                    new List<string> { $"Product with ID '{productId}' was not found." },
+                    404,
+                    "Product Not Found."
+                ));
+            }
+
+            return Ok(ApiResponse<ProductReadDto>.SuccessResponse(product, 200, "Product found."));
+        }
+
+        [HttpPut("{productId:guid}")]
+        public async Task<ActionResult<ApiResponse<ProductReadDto>>> UpdateProduct(
+            Guid productId, 
+            [FromBody] ProductUpdateDto updateData)
+        {
+            var updatedProduct = await _productService.UpdateProductAsync(productId, updateData);
+            if (updatedProduct == null)
+            {
+                return NotFound(ApiResponse<object>.ErrorResponse(
+                    new List<string> { "Product or Category not found with the provided IDs." },
+                    404,
+                    "Update Failed."
+                ));
+            }
+
+            return Ok(ApiResponse<ProductReadDto>.SuccessResponse(updatedProduct, 200, "Product updated successfully."));
+        }
+
+        [HttpDelete("{productId:guid}")]
+        public async Task<ActionResult<ApiResponse<object>>> DeleteProduct(Guid productId)
+        {
+            var deleted = await _productService.DeleteProductAsync(productId);
+            if (!deleted)
+            {
+                return NotFound(ApiResponse<object>.ErrorResponse(
+                    new List<string> { $"Product with ID '{productId}' was not found." },
+                    404,
+                    "Delete Failed."
+                ));
+            }
+
+            return Ok(ApiResponse<object>.SuccessResponse(null, 200, "Product deleted successfully."));
+        }
     }
 }
 
