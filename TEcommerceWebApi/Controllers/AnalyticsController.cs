@@ -30,5 +30,12 @@ namespace TEcommerceWebApi.Controllers
             var topProducts = await _analyticsService.GetTopSellingProductsAsync(count);
             return Ok(ApiResponse<List<TopSellingProductDto>>.SuccessResponse(topProducts, 200, "Top selling products retrieved."));
         }
+
+        [HttpGet("customer-spending")]
+        public async Task<ActionResult<ApiResponse<List<CustomerSpendingDto>>>> GetCustomerSpending([FromQuery] decimal minSpent = 0)
+        {
+            var result = await _analyticsService.GetCustomerSpendingSummaryAsync(minSpent);
+            return Ok(ApiResponse<List<CustomerSpendingDto>>.SuccessResponse(result, 200, "Customer spending summary retrieved."));
+        }
     }
 }
