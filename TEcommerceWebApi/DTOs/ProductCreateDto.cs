@@ -1,20 +1,21 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace TEcommerceWebApi.DTOs
 {
     public class ProductCreateDto
     {
         [Required]
-        [StringLength(100, MinimumLength = 2)]
-        public string Name {get; set; } = string.Empty;
-        [Range(0.01, 10000.0)]
-        public decimal Price {get; set;}
+        [StringLength(150, MinimumLength = 2)]
+        public string Name { get; set; } = string.Empty;
+
+        [Range(0.01, 100000.00)]
+        public decimal Price { get; set; }
+
+        [Range(0, 100000)]
+        public int StockQuantity { get; set; } = 0; // 👈 Added
 
         [Required]
-        public Guid CategoryId {get; set;}
+        public Guid CategoryId { get; set; }
     }
 }
