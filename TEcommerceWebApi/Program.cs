@@ -36,6 +36,11 @@ builder.Services.AddDbContext<AppDbContext>(options=>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
+// 🛡️ Global Exception Handler
+app.UseMiddleware<TEcommerceWebApi.Middlewares.GlobalExceptionMiddleware>();
+
+// 2. Performance Logger (wraps everything below it)
+app.UseMiddleware<TEcommerceWebApi.Middlewares.PerformanceMiddleware>();
 
 if (app.Environment.IsDevelopment())
 {
@@ -44,6 +49,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+
 
 // Build the API
 app.MapGet("/", () => {

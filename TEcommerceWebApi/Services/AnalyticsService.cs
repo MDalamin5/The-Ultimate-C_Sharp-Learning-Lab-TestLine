@@ -72,5 +72,30 @@ namespace TEcommerceWebApi.Services
                 .OrderByDescending(x => x.TotalAmountSpent)
                 .ToListAsync();
         }
+
+        public async Task<SalesOverviewDto> GetSalesOverviewAsync()
+        {
+            var totalRevenue = await _appDbContext.Orders
+                .AsNoTracking()
+                .Where(o => o.Status != Enums.OrderStatus.Cancelled)
+                .SumAsync(o => o.TotalAmount);
+
+            var totalOrders = await _appDbContext.Orders.CountAsync();
+            var totalCustomers = await _appDbContext.Users.CountAsync();
+            var totalProducts = await _appDbContext.Products.CountAsync(); // Filtered automatically by !IsDeleted!
+            
+            var lowStockCount = await _appDbContext.Products
+                .AsNoTracking()
+                .CountAsync(p => p.StockQuantity < 5);
+
+            return new SalesOverviewDto
+            {
+                TotalRevenue = totalRevenue,
+                TotalOrdersCount = totalOrders,
+                TotalCustomersCount = totalCustomers,
+                TotalActiveProducts = totalProducts,
+                LowStockProductsCount = lowStockCount
+            };
+        }
     }
 }

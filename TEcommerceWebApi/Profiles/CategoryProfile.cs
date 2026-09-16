@@ -12,10 +12,9 @@ namespace TEcommerceWebApi.Profiles
     {
         public CategoryProfile()
         {
-            CreateMap<Category, CategoryReadDto>();
-            CreateMap<CategoryCreateDto, CategoryReadDto>();
-            CreateMap<CategoryCreateDto, Category>();
-            CreateMap<CategoryUpdateDto, Category>();
+            CreateMap<Category, CategoryReadDto>().ReverseMap();
+            CreateMap<Category, CategoryCreateDto>().ReverseMap();
+            CreateMap<Category,CategoryUpdateDto>().ReverseMap();
         }
     }
 }

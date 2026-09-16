@@ -11,6 +11,7 @@ namespace TEcommerceWebApi.Models
 
         public Guid CategoryId { get; set; }
         public Category? Category { get; set; }
+        public bool IsDeleted { get; set; } = false; // 👈 Add this
 
         public ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
     }

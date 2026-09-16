@@ -180,8 +180,8 @@ namespace TEcommerceWebApi.Services
             var product = await _appDbContext.Products.FindAsync(productId);
             if (product == null) return false;
 
-            // EF Core / PostgreSQL Restrict rule will throw exception if OrderItems exist
-            _appDbContext.Products.Remove(product);
+            // ⚡ Soft Delete instead of hard remove!
+            product.IsDeleted = true;
             await _appDbContext.SaveChangesAsync();
             return true;
         }
