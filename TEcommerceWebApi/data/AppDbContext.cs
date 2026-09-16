@@ -18,6 +18,10 @@ namespace TEcommerceWebApi.data
         {
             base.OnModelCreating(modelBuilder);
 
+            // 🛡️ Global Query Filters (Soft Deletes)
+            modelBuilder.Entity<Product>().HasQueryFilter(p => !p.IsDeleted);
+            modelBuilder.Entity<Category>().HasQueryFilter(c => !c.IsDeleted);
+
             // ==========================================
             // 1. Category & Product Configuration
             // ==========================================
