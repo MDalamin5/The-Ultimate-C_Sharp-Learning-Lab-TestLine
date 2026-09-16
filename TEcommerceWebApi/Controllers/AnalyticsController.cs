@@ -37,5 +37,12 @@ namespace TEcommerceWebApi.Controllers
             var result = await _analyticsService.GetCustomerSpendingSummaryAsync(minSpent);
             return Ok(ApiResponse<List<CustomerSpendingDto>>.SuccessResponse(result, 200, "Customer spending summary retrieved."));
         }
+
+        [HttpGet("sales-overview")]
+        public async Task<ActionResult<ApiResponse<SalesOverviewDto>>> GetSalesOverview()
+        {
+            var overview = await _analyticsService.GetSalesOverviewAsync();
+            return Ok(ApiResponse<SalesOverviewDto>.SuccessResponse(overview, 200, "Executive sales overview retrieved."));
+        }
     }
 }

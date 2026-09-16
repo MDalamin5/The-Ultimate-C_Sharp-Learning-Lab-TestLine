@@ -2,10 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using TEcommerceWebApi.data;
 using TEcommerceWebApi.DTOs;
 using TEcommerceWebApi.Helpers;
 using TEcommerceWebApi.Interfaces;
+using TEcommerceWebApi.Models;
 
 namespace TEcommerceWebApi.Controllers
 {
@@ -13,11 +17,15 @@ namespace TEcommerceWebApi.Controllers
     [Route("/api/v2/categories")]
     public class CategoryController: ControllerBase
     {
-        public ICategoryService _categoryService;
+        public readonly ICategoryService _categoryService;
+        private readonly IMapper _mapper;
+        private readonly AppDbContext _appDbContext;
         
-        public CategoryController(ICategoryService categoryService)
+        public CategoryController(ICategoryService categoryService, IMapper mapper, AppDbContext appDbContext)
         {
             _categoryService = categoryService;
+            _mapper = mapper;
+            _appDbContext = appDbContext;
         }
 
 
@@ -27,9 +35,9 @@ namespace TEcommerceWebApi.Controllers
         {
             queryParameter.Validate();
             // Data Binding With Read Dto
-            var responseCategory = await _categoryService.GetAllCategory(queryParameter);
+            var responseCategory = await _categoryService.GetAllAsync();
 
-            return Ok(ApiResponse<PaginatedResult<CategoryReadDto>>.SuccessResponse(responseCategory, 200, "Category Returned Successfully."));
+            return Ok(responseCategory);
         }
 
         //Read a category byId
@@ -38,35 +46,43 @@ namespace TEcommerceWebApi.Controllers
         public async Task<IActionResult> GetCategoryById(Guid categoryId)
         {
             
-            var responseCategory = await _categoryService.GetCategoryById(categoryId);
+            var responseCategory = await _categoryService.GetByIdAsync(categoryId);
 
             if(responseCategory == null)
                 return NotFound(ApiResponse<object>.ErrorResponse(new List<string>{"Category not found with this id."}, 404, "Validation Invalid."));
 
-            return Ok(ApiResponse<CategoryReadDto>.SuccessResponse(responseCategory, 200, "Category founded."));
+            return Ok(responseCategory);
         }
 
         // Create Category
         [HttpPost]
-        public async Task<IActionResult> CreateCategory([FromBody] CategoryCreateDto categoryData)
+        public async Task<IActionResult> CreateCategory([FromBody] CategoryCreateDto model)
         {
-            //Return Data followed by CategoryReadDto
-            var responseCreateCategory = await _categoryService.CreateCategory(categoryData);
+            var dbObj = _mapper.Map<Category>(model);
+            dbObj.CategoryId = Guid.NewGuid();
+            dbObj.CreatedAt = DateTime.UtcNow;
 
-            return Created(nameof(GetCategoryById), ApiResponse<CategoryReadDto>.SuccessResponse(responseCreateCategory, 201, "Category Created Successfully."));
+            
+            //Return Data followed by CategoryReadDto
+            await _categoryService.CreateAsync(dbObj);
+
+            return Ok();
         }
 
 
         // update a Category
-        [HttpPut("{categoryId:guid}")]
-        public async Task<IActionResult> UpdateCategoryById(Guid categoryId, [FromBody] CategoryUpdateDto categoryData)
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> UpdateCategoryById(Guid id, [FromBody] CategoryUpdateDto model)
         {
-            var foundCategory = await _categoryService.UpdateCategory(categoryId, categoryData);
+            //finding the category
 
-            if(foundCategory == null)
-                return NotFound(ApiResponse<object>.ErrorResponse(new List<string>{"category is not found with this id."}, 400, "Validation Failed."));
-    
-            return Ok(ApiResponse<CategoryReadDto>.SuccessResponse(foundCategory, 204, "Category Updated successfully."));
+            var foundCategory = await _categoryService.GetByIdAsync(id);
+
+            _mapper.Map(model,foundCategory);
+
+            await _categoryService.UpdateAsync(foundCategory);
+
+            return Ok();
             
         }
 
@@ -74,14 +90,14 @@ namespace TEcommerceWebApi.Controllers
 
 
         // delete category by ID
-        [HttpDelete("{categoryId:guid}")]
-        public async Task<IActionResult> DeleteCategoryById(Guid categoryId)
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> DeleteCategoryById(Guid id)
         {
-            bool response = await _categoryService.DeleteCategoryById(categoryId);
-            if(response == false)
-                return NotFound(ApiResponse<object>.ErrorResponse(new List<string>{"category is not found with this id."}, 404, "Validation Failed."));
+            var dbObj = await _categoryService.GetByIdAsync(id);
+
+            await _categoryService.DeleteAsync(dbObj);
             
-            return Ok(ApiResponse<object>.SuccessResponse(null, 204, "Category Deleted Successfully."));
+            return Ok();
         }
     
     }
