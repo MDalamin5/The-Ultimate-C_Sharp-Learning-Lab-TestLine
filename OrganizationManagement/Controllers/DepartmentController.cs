@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OrganizationManagement.Data;
 using OrganizationManagement.DTOs.Department;
 using OrganizationManagement.Models;
@@ -35,6 +36,14 @@ namespace OrganizationManagement.Controllers
             await _appDbContext.Departments.AddAsync(data);
             await _appDbContext.SaveChangesAsync();
             return Ok("Categories Created.");
+        }
+
+        // Get All Department
+        [HttpGet]
+        public async Task<IActionResult> getAllDepartments()
+        {
+            var allDepartments = await _appDbContext.Departments.ToListAsync();
+            return Ok(allDepartments);
         }
         
     }
