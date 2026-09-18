@@ -45,6 +45,15 @@ namespace OrganizationManagement.Controllers
             var allDepartments = await _appDbContext.Departments.ToListAsync();
             return Ok(allDepartments);
         }
+
+        // Get a Department by ID
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> getDepartmentById(Guid id)
+        {
+            var dbObj = await _appDbContext.Departments.FirstOrDefaultAsync(d => d.Id == id);
+            
+            return Ok(dbObj);
+        }
         
     }
 }
