@@ -54,6 +54,16 @@ namespace OrganizationManagement.Controllers
             
             return Ok(dbObj);
         }
+
+        // Update departmentByID
+        [HttpPut("{id:guid}")]
+        public async Task<IActionResult> updateDepartmentById(Guid id, [FromBody] DepartmentUpdateDto model)
+        {
+            var dbObj = await _appDbContext.Departments.FirstOrDefaultAsync(d => d.Id == id);
+            dbObj.Name = model.Name;
+            
+            return Ok(dbObj);
+        }
         
     }
 }
