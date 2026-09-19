@@ -37,11 +37,11 @@ namespace OrganizationManagement.Repository
 
         public async Task CreateAsync(TEntity model)
         {
-            var newObj = _mapper.Map<TEntity>(model);
-            await _dbSet.AddAsync(newObj);
+            // var newObj = _mapper.Map<TEntity>(model);
+            await _dbSet.AddAsync(model);
             await _appDbContext.SaveChangesAsync();
 
-            _mapper.Map<TEntity>(newObj);
+            // _mapper.Map<TEntity>(model);
         }
 
         public async Task UpdateAsync(TEntity model)
