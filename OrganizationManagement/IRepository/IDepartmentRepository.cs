@@ -8,10 +8,10 @@ namespace OrganizationManagement.IRepository
 {
     public interface IDepartmentRepository
     {
-        Task createCategories(DepartmentCreateDto model);
-        Task getAllDepartments();
-        Task getDepartmentById(Guid id);
-        Task updateDepartmentById(Guid id, DepartmentUpdateDto model);
-        Task deleteDepartmentById(Guid id);
+        Task<bool> createCategories(DepartmentCreateDto model);
+        Task<List<DepartmentReadDto>> getAllDepartments();
+        Task<DepartmentReadDto> getDepartmentById(Guid id);
+        Task<bool> updateDepartmentById(Guid id, DepartmentUpdateDto model);
+        Task<bool> deleteDepartmentById(Guid id);
     }
 }
