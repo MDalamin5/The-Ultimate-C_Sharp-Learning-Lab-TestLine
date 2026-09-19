@@ -18,7 +18,7 @@ namespace OrganizationManagement.Repository
             _appDbContext = appDbContext;
         }
 
-        public async Task<bool> createCategories(DepartmentCreateDto model)
+        public async Task<bool> createDepartments(DepartmentCreateDto model)
         {
             var data = new Department
             {

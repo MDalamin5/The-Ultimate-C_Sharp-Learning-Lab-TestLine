@@ -28,7 +28,7 @@ namespace OrganizationManagement.Controllers
         [HttpPost]
         public async Task<IActionResult> createCategories([FromBody] DepartmentCreateDto model)
         {
-            var response = await _departmentRepository.createCategories(model);
+            var response = await _departmentRepository.createDepartments(model);
             if(response == true)
             {
                 return Ok("Category created Successfully.");

@@ -8,7 +8,7 @@ namespace OrganizationManagement.IRepository
 {
     public interface IDepartmentRepository
     {
-        Task<bool> createCategories(DepartmentCreateDto model);
+        Task<bool> createDepartments(DepartmentCreateDto model);
         Task<List<DepartmentReadDto>> getAllDepartments();
         Task<DepartmentReadDto> getDepartmentById(Guid id);
         Task<bool> updateDepartmentById(Guid id, DepartmentUpdateDto model);
