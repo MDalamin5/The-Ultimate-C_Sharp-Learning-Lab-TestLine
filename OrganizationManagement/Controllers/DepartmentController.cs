@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OrganizationManagement.Data;
 using OrganizationManagement.DTOs.Department;
+using OrganizationManagement.IRepository;
 using OrganizationManagement.Models;
 
 namespace OrganizationManagement.Controllers
@@ -15,34 +16,32 @@ namespace OrganizationManagement.Controllers
     public class DepartmentController: ControllerBase
     {
         private readonly AppDbContext _appDbContext;
+        private readonly IDepartmentRepository _departmentRepository;
 
-        public DepartmentController(AppDbContext appDbContext)
+        public DepartmentController(IDepartmentRepository departmentRepository, AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
+            _departmentRepository = departmentRepository;
         }
 
         // Department Create Endpoint
         [HttpPost]
         public async Task<IActionResult> createCategories([FromBody] DepartmentCreateDto model)
         {
-            var data = new Department
+            var response = await _departmentRepository.createCategories(model);
+            if(response == true)
             {
-                Id = Guid.NewGuid(),
-                Name = model.Name
-            };
-
-            Console.WriteLine($"Name: {data.Name}, Id: {data.Id}");
-            
-            await _appDbContext.Departments.AddAsync(data);
-            await _appDbContext.SaveChangesAsync();
-            return Ok("Categories Created.");
+                return Ok("Category created Successfully.");
+            }
+            else
+                return Ok("Category is not created.");
         }
 
         // Get All Department
         [HttpGet]
         public async Task<IActionResult> getAllDepartments()
         {
-            var allDepartments = await _appDbContext.Departments.ToListAsync();
+            var allDepartments = await _departmentRepository.getAllDepartments();
             return Ok(allDepartments);
         }
 
@@ -50,7 +49,7 @@ namespace OrganizationManagement.Controllers
         [HttpGet("{id:guid}")]
         public async Task<IActionResult> getDepartmentById(Guid id)
         {
-            var dbObj = await _appDbContext.Departments.FirstOrDefaultAsync(d => d.Id == id);
+            var dbObj = await _departmentRepository.getDepartmentById(id);
             
             return Ok(dbObj);
         }
@@ -59,9 +58,8 @@ namespace OrganizationManagement.Controllers
         [HttpPut("{id:guid}")]
         public async Task<IActionResult> updateDepartmentById(Guid id, [FromBody] DepartmentUpdateDto model)
         {
-            var dbObj = await _appDbContext.Departments.FirstOrDefaultAsync(d => d.Id == id);
-            dbObj.Name = model.Name;
-            await _appDbContext.SaveChangesAsync();
+            var dbObj = await _departmentRepository.updateDepartmentById(id, model);
+            
 
             return Ok(dbObj);
         }
@@ -71,9 +69,8 @@ namespace OrganizationManagement.Controllers
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> deleteDepartmentById(Guid id)
         {
-            var dbObj = await _appDbContext.Departments.FirstOrDefaultAsync(d => d.Id == id);
-            _appDbContext.Departments.Remove(dbObj);
-            await _appDbContext.SaveChangesAsync();
+            var dbObj = await _departmentRepository.deleteDepartmentById(id);
+            
 
             return Ok("Data deleted successfully.");
         }
