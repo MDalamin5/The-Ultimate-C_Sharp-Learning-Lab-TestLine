@@ -52,5 +52,23 @@ namespace OrganizationManagement.Repository
                 Name = dbObj.Name
             };
         }
+
+        public async Task<bool> updateDepartmentById(Guid id, DepartmentUpdateDto model)
+        {
+            var dbObj = await _appDbContext.Departments.FirstOrDefaultAsync(d => d.Id == id);
+            dbObj.Name = model.Name;
+            await _appDbContext.SaveChangesAsync();
+
+            return true;
+        }
+
+        public async Task<bool> deleteDepartmentById(Guid id)
+        {
+            var dbObj = await _appDbContext.Departments.FirstOrDefaultAsync(d => d.Id == id);
+            _appDbContext.Departments.Remove(dbObj);
+            await _appDbContext.SaveChangesAsync();
+
+            return true;
+        }
     }
 }
