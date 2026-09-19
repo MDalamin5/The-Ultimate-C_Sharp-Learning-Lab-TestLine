@@ -61,9 +61,21 @@ namespace OrganizationManagement.Controllers
         {
             var dbObj = await _appDbContext.Departments.FirstOrDefaultAsync(d => d.Id == id);
             dbObj.Name = model.Name;
-            
+            await _appDbContext.SaveChangesAsync();
+
             return Ok(dbObj);
         }
         
+
+        // Delete the Department
+        [HttpDelete("{id:guid}")]
+        public async Task<IActionResult> deleteDepartmentById(Guid id)
+        {
+            var dbObj = await _appDbContext.Departments.FirstOrDefaultAsync(d => d.Id == id);
+            _appDbContext.Departments.Remove(dbObj);
+            await _appDbContext.SaveChangesAsync();
+
+            return Ok("Data deleted successfully.");
+        }
     }
 }
